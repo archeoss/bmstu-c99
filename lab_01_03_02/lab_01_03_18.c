@@ -1,10 +1,10 @@
 #include <stdio.h>
 int main()
 {
-	float R1,R2,R3,R;
+	float r1, r2, r3, r;
 	printf("Input resistance of 3 resistors:\n ");
-	scanf("%f%f%f",&R1,&R2,&R3);
-	R = 1/(1/R1+1/R2+1/R3);
-	printf("The resistance of system: %f",R);
+	scanf("%f%f%f", &r1, &r2, &r3);
+	r = 1 / (1 / r1 + 1 / r2 + 1 / r3);
+	printf("The resistance of system: %f", r);
 	return 0;
 } 
