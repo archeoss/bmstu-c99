@@ -8,6 +8,6 @@ int main()
 	seconds = seconds % 3600;
 	minutes = seconds / 60;
 	seconds = seconds % 60;
-	printf("Time: %f:%f:%f", hours, minutes, seconds);
+	printf("Time: %d %d %d", hours, minutes, seconds);
 	return 0;
 } 
