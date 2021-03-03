@@ -12,7 +12,7 @@ int main()
 {
 	int n, error_code, rc, a, result;
 	printf("Input a and n:\n ");
-	rc = scanf("%f%d", &a, &n);
+	rc = scanf("%d%d", &a, &n);
 	if (rc == 2)
 		error_code = 0;
 	else
@@ -20,7 +20,7 @@ int main()
 	if (error_code == 0)
 	{
 		result = pow_e(a, n);
-		printf("Result: %f", result);
+		printf("Result: %d", result);
 	}
 	else
 		printf("Input Error");
