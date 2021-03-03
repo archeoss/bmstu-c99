@@ -13,7 +13,7 @@ int main()
 	int n, error_code, rc, a, result;
 	char tmp;
 	printf("Input a and n:\n ");
-	if (((rc = scanf("%d%d", &a, &n)) != 2 && rc != EOF) || tmp != '\n')
+	if (((rc = scanf("%d%d%c", &a, &n, &tmp)) != 3 && rc != EOF) || tmp != '\n')
 	{
 		error_code = 1;
 	}
