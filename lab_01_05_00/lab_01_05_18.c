@@ -1,20 +1,20 @@
 #include <stdio.h>
-float pow(float a, int n)
+float pow_e(float a, int n)
 {
 	float result = 1;
 	for (int i = 1; i <= n; i++)
 	{
-		result *= n;
+		result *= a;
 	}
 	return result;
 }
 int main()
 {
 	int n;
-	float a;
+	float a, result;
 	printf("Input a and n:\n ");
 	scanf("%f%d", &a, &n);
-	result = pow(a, n);
+	result = pow_e(a, n);
 	printf("Result: %f", result);
 	return 0;
 } 

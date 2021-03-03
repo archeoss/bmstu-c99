@@ -1,9 +1,9 @@
 #include <stdio.h>
 int main()
 {
-	int secs, minutes, hours;
+	int seconds, minutes, hours;
 	printf("Input seconds:\n ");
-	scanf("%f", &seconds);
+	scanf("%d", &seconds);
 	hours = seconds / 3600;
 	seconds = seconds % 3600;
 	minutes = seconds / 60;
