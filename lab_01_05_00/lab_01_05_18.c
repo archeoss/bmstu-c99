@@ -10,11 +10,20 @@ float pow_e(float a, int n)
 }
 int main()
 {
-	int n;
+	int n, error_code,rc;
 	float a, result;
 	printf("Input a and n:\n ");
-	scanf("%f%d", &a, &n);
-	result = pow_e(a, n);
-	printf("Result: %f", result);
-	return 0;
+	rc = scanf("%f%d", &a, &n);
+	if (rc == 2)
+		error_code = 0;
+	else
+		error_code = 1;
+	if (error_code == 0)
+	{
+		result = pow_e(a, n);
+		printf("Result: %f", result);
+	}
+	else
+		printf("Input Error");
+	return error_code;
 } 
