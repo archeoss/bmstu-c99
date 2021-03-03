@@ -12,14 +12,12 @@ int main()
 {
 	int n, error_code, rc;
 	float a, result;
-	char tmp;
 	printf("Input a and n:\n ");
-	if (((rc = scanf("%f%d%c", &a, &n, &tmp)) != 3 && rc != EOF) || tmp != '\n')
-	{
-		error_code = 1;
-	}
-	else
+	rc = scanf("%f%d", &a, &n);
+	if (rc == 2)
 		error_code = 0;
+	else
+		error_code = 1;
 	if (error_code == 0)
 	{
 		result = pow_e(a, n);
