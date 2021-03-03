@@ -10,8 +10,7 @@ float pow_e(float a, int n)
 }
 int main()
 {
-	int n, error_code,rc;
-	float a, result;
+	int n, error_code, rc, a, result;
 	printf("Input a and n:\n ");
 	rc = scanf("%f%d", &a, &n);
 	if (rc == 2)
