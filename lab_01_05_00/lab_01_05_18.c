@@ -11,12 +11,14 @@ float pow_e(float a, int n)
 int main()
 {
 	int n, error_code, rc, a, result;
+	char tmp;
 	printf("Input a and n:\n ");
-	rc = scanf("%d%d", &a, &n);
-	if (rc == 2)
-		error_code = 0;
-	else
+	if (((rc = scanf("%d%d", &a, &n)) != 2 && rc != EOF) || tmp != '\n')
+	{
 		error_code = 1;
+	}
+	else
+		error_code = 0;
 	if (error_code == 0)
 	{
 		result = pow_e(a, n);
