@@ -1,23 +1,26 @@
 #include <stdio.h>
 #include <math.h>
-float max_min(float a, float b)
-{
-	if (a > b)
-		return a, b;
-	else
-		return b, a;
-}
 float triangle(float a, float b, float c)
 {	
 	int result;
 	float temp;
-	float max_l = a;
-	float min_l_one = b, min_l_two = c;
-	a, b = max_min(a, b);
-	a, c = max_min(a, c);
-	if (a*a == b*b + c*c)
+	printf("%f%f%f", a, b, c);
+	if (b > a)
+	{
+		temp = a;
+		a = b;
+		b = temp;
+	}
+	if (c > a)
+	{
+		temp = a;
+		a = c;
+		c = temp;
+	}
+	printf("%f%f%f", a, b, c);
+	if (a * a == b * b + c * c)
 		result = 1;
-	else if (a*a < b*b + c*c)
+	else if (a * a < b * b + c * c)
 		result = 0;
 	else 
 		result = 2;
@@ -38,7 +41,7 @@ int main()
 		a = sqrt(pow((x1 - x2), 2) + pow((y1 - y2), 2));
 		b = sqrt(pow((x1 - x3), 2) + pow((y1 - y3), 2));
 		c = sqrt(pow((x3 - x2), 2) + pow((y3 - y2), 2));
-		if (a == 0) and (b == 0)
+		if (a * b * c != 0)
 		{
 			result = triangle(a, b, c);
 			printf("%d", result);
