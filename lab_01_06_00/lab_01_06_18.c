@@ -2,7 +2,7 @@
 #include <math.h>
 float triangle(int a, int b, int c)
 {	
-	int result, temp
+	int result, temp;
 	printf("%f%f%f", a, b, c);
 	if (b > a)
 	{
