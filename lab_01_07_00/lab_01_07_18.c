@@ -34,7 +34,7 @@ int main()
 		{
 			fx = exp(x);
 			sx = func(x, eps);
-			absolute = (fx - sx);
+			absolute = abs(fx - sx);
 			relative = absolute / fx;
 			printf("F(x) = %f, S(x) = %f, Absolute = %f, Relative = %f", fx, sx, absolute, relative);
 		}

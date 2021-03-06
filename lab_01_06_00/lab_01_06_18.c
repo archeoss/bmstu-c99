@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-float triangle(float a, float b, float c)
+int triangle(float a, float b, float c)
 {	
 	int result;
 	float temp, eps = 0.00001;
@@ -39,7 +39,7 @@ int main()
 		a = sqrt(pow((x1 - x2), 2) + pow((y1 - y2), 2));
 		b = sqrt(pow((x1 - x3), 2) + pow((y1 - y3), 2));
 		c = sqrt(pow((x3 - x2), 2) + pow((y3 - y2), 2));
-		if (a * b * c == 0)
+		if (a * b * c <= 0)
 		{
 			printf("Input Error");
 			error_code = 2;
