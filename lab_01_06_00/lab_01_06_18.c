@@ -24,7 +24,7 @@ float triangle(float a, float b, float c)
 		result = 2;
 	return result;
 }
-int main(void)
+int main()
 {
 	float x1, y1, x2, y2, x3, y3, a, b, c;
 	int result, error_code, rc;
