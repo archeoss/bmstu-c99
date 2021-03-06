@@ -2,14 +2,15 @@
 #include <math.h>
 int func(float x, float eps)
 {	
-	int temp = x, k = 1;
-	float result = 1;
+	int k = 1;
+	float result = 1, temp = x;
 	while (abs(temp) >= eps)
 	{
 		result += temp;
 		k += 1;
 		temp = temp * x / k;
 	}
+	return result;
 }
 int main()
 {
@@ -26,7 +27,7 @@ int main()
 	{
 		fx = exp(x);
 		sx = func(x, eps);
-		absolute = abs(fx - sx);
+		absolute = (fx - sx);
 		relative = absolute / fx;
 		printf("F(x) = %f, S(x) = %f, Absolute = %f, Relative = %f", fx, sx, absolute, relative);
 	}

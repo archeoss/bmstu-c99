@@ -3,7 +3,6 @@
 float triangle(int a, int b, int c)
 {	
 	int result, temp;
-	printf("%f%f%f", a, b, c);
 	if (b > a)
 	{
 		temp = a;
@@ -27,7 +26,7 @@ float triangle(int a, int b, int c)
 }
 int main()
 {
-	int x1, y1, x2, y2, x3, y3, a, b, c;
+	float x1, y1, x2, y2, x3, y3, a, b, c;
 	int result, error_code, rc;
 	printf("Input coords of tringle:\n");
 	rc = scanf("%f%f%f%f%f%f", &x1, &y1, &x2, &y2, &x3, &y3); 
