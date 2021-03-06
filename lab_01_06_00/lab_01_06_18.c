@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <math.h>
-float triangle(float a, float b, float c)
+float triangle(int a, int b, int c)
 {	
-	int result;
-	float temp;
+	int result, temp
 	printf("%f%f%f", a, b, c);
 	if (b > a)
 	{
@@ -28,7 +27,7 @@ float triangle(float a, float b, float c)
 }
 int main()
 {
-	float x1, y1, x2, y2, x3, y3, a, b, c;
+	int x1, y1, x2, y2, x3, y3, a, b, c;
 	int result, error_code, rc;
 	printf("Input coords of tringle:\n");
 	rc = scanf("%f%f%f%f%f%f", &x1, &y1, &x2, &y2, &x3, &y3); 
