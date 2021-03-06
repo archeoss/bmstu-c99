@@ -12,7 +12,7 @@ int func(float x, float eps)
 	}
 	return result;
 }
-int main()
+int main(void)
 {
 	int error_code, rc;
 	float x, eps;
@@ -24,12 +24,17 @@ int main()
 	else 
 		error_code = 1;
 	if (error_code == 0)
-	{
+	{	
+		if (eps <= 0 || eps > 1)
+			error_code = 2;
+		else
+		{
 		fx = exp(x);
 		sx = func(x, eps);
 		absolute = (fx - sx);
 		relative = absolute / fx;
 		printf("F(x) = %f, S(x) = %f, Absolute = %f, Relative = %f", fx, sx, absolute, relative);
+		}
 	}
 	else
 		printf("Input Error");
