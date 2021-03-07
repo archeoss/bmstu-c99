@@ -1,43 +1,31 @@
 #include <stdio.h>
 #include <math.h>
-double func(double x, int k)
+int mult(double *sum)
 {
-	double result = sqrt(k + x);
-	return result;
+	int n = 0, checker;
+	double curr;
+	checker = scanf("%lf",&curr);
+	if (checker != 1)
+		return 1;
+	if (curr < 0)
+		return 2;
+	while (curr >= 0)
+	{
+		n += 1;
+		*sum += sqrt(n + curr);
+		scanf("%lf", &curr);
+	}
+	*sum /= n;
+	return 0;
 }
 int main()
 {
-	int error_code, rc, k = 1;
-	double x, gx;
-	printf("Input x: ");
-	rc = scanf("%lf", &x);
-	printf("\n");	
-	if (rc == 1)
-		error_code = 0;
-	else 
-		error_code = 1;
+	double sum = 0;
+	int error_code;
+	error_code = mult(&sum);
 	if (error_code == 0)
 	{
-		while (x > 0 && rc == 1)
-		{
-			gx += func(x, k);
-			k ++;
-			printf("Input x: ");
-			rc = scanf("%lf", &x);
-			printf("\n");			
-		}
-		if (rc == 1)
-		{
-			gx = gx / (k - 1);
-			printf("Result: %lf", gx);
-		}
-		else
-		{
-			printf("Input Error");
-			error_code = 2;
-		}
+		printf("%.6lf", sum);
 	}
-	else
-		printf("Input Error");
 	return error_code;
-} 
+}

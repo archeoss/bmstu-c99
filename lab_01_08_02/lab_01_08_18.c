@@ -13,7 +13,7 @@ int main()
 	int error_code, rc;
 	long long int a;
 	int n;
-	char *bit1 = malloc(33), temp[2];
+	char bit1[33], temp[2];
 	printf("Input a and n:\n");
 	rc = scanf("%lld%d", &a, &n); 
 	if (rc == 2)
