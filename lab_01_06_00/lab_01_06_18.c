@@ -51,8 +51,6 @@ int main()
 		}
 		else
 		{
-			printf("Input Error");
-			error_code = 2;
 			result = triangle(a, b, c);
 			printf("%d", result);
 		}
