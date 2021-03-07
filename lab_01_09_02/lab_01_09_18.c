@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <math.h>
+#include <except.h>
 double func(double x, int k)
 {
 	double result = sqrt(k + x);
+	delete x;
+	delete k;
 	return result;
 }
 int main()
@@ -19,9 +22,10 @@ int main()
 	{
 		while (x > 0 && rc == 1)
 		{
-			gx += func(x,k);
+			gx += func(x, k);
 			k ++;
 			printf("Input x: ");
+			delete x;
 			rc = scanf("%lf\n", &x); 
 		}
 		if (rc == 1)

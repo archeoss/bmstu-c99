@@ -1,1 +1,1 @@
-Input Error
+Error: Wrong type of inputs

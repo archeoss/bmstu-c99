@@ -11,17 +11,18 @@ char *sdv(char *x)
 int main()
 {
 	int error_code, rc;
-	int n, a;
+	long long int a;
+	int n;
 	char *bit1 = malloc(33), temp[2];
 	printf("Input a and n:\n");
-	rc = scanf("%d%d", &a, &n); 
+	rc = scanf("%lld%d", &a, &n); 
 	if (rc == 2)
 		error_code = 0;
 	else 
 		error_code = 1;
 	if (error_code == 0)
 	{
-		if (n < 1 || a < 1)
+		if (n < 0 || a < 0)
 		{
 			printf("Error: Negative Inputs");
 			error_code = 2;
