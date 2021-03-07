@@ -2,7 +2,12 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-
+char *sdv(char *x)
+{
+	for (int i = 0; i < 32; i++)
+		x[i] = x[i + 1];
+	return x;
+}
 int main()
 {
 	int error_code, rc;
@@ -18,7 +23,7 @@ int main()
 	{
 		if (n < 1 || a < 1)
 		{
-			printf("Input Error");
+			printf("Error: Negative Inputs");
 			error_code = 2;
 		}
 		else
@@ -26,10 +31,9 @@ int main()
 			int k = 0;
 			while (a > 0)
 			{	
-				bit1[31 - k] = a % 2 +'0';
+				bit1[31 - k] = a % 2 + '0';
 				a = a / 2;
 				k++;
-				
 			}
 			printf("\n");
 			while (k < 33)
@@ -38,21 +42,18 @@ int main()
 				k++;
 			}
 			bit1[32] = '\0';
-			printf("%s\n", bit1);
 			for (int i = 0; i < n; i++)
 			{
 				strncpy(temp, bit1, 1);
 				temp[1] = '\0';
-				for (int i = 0; i < 32; i++)
-					bit1[i] = bit1[i+1];
-				bit1[31] = (int)temp[0] ;
+				bit1 = sdv(bit1);
+				bit1[31] = (int)temp[0];
 				bit1[32] = '\0';
-				printf("%s\n", bit1);
 			}
-			printf("%s", bit1);
+			printf("Result: %s", bit1);
 		}
 	}
 	else
-		printf("Input Error");
+		printf("Error: Wrong type of inputs");
 	return error_code;
 } 

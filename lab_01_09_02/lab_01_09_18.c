@@ -1,5 +1,10 @@
 #include <stdio.h>
 #include <math.h>
+double func(double x, int k)
+{
+	double result = sqrt(k + x);
+	return result;
+}
 int main()
 {
 	int error_code, rc, k = 1;
@@ -12,15 +17,23 @@ int main()
 		error_code = 1;
 	if (error_code == 0)
 	{
-		while (x > 0)
+		while (x > 0 && rc == 1)
 		{
-			gx += sqrt(k + x);
+			gx += func(x,k);
 			k ++;
 			printf("Input x: ");
 			rc = scanf("%lf\n", &x); 
 		}
-		gx = gx / n;
-		printf("Result: %lf", gx);
+		if (rc == 1)
+		{
+			gx = gx / (k - 1);
+			printf("Result: %lf", gx);
+		}
+		else
+		{
+			printf("Input Error");
+			error_code = 2;
+		}
 	}
 	else
 		printf("Input Error");
