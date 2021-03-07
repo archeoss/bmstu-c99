@@ -4,7 +4,7 @@ int mult(double *sum)
 {
 	int n = 0, checker;
 	double curr;
-	checker = scanf("%lf",&curr);
+	checker = scanf("%lf", &curr);
 	if (checker != 1)
 		return 1;
 	if (curr < 0)
