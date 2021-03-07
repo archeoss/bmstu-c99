@@ -38,7 +38,7 @@ int main()
 			if (absolute < 0)
 				absolute = -1 * absolute;
 			relative = absolute / fx;
-			printf("F(x) = %lf, S(x) = %lf, Absolute = %lf, Relative = %lf", fx, sx, absolute, relative);
+			printf("F(x) = %lf  S(x) = %lf  Absolute = %lf  Relative = %lf", fx, sx, absolute, relative);
 		}
 	}
 	else
