@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include <math.h>
-int func(float x, float eps)
+float func(float x, float eps)
 {	
-	int temp = x, k = 1;
-	float result = 1;
-	while (abs(temp)>=eps)
-		{
-			result += temp;
-			k += 1;
-			temp = temp * x / k;
-		}
+	int k = 1;
+	float result = 1, temp = x;
+	while (abs(temp) >= eps)
+	{
+		result += temp;
+		k += 1;
+		temp = temp * x / k;
+	}
+	return result;
 }
 int main()
 {
@@ -23,12 +24,20 @@ int main()
 	else 
 		error_code = 1;
 	if (error_code == 0)
-	{
-		fx = exp(x);
-		sx = func(x, eps)
-		absolute = abs(fx - sx);
-		relative = absolute / fx;
-		printf("F(x) = %f, S(x) = %f, Absolute = %f, Relative = %f", fx, sx, absolute, relative);
+	{	
+		if (eps <= 0 || eps > 1)
+		{
+			error_code = 2;
+			printf("Input Error");
+		}
+		else
+		{
+			fx = exp(x);
+			sx = func(x, eps);
+			absolute = abs(fx - sx);
+			relative = absolute / fx;
+			printf("F(x) = %f, S(x) = %f, Absolute = %f, Relative = %f", fx, sx, absolute, relative);
+		}
 	}
 	else
 		printf("Input Error");

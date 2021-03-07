@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <math.h>
-float triangle(int a, int b, int c)
+int triangle(float a, float b, float c)
 {	
-	int result, temp
-	printf("%f%f%f", a, b, c);
+	int result;
+	float temp, eps = 0.00001;
 	if (b > a)
 	{
 		temp = a;
@@ -16,8 +16,7 @@ float triangle(int a, int b, int c)
 		a = c;
 		c = temp;
 	}
-	printf("%f%f%f", a, b, c);
-	if (a * a == b * b + c * c)
+	if (a * a - eps < b * b + c * c && a * a + eps > b * b + c * c)
 		result = 1;
 	else if (a * a < b * b + c * c)
 		result = 0;
@@ -27,7 +26,7 @@ float triangle(int a, int b, int c)
 }
 int main()
 {
-	int x1, y1, x2, y2, x3, y3, a, b, c;
+	float x1, y1, x2, y2, x3, y3, a, b, c;
 	int result, error_code, rc;
 	printf("Input coords of tringle:\n");
 	rc = scanf("%f%f%f%f%f%f", &x1, &y1, &x2, &y2, &x3, &y3); 
@@ -40,15 +39,20 @@ int main()
 		a = sqrt(pow((x1 - x2), 2) + pow((y1 - y2), 2));
 		b = sqrt(pow((x1 - x3), 2) + pow((y1 - y3), 2));
 		c = sqrt(pow((x3 - x2), 2) + pow((y3 - y2), 2));
-		if (a * b * c != 0)
-		{
-			result = triangle(a, b, c);
-			printf("%d", result);
-		}
-		else
+		if (a * b * c <= 0)
 		{
 			printf("Input Error");
 			error_code = 2;
+		}
+		else if (a + b <= c || a + c <= b || c + b <= a)
+		{
+			printf("Input Error");
+			error_code = 2;
+		}
+		else
+		{
+			result = triangle(a, b, c);
+			printf("%d", result);
 		}
 	}
 	else
