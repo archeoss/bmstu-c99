@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <math.h>
-float func(float x, float eps)
+double func(double x, double eps)
 {	
 	int k = 1;
-	float result = 1, temp = x;
-	while (abs(temp) >= eps)
+	double result = 1, temp = x;
+	while (temp >= eps)
 	{
 		result += temp;
 		k += 1;
@@ -15,10 +15,10 @@ float func(float x, float eps)
 int main()
 {
 	int error_code, rc;
-	float x, eps;
-	float fx, sx, absolute, relative;
+	double x, eps;
+	double fx, sx, absolute, relative;
 	printf("Input x and epsilon:\n");
-	rc = scanf("%f%f", &x, &eps); 
+	rc = scanf("%lf%lf", &x, &eps); 
 	if (rc == 2)
 		error_code = 0;
 	else 
@@ -34,9 +34,11 @@ int main()
 		{
 			fx = exp(x);
 			sx = func(x, eps);
-			absolute = abs(fx - sx);
+			absolute = (fx - sx);
+			if (absolute < 0)
+				absolute = -1 * absolute;
 			relative = absolute / fx;
-			printf("F(x) = %f, S(x) = %f, Absolute = %f, Relative = %f", fx, sx, absolute, relative);
+			printf("F(x) = %lf, S(x) = %lf, Absolute = %lf, Relative = %lf", fx, sx, absolute, relative);
 		}
 	}
 	else

@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <math.h>
-int triangle(float a, float b, float c)
+int triangle(double a, double b, double c)
 {	
 	int result;
-	float temp, eps = 0.00001;
+	double temp, eps = 0.00001;
 	if (b > a)
 	{
 		temp = a;
@@ -26,10 +26,10 @@ int triangle(float a, float b, float c)
 }
 int main()
 {
-	float x1, y1, x2, y2, x3, y3, a, b, c;
+	double x1, y1, x2, y2, x3, y3, a, b, c;
 	int result, error_code, rc;
 	printf("Input coords of tringle:\n");
-	rc = scanf("%f%f%f%f%f%f", &x1, &y1, &x2, &y2, &x3, &y3); 
+	rc = scanf("%lf%lf%lf%lf%lf%lf", &x1, &y1, &x2, &y2, &x3, &y3); 
 	if (rc == 6)
 		error_code = 0;
 	else 
