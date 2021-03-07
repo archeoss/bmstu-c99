@@ -7,7 +7,7 @@ int main()
 {
 	int error_code, rc;
 	int n, a;
-	char *bit = malloc(33), temp[2];
+	char *bit1 = malloc(33), temp[2];
 	printf("Input a and n:\n");
 	rc = scanf("%d%d", &a, &n); 
 	if (rc == 2)
@@ -26,7 +26,7 @@ int main()
 			int k = 0;
 			while (a > 0)
 			{	
-				bit[31 - k] = a % 2 +'0';
+				bit1[31 - k] = a % 2 +'0';
 				a = a / 2;
 				k++;
 				
@@ -34,22 +34,22 @@ int main()
 			printf("\n");
 			while (k < 33)
 			{
-				bit[31 - k] = 0 + '0';
+				bit1[31 - k] = 0 + '0';
 				k++;
 			}
-			bit[32] = '\0';
-			printf("%s\n", bit);
+			bit1[32] = '\0';
+			printf("%s\n", bit1);
 			for (int i = 0; i < n; i++)
 			{
-				strncpy(temp, bit, 1);
+				strncpy(temp, bit1, 1);
 				temp[1] = '\0';
 				for (int i = 0; i < 32; i++)
-					bit[i] = bit[i+1];
-				bit[32] = (int)temp[0] + '0';
-				bit[33] = '\0';
-				printf("%s\n", temp);
+					bit1[i] = bit1[i+1];
+				bit1[31] = (int)temp[0] ;
+				bit1[32] = '\0';
+				printf("%s\n", bit1);
 			}
-			printf("%s", bit);
+			printf("%s", bit1);
 		}
 	}
 	else

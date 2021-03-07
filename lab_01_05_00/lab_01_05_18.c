@@ -20,7 +20,7 @@ int main()
 		error_code = 1;
 	if (error_code == 0)
 	{	
-	if (n < 1)
+		if (n < 1)
 		{
 			error_code = 2;
 			printf("Input Error");
