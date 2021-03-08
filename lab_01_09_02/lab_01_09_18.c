@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include <stdio.h>
+#include <math.h>
 int mult(double *sum)
 {
 	int n = 0, err_code;
 	double x;
-	checker = scanf("%lf", x);
+	err_code = scanf("%lf", &x);
 	if (err_code != 1)
 		return 1;
 	if (x < 0)
@@ -13,7 +13,7 @@ int mult(double *sum)
 	{
 		n += 1;
 		*sum += sqrt(n + x);
-		scanf("%lf", &x)
+		scanf("%lf", &x);
 	}
 	*sum /= n;
 	return 0;
