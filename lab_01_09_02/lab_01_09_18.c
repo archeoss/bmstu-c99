@@ -1,31 +1,22 @@
 #include <stdio.h>
-#include <math.h>
+#include <stdio.h>
 int mult(double *sum)
 {
-	int n = 0, rc,error_code;
+	int n = 0, err_code;
 	double x;
-	rc = scanf("%lf", &x);
-	if (rc != 1)
-		error_code = 1;
-	else if (x < 0)
-		error_code = 2;
-	if (error_code == 0)
+	checker = scanf("%lf", x);
+	if (err_code != 1)
+		return 1;
+	if (x < 0)
+		return 2;
+	while (x >= 0)
 	{
-		while (x >= 0 && rc == 1)
-		{
-			n += 1;
-			*sum += sqrt(n + x);
-			rc = scanf("%lf", &x);
-		}
-	if (rc == 1)
-	{
-		error_code = 0;
-		*sum /= n;
+		n += 1;
+		*sum += sqrt(n + x);
+		scanf("%lf", &x)
 	}
-	else
-		error_code = 3;
-	}
-	return error_code;
+	*sum /= n;
+	return 0;
 }
 int main()
 {
@@ -36,7 +27,5 @@ int main()
 	{
 		printf("%.6lf", sum);
 	}
-	else
-		printf("Input Error");
 	return error_code;
 }
