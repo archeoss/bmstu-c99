@@ -1,7 +1,7 @@
 #include <stdio.h>
-float pow_e(float a, int n)
+int pow_e(int a, int n)
 {
-	float result = 1;
+	int result = 1;
 	for (int i = 1; i <= n; i++)
 	{
 		result *= a;
@@ -10,10 +10,9 @@ float pow_e(float a, int n)
 }
 int main()
 {
-	int n, error_code, rc;
-	float a, result;
+	int n, a, result, error_code, rc;
 	printf("Input a and n:\n ");
-	rc = scanf("%f%d", &a, &n);
+	rc = scanf("%d%d", &a, &n);
 	if (rc == 2)
 		error_code = 0;
 	else
@@ -28,7 +27,7 @@ int main()
 		else
 		{
 			result = pow_e(a, n);
-			printf("Result: %f", result);
+			printf("Result: %d", result);
 		}
 	}
 	else
