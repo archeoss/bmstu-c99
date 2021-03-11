@@ -7,7 +7,7 @@ int print_resistance(float r1, float r2, float r3)
 }
 int main()
 {
-	float r1, r2, r3, r;
+	float r1, r2, r3;
 	printf("Input resistance of resistors:\n ");
 	scanf("%f%f%f", &r1, &r2, &r3);
 	print_resistance(r1, r2, r3);
