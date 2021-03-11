@@ -10,7 +10,7 @@ int print_correct_time(int seconds)
 }
 int main()
 {
-	int seconds, minutes, hours;
+	int seconds;
 	printf("Input seconds:\n ");
 	scanf("%d", &seconds);
 	print_correct_time(seconds);
