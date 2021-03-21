@@ -30,7 +30,7 @@ int main(void)
 			if (error_code == NO_ERRORS)
 			{
 				cnt = delete_quadro(arr_input, n);
-				if (cnt != 0)
+				if (cnt != 0 && cnt != n)
 					for (int i = 0; i < n - cnt; i++)
 					{
 						printf("%d ", arr_input[i]);
@@ -55,7 +55,7 @@ int form_arr(int *a, int n)
 	int tmp = 0; 
 	for (int i = 0; i < n; i++)
 	{
-		printf("a[%d] = ", i);
+		//printf("a[%d] = ", i);
 		rc = scanf("%d", &tmp);
 		if (rc == EOF)
 		{
@@ -78,7 +78,7 @@ int delete_quadro(int *a, int n)
 	int cnt = 0;
 	for (int i = 0; i < n; i++)
 	{	
-		for (int k = 0; k < a[i]; k++)
+		for (int k = 0; k < a[i] + 1; k++)
 		{
 			if (k * k == a[i]) 
 			{
@@ -87,7 +87,6 @@ int delete_quadro(int *a, int n)
 					a[j] = a[j + 1];
 				}
 				cnt++;
-				
 			}
 			if (k * k > a[i])
 				break;
