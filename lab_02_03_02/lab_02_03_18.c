@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define N 10
 
@@ -7,33 +8,35 @@
 #define INPUT_ERROR 1
 #define INCORRECT_DATA 2
 
+int form_arr(int *, int);
+int delete_quadro(int *, int);
+
 int main(void)
 {
-	int error_code = INPUT_ERROR, rc;
+	int error_code = INPUT_ERROR, rc, cnt;
 	int n;
-	float sr_n;
 	setbuf(stdout, NULL);
 	printf("Введите количество: ");
 	rc = scanf("%d", &n);
 	printf("\n");
-	int a[N];
+	int arr_input[N];
 	if (rc == 1)
 	{
 		if (n < 1 || n > 10)
 			error_code = INCORRECT_DATA;
 		else
 		{
-			error_code = form_arr(a, n);
+			error_code = form_arr(arr_input, n);
 			if (error_code == NO_ERRORS)
 			{
-				sr_n = find_n(a, n);
-				if (sr_n >= 0)
-					error_code = INCORRECT_DATA;
+				cnt = delete_quadro(arr_input, n);
+				if (cnt != 0)
+					for (int i = 0; i < n-cnt; i++)
+					{
+						printf("%d ", arr_input[i]);
+					}
 				else
-				{
-					error_code = NO_ERRORS;
-					printf("Среднее арифметичексое = %f", sr_n);
-				}
+					error_code = INCORRECT_DATA;
 			}
 		}
 	}
@@ -70,18 +73,24 @@ int form_arr(int *a, int n)
 	return error_code;
 }
 
-float find_n(int *a, int n)
-{
-	float sr_n, negative_n = 0, negative_sum = 0;
+int delete_quadro(int *a, int n)
+{	
+	int cnt = 0;
 	for (int i = 0; i < n; i++)
-		if (a[i] < 0)
+	{	
+		for (int k = 0; k < a[i]; k++)
 		{
-			negative_sum += a[i];
-			negative_n += 1;
+			if (k * k == a[i]) 
+			{
+				cnt++;
+				for (int j = i; j < n - cnt; j++)
+				{
+					a[j] = a[j + 1];
+				}
+			}
+			if (k * k > a[i])
+				break;
 		}
-	if (negative_n <= 0)
-		sr_n = 0;
-	else
-		sr_n = negative_sum / negative_n;
-	return sr_n;
+	}
+	return cnt;
 }

@@ -7,33 +7,35 @@
 #define INPUT_ERROR 1
 #define INCORRECT_DATA 2
 
+int form_arr(int *, int);
+int first_equal_last(int *, int *, int);
+
 int main(void)
 {
-	int error_code = INPUT_ERROR, rc;
+	int error_code = INPUT_ERROR, rc,cnt;
 	int n;
-	float sr_n;
 	setbuf(stdout, NULL);
 	printf("Введите количество: ");
 	rc = scanf("%d", &n);
 	printf("\n");
-	int a[N];
+	int arr_input[N], arr_output[N];
 	if (rc == 1)
 	{
 		if (n < 1 || n > 10)
 			error_code = INCORRECT_DATA;
 		else
 		{
-			error_code = form_arr(a, n);
+			error_code = form_arr(arr_input, n);
 			if (error_code == NO_ERRORS)
 			{
-				sr_n = find_n(a, n);
-				if (sr_n >= 0)
-					error_code = INCORRECT_DATA;
+				cnt = first_equal_last(arr_input, arr_output, n);
+				if (cnt != 0)
+					for (int i = 0; i < cnt; i++)
+					{
+						printf("%d ", arr_output[i]);
+					}
 				else
-				{
-					error_code = NO_ERRORS;
-					printf("Среднее арифметичексое = %f", sr_n);
-				}
+					error_code = INCORRECT_DATA;
 			}
 		}
 	}
@@ -70,18 +72,20 @@ int form_arr(int *a, int n)
 	return error_code;
 }
 
-float find_n(int *a, int n)
+int first_equal_last(int *a, int *b, int n)
 {
-	float sr_n, negative_n = 0, negative_sum = 0;
+	int first, last, cnt = 0;
 	for (int i = 0; i < n; i++)
-		if (a[i] < 0)
+	{
+		last = a[i];
+		first = last % 10;		
+		while (last > 9)
+			last = last / 10;
+		if (first == last)
 		{
-			negative_sum += a[i];
-			negative_n += 1;
+			b[cnt] = a[i];
+			cnt++;
 		}
-	if (negative_n <= 0)
-		sr_n = 0;
-	else
-		sr_n = negative_sum / negative_n;
-	return sr_n;
+	}
+	return cnt;
 }
