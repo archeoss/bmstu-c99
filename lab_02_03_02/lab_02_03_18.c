@@ -31,7 +31,7 @@ int main(void)
 			{
 				cnt = delete_quadro(arr_input, n);
 				if (cnt != 0)
-					for (int i = 0; i < n-cnt; i++)
+					for (int i = 0; i < n - cnt; i++)
 					{
 						printf("%d ", arr_input[i]);
 					}
@@ -82,11 +82,12 @@ int delete_quadro(int *a, int n)
 		{
 			if (k * k == a[i]) 
 			{
-				cnt++;
 				for (int j = i; j < n - cnt; j++)
 				{
 					a[j] = a[j + 1];
 				}
+				cnt++;
+				
 			}
 			if (k * k > a[i])
 				break;

@@ -12,7 +12,7 @@ int first_equal_last(int *, int *, int);
 
 int main(void)
 {
-	int error_code = INPUT_ERROR, rc,cnt;
+	int error_code = INPUT_ERROR, rc, cnt;
 	int n;
 	setbuf(stdout, NULL);
 	printf("Введите количество: ");

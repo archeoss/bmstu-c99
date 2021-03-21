@@ -7,6 +7,9 @@
 #define INPUT_ERROR 1
 #define INCORRECT_DATA 2
 
+float find_n(int *, int);
+int form_arr(int *, int);
+
 int main(void)
 {
 	int error_code = INPUT_ERROR, rc;
