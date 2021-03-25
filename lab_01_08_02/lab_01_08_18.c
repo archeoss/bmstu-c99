@@ -5,6 +5,8 @@
 #define INPUT_ERROR 1
 #define INCORRECT_DATA 2
 
+#define LEN_4BITES 32
+
 uint32_t sdv(uint32_t, int);
 
 int main()
@@ -29,7 +31,7 @@ int main()
 		{	
 			a = sdv(a, n);
 			printf("Result: ");
-			for (int i = 31; i >= 0; i --)
+			for (int i = LEN_4BITES - 1; i >= 0; i --)
 				printf("%u", (a >> i) % 2);
 		}
 	}
@@ -40,6 +42,5 @@ int main()
 
 uint32_t sdv(uint32_t x, int n)
 {
-	x = (x << n) | (x >> (32 - n));
-	return x;
+	return (x << n) | (x >> (LEN_4BITES - n));
 }

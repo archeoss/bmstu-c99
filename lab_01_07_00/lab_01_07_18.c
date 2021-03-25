@@ -29,9 +29,7 @@ int main()
 		{
 			fx = exp(x);
 			sx = func(x, eps);
-			absolute = (fx - sx);
-			if (absolute < 0)
-				absolute = -1 * absolute;
+			absolute = fabs(fx - sx);
 			relative = absolute / fx;
 			printf("F(x) = %lf  S(x) = %lf  Absolute = %lf  Relative = %lf", fx, sx, absolute, relative);
 		}

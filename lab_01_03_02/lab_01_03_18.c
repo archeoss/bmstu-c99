@@ -14,6 +14,5 @@ int main()
 
 float count_resistance(float r1, float r2, float r3)
 {
-	float r = r1 * r2 * r3 / (r1 * r2 + r3 * r2 + r1 * r3);
-	return r;	
+	return r1 * r2 * r3 / (r1 * r2 + r3 * r2 + r1 * r3);	
 }
