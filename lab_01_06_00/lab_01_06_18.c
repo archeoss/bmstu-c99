@@ -5,9 +5,9 @@
 #define INPUT_ERROR -1
 #define INCORRECT_DATA -2
 
-#define Right_triangle 1
-#define Acute_angled_triangle 0
-#define Obtuse_triangle 2
+#define right_triangle 1
+#define acute_angled_triangle 0
+#define obtuse_triangle 2
 
 double get_length(double, double, double, double);
 int triangle(int *, double, double, double);
@@ -66,11 +66,11 @@ int triangle(int *result, double a, double b, double c)
 			c = temp;
 		}
 		if (a * a - eps < b * b + c * c && a * a + eps > b * b + c * c)
-			*result = Right_triangle;
+			*result = right_triangle;
 		else if (a * a < b * b + c * c)
-			*result = Acute_angled_triangle;
+			*result = acute_angled_triangle;
 		else 
-			*result = Obtuse_triangle;
+			*result = obtuse_triangle;
 		error_code = NO_ERRORS;
 	}
 	return error_code;
