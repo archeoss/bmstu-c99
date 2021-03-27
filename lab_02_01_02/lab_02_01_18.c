@@ -30,13 +30,8 @@ int main(void)
 			if (error_code == NO_ERRORS)
 			{
 				sr_n = find_n(a, n);
-				if (sr_n >= 0)
-					error_code = INCORRECT_DATA;
-				else
-				{
-					error_code = NO_ERRORS;
-					printf("Среднее арифметичексое = %f", sr_n);
-				}
+				error_code = NO_ERRORS;
+				printf("Среднее арифметичексое = %f", sr_n);
 			}
 		}
 	}

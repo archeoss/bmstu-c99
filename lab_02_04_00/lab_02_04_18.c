@@ -10,7 +10,7 @@
 #define OVERFLOW 100
 
 int form_arr(int *);
-int Bubble_sort(int *, int);
+int bubble_sort(int *, int);
 
 int main(void)
 {
@@ -20,18 +20,20 @@ int main(void)
 	cnt = form_arr(arr_input);
 	if (cnt != 0)
 	{
-		Bubble_sort(arr_input, cnt);
+		bubble_sort(arr_input, cnt);
+		if (cnt == 11)
+		{
+			error_code = OVERFLOW;
+			cnt = 10;
+		}
 		for (int i = 0; i < cnt; i++)
 		{
 			printf("%d ", arr_input[i]);
 		}
-		error_code = NO_ERRORS;
 	}
 	else
 		error_code = INCORRECT_DATA;
-	if (cnt == 10)
-		error_code = OVERFLOW;
-	else if (error_code == INPUT_ERROR)
+	if (error_code == INPUT_ERROR)
 		printf("INPUT_ERROR");
 	else if (error_code == INCORRECT_DATA)
 		printf("INCORRECT_DATA");
@@ -42,7 +44,7 @@ int form_arr(int *a)
 {
 	int rc, cnt = 0;
 	int tmp = 0; 
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < N + 1; i++)
 	{
 		rc = scanf("%d", &tmp);
 		if (rc == EOF)
@@ -55,7 +57,7 @@ int form_arr(int *a)
 	return cnt;
 }
 
-int Bubble_sort(int *a, int n)
+int bubble_sort(int *a, int n)
 {	
 	for (int i = 0; i < n; i++)
 	{
