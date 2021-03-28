@@ -73,7 +73,7 @@ int delete_quadro(int *a, int n)
 	int k, i;
 	while (i < n - cnt)
 	{
-		k = 0;
+		k = 1;
 		while (k * k < a[i])
 			k++;
 		if (k * k == a[i]) 
