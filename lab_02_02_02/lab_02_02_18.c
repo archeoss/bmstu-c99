@@ -72,7 +72,7 @@ int first_equal_last(int *a, int *b, int n)
 	int first, last, cnt = 0;
 	for (int i = 0; i < n; i++)
 	{
-		last = a[i];
+		last = abs(a[i]);
 		first = last % 10;		
 		while (last > 9)
 			last = last / 10;
