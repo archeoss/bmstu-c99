@@ -70,15 +70,15 @@ int form_arr(int *a, int n)
 int delete_quadro(int *a, int n)
 {	
 	int cnt = 0;
-	int k, i;
-	while (i < n - cnt)
+	int k, i = 0;
+	while (i < n)
 	{
 		k = 1;
-		while (k * k < a[i])
+		while (k * k < abs(a[i - cnt]))
 			k++;
-		if (k * k == a[i]) 
+		if (abs(k * k) == abs(a[i - cnt])) 
 		{
-			for (int j = i; j < n - cnt; j++)
+			for (int j = i - cnt; j < n - cnt; j++)
 			{
 				a[j] = a[j + 1];
 			}
