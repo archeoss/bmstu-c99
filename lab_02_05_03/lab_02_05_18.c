@@ -12,7 +12,7 @@ int func(int *pa, int *pe);
 
 int main(void)
 {
-	int error_code, rc, n;
+	int error_code, rc, n, minimum;
 	int a[N];
 	setbuf(stdout, NULL);
 	printf("Введите количество: ");
@@ -24,11 +24,12 @@ int main(void)
 			error_code = INCORRECT_DATA;
 		else
 		{
-		int *pa;
-		pa = &a[0];
-		error_code = form_arr(pa, pa + n);
-		if (error_code == NO_ERRORS)
-			func(pa, pa + n);
+			int *pa;
+			pa = &a[0];
+			error_code = form_arr(pa, pa + n);
+			if (error_code == NO_ERRORS)
+				minimum = func(pa, pa + n);
+			printf("%d", minimum);
 		}
 	}
 	else
@@ -67,10 +68,14 @@ int form_arr(int *pa, int *pe)
 
 int func(int *pa, int *pe)
 {
+	int temp, minimum = (*pa) * (*(pa + 1));
+	pa++;
 	while (pa < pe - 1)
 	{
-		printf("%d ", (*pa) * (*(pa + 1)));
+		temp = (*pa) * (*(pa + 1));
+		if (temp < minimum)
+			minimum = temp;
 		pa++;
 	}
-	return 0;
+	return minimum;
 }
