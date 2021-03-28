@@ -47,9 +47,7 @@ int form_arr(int *a)
 	for (int i = 0; i < N + 1; i++)
 	{
 		rc = scanf("%d", &tmp);
-		if (rc == EOF)
-			break;
-		if (rc == 0)
+		if (rc == EOF || rc == 0)
 			break;
 		a[i] = tmp;
 		cnt++;

@@ -56,12 +56,7 @@ int form_arr(int *a, int n)
 	{
 		printf("a[%d] = ", i);
 		rc = scanf("%d", &tmp);
-		if (rc == EOF)
-		{
-			error_code = INPUT_ERROR;
-			break;
-		}
-		if (rc == 0)
+		if (rc == EOF || rc == 0)
 		{
 			error_code = INPUT_ERROR;
 			break;

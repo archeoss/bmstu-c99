@@ -28,8 +28,10 @@ int main(void)
 			pa = &a[0];
 			error_code = form_arr(pa, pa + n);
 			if (error_code == NO_ERRORS)
+			{
 				minimum = func(pa, pa + n);
-			printf("%d", minimum);
+				printf("%d", minimum);
+			}
 		}
 	}
 	else
@@ -49,12 +51,7 @@ int form_arr(int *pa, int *pe)
 	{
 		//printf("a[%d] = ", i);
 		rc = scanf("%d", &tmp);
-		if (rc == EOF)
-		{
-			error_code = INPUT_ERROR;
-			break;
-		}
-		if (rc == 0)
+		if (rc == EOF || rc == 0)
 		{
 			error_code = INPUT_ERROR;
 			break;

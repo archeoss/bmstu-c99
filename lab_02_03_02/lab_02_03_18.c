@@ -55,14 +55,8 @@ int form_arr(int *a, int n)
 	int tmp = 0; 
 	for (int i = 0; i < n; i++)
 	{
-		//printf("a[%d] = ", i);
 		rc = scanf("%d", &tmp);
-		if (rc == EOF)
-		{
-			error_code = INPUT_ERROR;
-			break;
-		}
-		if (rc == 0)
+		if (rc == EOF || rc == 0)
 		{
 			error_code = INPUT_ERROR;
 			break;
@@ -79,18 +73,16 @@ int delete_quadro(int *a, int n)
 	int k, i;
 	while (i < n - cnt)
 	{
-		k = 1;
-		while (k * k <= a[i])
-		{
-			if (k * k == a[i]) 
-			{
-				for (int j = i; j < n - cnt; j++)
-				{
-					a[j] = a[j + 1];
-				}
-				cnt++;
-			}
+		k = 0;
+		while (k * k < a[i])
 			k++;
+		if (k * k == a[i]) 
+		{
+			for (int j = i; j < n - cnt; j++)
+			{
+				a[j] = a[j + 1];
+			}
+			cnt++;
 		}
 		i++;
 	}
