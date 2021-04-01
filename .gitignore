@@ -3,3 +3,6 @@
 *.o
 *.pch
 *.gch
+*.gcda
+*.gcov
+*.gcno

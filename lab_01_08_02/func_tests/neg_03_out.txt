@@ -1,0 +1,1 @@
+Error: Wrong type of inputs
