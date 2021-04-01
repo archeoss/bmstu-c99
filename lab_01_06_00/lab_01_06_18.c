@@ -9,6 +9,8 @@
 #define ACUTE_ANGLED_TRIANGLE 0
 #define OBTUSE_TRIANGLE 2
 
+#define EPSILON 1e-5
+
 double get_length(double, double, double, double);
 int triangle(int *, double, double, double);
 
@@ -46,7 +48,7 @@ double get_length(double x1, double x2, double y1, double y2)
 int triangle(int *result, double a, double b, double c)
 {	
 	int error_code;
-	double temp, eps = 1e-5;
+	double temp;
 	if (a * b * c <= 0)
 		error_code = INCORRECT_DATA;
 	else if (a + b <= c || a + c <= b || c + b <= a)
@@ -65,7 +67,7 @@ int triangle(int *result, double a, double b, double c)
 			a = c;
 			c = temp;
 		}
-		if (a * a - eps < b * b + c * c && a * a + eps > b * b + c * c)
+		if (a * a - EPSILON < b * b + c * c && a * a + EPSILON > b * b + c * c)
 			*result = RIGHT_TRIANGLE;
 		else if (a * a < b * b + c * c)
 			*result = ACUTE_ANGLED_TRIANGLE;
