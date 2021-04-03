@@ -34,9 +34,7 @@ int main()
 		else
 		{	
 			a = sdv(a, n);
-			printf("Result: ");
-			for (int i = LEN_4BITES - 1; i >= 0; i --)
-				printf("%u", (a >> i) % 2);
+			print_num(a);
 		}
 	}
 	else
@@ -53,6 +51,7 @@ int print_num(uint32_t a)
 		tmp = (a >> i) % 2;
 		printf("%d", tmp);
 	}
+	return 0;
 }
 
 uint32_t sdv(uint32_t x, int n)
