@@ -49,14 +49,12 @@ int form_arr(int *pa, int *pe)
 	int tmp = 0;
 	while (pa < pe && rc != EOF && rc != 0)
 	{
-		printf("a[%d] = ", i);
 		rc = scanf("%d", &tmp);
 		printf("\n");
 		if (rc == EOF || rc == 0)
 			error_code = INPUT_ERROR;
 		else
 		{
-			i++;
 			*pa = tmp;
 			pa++;
 			printf("\n");

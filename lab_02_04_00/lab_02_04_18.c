@@ -44,19 +44,14 @@ int form_arr(int *a)
 {
 	int i = 0, rc = 1, cnt = 0;
 	int tmp = 0; 
-	while (i < n && rc != EOF && rc != 0)
+	while (i < N + 1 && rc != EOF && rc != 0)
 	{
 		printf("a[%d] = ", i);
 		rc = scanf("%d", &tmp);
-		if (rc == EOF || rc == 0)
-			error_code = INPUT_ERROR;
-		else
-		{
-			a[i] = tmp;
-			printf("\n");
-			i++;
-			cnt++;
-		}
+		a[i] = tmp;
+		printf("\n");
+		i++;
+		cnt++;
 	}
 	return cnt;
 }
