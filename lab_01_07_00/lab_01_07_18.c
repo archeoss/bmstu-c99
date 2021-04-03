@@ -43,7 +43,7 @@ double func(double x, double eps)
 {	
 	int k = 1;
 	double result = 1, temp = x;
-	while (temp >= eps)
+	while (fabs(temp) >= eps)
 	{
 		result += temp;
 		k += 1;

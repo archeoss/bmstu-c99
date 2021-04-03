@@ -8,6 +8,10 @@
 #define LEN_4BITES 32
 
 uint32_t sdv(uint32_t, int);
+<<<<<<< HEAD
+=======
+int print_num(uint32_t a);
+>>>>>>> 68510eb6f78e81fdf655c6233137feff121a7693
 
 int main()
 {
@@ -39,6 +43,17 @@ int main()
 		printf("Error: Wrong type of inputs");
 	return error_code;
 } 
+
+int print_num(uint32_t a)
+{
+	int tmp;
+	printf("Result: ");
+	for (int i = LEN_4BITES - 1; i >= 0; i --)
+	{	
+		tmp = (a >> i) % 2;
+		printf("%d", tmp);
+	}
+}
 
 uint32_t sdv(uint32_t x, int n)
 {
