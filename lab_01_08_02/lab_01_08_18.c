@@ -8,10 +8,7 @@
 #define LEN_4BITES 32
 
 uint32_t sdv(uint32_t, int);
-<<<<<<< HEAD
-=======
 int print_num(uint32_t a);
->>>>>>> 68510eb6f78e81fdf655c6233137feff121a7693
 
 int main()
 {
