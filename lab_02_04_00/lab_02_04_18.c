@@ -48,10 +48,13 @@ int form_arr(int *a)
 	{
 		printf("a[%d] = ", i);
 		rc = scanf("%d", &tmp);
-		a[i] = tmp;
-		printf("\n");
-		i++;
-		cnt++;
+		if (rc != EOF && rc != 0)
+		{
+			a[i] = tmp;
+			printf("\n");
+			i++;
+			cnt++;
+		}
 	}
 	return cnt;
 }
