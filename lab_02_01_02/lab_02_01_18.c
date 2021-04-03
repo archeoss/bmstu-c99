@@ -22,7 +22,7 @@ int main(void)
 	int a[N];
 	if (rc == 1)
 	{
-		if (n < 1 || n > 10)
+		if (n < 1 || n > N)
 			error_code = INCORRECT_DATA;
 		else
 		{
@@ -51,24 +51,15 @@ int main(void)
 
 int form_arr(int *a, int n)
 {
-	int rc, error_code = NO_ERRORS;
-	int tmp = 0; 
-	for (int i = 0; i < n; i++)
+	int rc = 1, error_code = NO_ERRORS;
+	int tmp = 0, i = 0; 
+	while (i < n && rc != EOF && rc != 0)
 	{
 		printf("a[%d] = ", i);
 		rc = scanf("%d", &tmp);
-		if (rc == EOF)
-		{
-			error_code = INPUT_ERROR;
-			break;
-		}
-		if (rc == 0)
-		{
-			error_code = INPUT_ERROR;
-			break;
-		}
 		a[i] = tmp;
 		printf("\n");
+		i++;
 	}
 	return error_code;
 }

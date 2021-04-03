@@ -42,14 +42,15 @@ int main(void)
 
 int form_arr(int *a)
 {
-	int rc, cnt = 0;
+	int i = 0, rc = 1, cnt = 0;
 	int tmp = 0; 
-	for (int i = 0; i < N + 1; i++)
+	while (i < n && rc != EOF && rc != 0)
 	{
+		printf("a[%d] = ", i);
 		rc = scanf("%d", &tmp);
-		if (rc == EOF || rc == 0)
-			break;
 		a[i] = tmp;
+		printf("\n");
+		i++;
 		cnt++;
 	}
 	return cnt;
