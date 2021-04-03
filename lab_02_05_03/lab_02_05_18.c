@@ -52,10 +52,15 @@ int form_arr(int *pa, int *pe)
 		printf("a[%d] = ", i);
 		rc = scanf("%d", &tmp);
 		printf("\n");
-		i++;
-		*pa = tmp;
-		pa++;
-		printf("\n");
+		if (rc == EOF || rc == 0)
+			error_code = INPUT_ERROR;
+		else
+		{
+			i++;
+			*pa = tmp;
+			pa++;
+			printf("\n");
+		}
 	}
 	return error_code;
 }
