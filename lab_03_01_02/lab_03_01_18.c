@@ -92,7 +92,7 @@ int form_result(int *a, int *arr, int n, int m)
 	{
 		for (int i = 0; i < m; i++)
 		{
-			if ((*a) * (line[i]) > 0)
+			if ((*a) * (line[i]) >= 0)
 				*arr = 0;
 			line[i] = *a;
 			a++;
