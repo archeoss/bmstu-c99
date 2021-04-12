@@ -79,13 +79,22 @@ int form_matrix(int *a, int n, int m)
 int form_result(int *a, int *arr, int n, int m)
 {
 	int line[N];
-	for (int i = 0; i < m; i++)
-	{
-		*arr = 1;
-		line[i] = *a;
-		a++;
-		arr++;
-	}
+	if (n == 1)
+		for (int i = 0; i < m; i++)
+		{
+			*arr = 0;
+			line[i] = *a;
+			a++;
+			arr++;
+		}
+	else
+		for (int i = 0; i < m; i++)
+		{
+			*arr = 1;
+			line[i] = *a;
+			a++;
+			arr++;
+		}
 	arr -= m;
 	a = a - m + N;
 	for (int j = 1; j < n; j++)
