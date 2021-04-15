@@ -17,15 +17,10 @@ int main(void)
 	int error_code = NO_ERRORS, cnt;
 	setbuf(stdout, NULL);
 	int arr_input[N];
-	cnt = form_arr(arr_input);
+	error_code = form_arr(&arr_input[0] ,&cnt);
 	if (cnt != 0)
 	{
 		bubble_sort(arr_input, cnt);
-		if (cnt == 11)
-		{
-			error_code = OVERFLOW;
-			cnt = 10;
-		}
 		for (int i = 0; i < cnt; i++)
 		{
 			printf("%d ", arr_input[i]);
@@ -40,11 +35,12 @@ int main(void)
 	return error_code;
 }
 
-int form_arr(int *a)
+int form_arr(int *a, int *cnt)
 {
-	int i = 0, rc = 1, cnt = 0;
+	int i = 0, rc = 1, error_code = NO_ERRORS;
+	*cnt = 0
 	int tmp = 0; 
-	while (i < N + 1 && rc != EOF && rc != 0)
+	while (i < N && rc != EOF && rc != 0)
 	{
 		printf("a[%d] = ", i);
 		rc = scanf("%d", &tmp);
@@ -53,10 +49,12 @@ int form_arr(int *a)
 			a[i] = tmp;
 			printf("\n");
 			i++;
-			cnt++;
+			*cnt++;
 		}
 	}
-	return cnt;
+	if (rc = scanf("%d", &tmp) == 1)
+		error_code = OVERFLOW
+	return error_code;
 }
 
 int bubble_sort(int *a, int n)
@@ -66,12 +64,16 @@ int bubble_sort(int *a, int n)
 		for (int j = 0; j < n - i - 1; j++)
 		{
 			if (a[j] > a[j + 1])
-			{
-				a[j] = a[j] ^ a[j + 1];
-				a[j + 1] = a[j] ^ a[j + 1];
-				a[j] = a[j + 1] ^ a[j];
-			}
+				swap(&a[j], &a[j + 1]);
 		}
 	}
+	return 0;
+}
+
+int swap(int *a, int *b)
+{
+	*a[j] = *a[j] ^ *a[j + 1];
+	*a[j + 1] = *a[j] ^ *a[j + 1];
+	*a[j] = *a[j + 1] ^ *a[j];
 	return 0;
 }

@@ -21,7 +21,7 @@ int main(void)
 	int arr_input[N], arr_output[N];
 	if (rc == 1)
 	{
-		if (n < 1 || n > 10)
+		if (n < 1 || n > N)
 			error_code = INCORRECT_DATA;
 		else
 		{
@@ -30,10 +30,7 @@ int main(void)
 			{
 				cnt = first_equal_last(arr_input, arr_output, n);
 				if (cnt != 0)
-					for (int i = 0; i < cnt; i++)
-					{
-						printf("%d ", arr_output[i]);
-					}
+					print_arr(&a[0], cnt);
 				else
 					error_code = INCORRECT_DATA;
 			}
@@ -46,6 +43,18 @@ int main(void)
 	else if (error_code == INCORRECT_DATA)
 		printf("INCORRECT_DATA");
 	return error_code;
+}
+
+int print_arr(int *a, int m)
+{
+	printf("\n");
+	for (int j = 0; j < m; j++)
+	{	
+		printf("%d ", *a);
+		a++;
+	}
+	printf("\n");
+	return 0;
 }
 
 int form_arr(int *a, int n)
