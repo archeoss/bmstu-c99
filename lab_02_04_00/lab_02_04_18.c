@@ -18,7 +18,7 @@ int main(void)
 	int error_code = NO_ERRORS, cnt;
 	setbuf(stdout, NULL);
 	int arr_input[N];
-	error_code = form_arr(&arr_input[0] ,&cnt);
+	error_code = form_arr(&arr_input[0], &cnt);
 	if (cnt != 0)
 	{
 		bubble_sort(arr_input, cnt);
