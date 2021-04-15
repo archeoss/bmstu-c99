@@ -10,6 +10,7 @@
 
 int form_arr(int *, int);
 int delete_quadro(int *, int);
+int print_arr(int *a, int m);
 
 int main(void)
 {
@@ -31,7 +32,7 @@ int main(void)
 			{
 				cnt = delete_quadro(arr_input, n);
 				if (cnt != n)
-					print_arr(&a[0], n - cnt);
+					print_arr(&arr_input[0], n - cnt);
 				else
 					error_code = INCORRECT_DATA;
 			}

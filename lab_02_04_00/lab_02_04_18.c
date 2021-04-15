@@ -9,8 +9,9 @@
 #define INCORRECT_DATA 2
 #define OVERFLOW 100
 
-int form_arr(int *);
+int form_arr(int *, int *);
 int bubble_sort(int *, int);
+int swap(int *a, int *b);
 
 int main(void)
 {
@@ -38,7 +39,7 @@ int main(void)
 int form_arr(int *a, int *cnt)
 {
 	int i = 0, rc = 1, error_code = NO_ERRORS;
-	*cnt = 0
+	*cnt = 0;
 	int tmp = 0; 
 	while (i < N && rc != EOF && rc != 0)
 	{
@@ -49,11 +50,11 @@ int form_arr(int *a, int *cnt)
 			a[i] = tmp;
 			printf("\n");
 			i++;
-			*cnt++;
+			(*cnt)++;
 		}
 	}
-	if (rc = scanf("%d", &tmp) == 1)
-		error_code = OVERFLOW
+	if ((rc = scanf("%d", &tmp)) == 1)
+		error_code = OVERFLOW;
 	return error_code;
 }
 
@@ -72,8 +73,8 @@ int bubble_sort(int *a, int n)
 
 int swap(int *a, int *b)
 {
-	*a[j] = *a[j] ^ *a[j + 1];
-	*a[j + 1] = *a[j] ^ *a[j + 1];
-	*a[j] = *a[j + 1] ^ *a[j];
+	*a = *a ^ *b;
+	*b = *a ^ *b;
+	*a = *b ^ *a;
 	return 0;
 }

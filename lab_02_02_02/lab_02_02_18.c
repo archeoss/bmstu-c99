@@ -9,6 +9,7 @@
 
 int form_arr(int *, int);
 int first_equal_last(int *, int *, int);
+int print_arr(int *a, int m);
 
 int main(void)
 {
@@ -30,7 +31,7 @@ int main(void)
 			{
 				cnt = first_equal_last(arr_input, arr_output, n);
 				if (cnt != 0)
-					print_arr(&a[0], cnt);
+					print_arr(&arr_output[0], cnt);
 				else
 					error_code = INCORRECT_DATA;
 			}
