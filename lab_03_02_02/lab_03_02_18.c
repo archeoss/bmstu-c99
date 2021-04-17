@@ -25,7 +25,7 @@ int main(void)
 			error_code = form_matrix(&a[0][0], n, m);
 			if (error_code == NO_ERRORS)
 			{	
-				form_result(&a[0][0], n, m);
+				error_code = form_result(&a[0][0], n, m);
 			}
 		}
 		else
@@ -91,7 +91,7 @@ int form_result(int *a, int n, int m)
 		if (cnt > 1)
 		{
 			error_code = NO_ERRORS;
-			move(a, n);
+			move(a, m);
 			print_arr(a, 1, m + 1);
 		}
 		else
@@ -101,8 +101,7 @@ int form_result(int *a, int n, int m)
 		cnt = 0;
 		a += N;
 	}
-	return error_code;
-	
+	return error_code;	
 }
 
 int nechet_sum(int a)
