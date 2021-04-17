@@ -120,8 +120,8 @@ int nechet_sum(int a)
 
 int move(int *a, int m)
 {
-	a += m;
-	for (int i = 0; i < m; i++)
+	a += m + 1;
+	for (int i = 0; i < m + 1; i++)
 	{
 		*a = *(a - 1);
 		a--;
