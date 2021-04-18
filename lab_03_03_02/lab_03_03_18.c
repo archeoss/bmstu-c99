@@ -10,8 +10,8 @@ int form_matrix(int *, int *, int n, int m);
 int print_arr(int *a, int n, int m);
 int form_result(int *a, int *arr, int n, int m);
 int swap(int *a, int n);
-int swap_lines(int *a, int n);
-int sort(int *a, int *arr, int n);
+int swap_lines(int *a, int m);
+int sort(int *a, int *arr, int n, int m);
 
 int main(void)
 {
@@ -90,17 +90,18 @@ int form_result(int *a, int *arr, int n, int m)
 			*arr *= *a;
 			a++;
 		}
+		//printf("%d %d \n", *arr, *a);
 		arr++;
 		a = a - m + N;
 	}
 	a = a - N * n;
 	arr -= n;
 	//printf("%d %d \n", *arr, *a);
-	sort(a, arr, m);
+	sort(a, arr, n, m);
 	return 0;
 }
 
-int sort(int *a, int *arr, int n)
+int sort(int *a, int *arr, int n, int m)
 {
 	for (int j = 0; j < n; j++)
 	{
@@ -112,7 +113,7 @@ int sort(int *a, int *arr, int n)
 			if (*arr < *(arr - 1))
 			{
 				swap(arr, 1);
-				swap_lines(a, n);
+				swap_lines(a, m);
 			}
 		}
 		arr = arr - n + 1;
@@ -133,9 +134,9 @@ int swap(int *a, int n)
 	return 0;
 }
 
-int swap_lines(int *a, int n)
+int swap_lines(int *a, int m)
 {
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < m; i++)
 	{
 		swap(a, N);
 		a++;

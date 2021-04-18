@@ -18,7 +18,7 @@ int main(void)
 	rc = scanf("%d%d", &n, &m);
 	if (rc == 2)
 	{
-		if (n < 11 && n > 1 && m < 11 && m > 0)
+		if (n < 11 && n > 0 && m < 11 && m > 0)
 		{
 			form_matrix(&a[0][0], n, m);
 			print_arr(&a[0][0], n, m);
@@ -58,7 +58,7 @@ int form_matrix(int *a, int n, int m)
 		for (int j = 0; j < m; j++)
 		{
 			if (j % 2 == 0)
-				number -= 2*n; 
+				number -= 2 * n; 
 			*a = number + (1 - j % 2) + i * one;
 			one *= -1;
 			a++;
