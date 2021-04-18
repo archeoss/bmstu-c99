@@ -61,15 +61,15 @@ int print_arr(int *a, int n, int m)
 int form_matrix(int *a, int n, int m)
 {
 	int error_code = NO_ERRORS, i = 0, j = 0, rc = 1;
-	while (rc == 1 && i < n)
+	while (rc == 1 && i < n && rc != EOF)
 	{	
 		j = 0;
-		while (rc == 1 && j < m)
+		while (rc == 1 && j < m && rc != EOF)
 		{
 			rc = scanf("%d", a);
 			a++;
 			j++;
-			if (rc == 0)
+			if (rc == 0 || rc == EOF)
 				error_code = INPUT_ERROR;
 		}
 		a = a - m + N;
@@ -123,6 +123,8 @@ int form_result(int *a, int *arr, int n, int m)
 int is_simple(int x)
 {
 	int result = 1, i = 2;
+	if (x == 0 || x == 1)
+		result = 0;
 	while (i < x / 2 + 1 && result == 1)
 	{		
 		if (x % i == 0)
