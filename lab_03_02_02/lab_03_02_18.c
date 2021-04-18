@@ -9,14 +9,15 @@
 
 int form_matrix(int *, int n, int m);
 int print_arr(int *a, int n, int m);
-int form_result(int *a, int n, int m);
+int form_result(int *a, int *, int n, int m);
 int nechet_sum(int a);
-int move(int *a, int m);
+int move_lines(int *a, int m);
+int move(int *a, int n);
 
 int main(void)
 {
-	int error_code = NO_ERRORS, n, m, rc;
-	int a[N + 1][N + 1];
+	int error_code = NO_ERRORS, n, m, rc, expand = 0;
+	int a[2 * N][N];
 	rc = scanf("%d%d", &n, &m);
 	if (rc == 2)
 	{
@@ -25,7 +26,7 @@ int main(void)
 			error_code = form_matrix(&a[0][0], n, m);
 			if (error_code == NO_ERRORS)
 			{	
-				error_code = form_result(&a[0][0], n, m);
+				error_code = form_result(&a[0][0], &expand, n, m);
 			}
 		}
 		else
@@ -37,6 +38,11 @@ int main(void)
 		printf("INPUT_ERROR");
 	else if (error_code == INCORRECT_DATA)
 		printf("INCORRECT_DATA");
+	else
+	{
+		printf("\n");
+		print_arr(a[0], n + expand, m);
+	}
 	return error_code;
 }
 
@@ -77,7 +83,7 @@ int form_matrix(int *a, int n, int m)
 	return error_code;
 }
 
-int form_result(int *a, int n, int m)
+int form_result(int *a, int *expand, int n, int m)
 {
 	int cnt = 0, error_code = INCORRECT_DATA;
 	for (int i = 0; i < n; i++)
@@ -92,12 +98,17 @@ int form_result(int *a, int n, int m)
 		if (cnt > 1)
 		{
 			error_code = NO_ERRORS;
-			move(a, m);
-			print_arr(a, 1, m + 1);
-		}
-		else
-		{
-			print_arr(a, 1, m);
+			for (int k = n; k > i; k--)
+			{
+				move_lines(a + N * (k - i), m);
+			}
+			for (int i = 0; i < m; i++)
+			{
+				*a = -1;
+				a++;
+			}
+			(*expand)++;
+			a = a - m + N;
 		}
 		cnt = 0;
 		a += N;
@@ -118,14 +129,20 @@ int nechet_sum(int a)
 	return result;
 }
 
-int move(int *a, int m)
+int move(int *a, int n)
 {
-	a += m;
+	int *b;
+	b = (a - n);
+	*a = *b;
+	return 0;
+}
+
+int move_lines(int *a, int m)
+{
 	for (int i = 0; i < m; i++)
 	{
-		*a = *(a - 1);
-		a--;
-	}
-	*a = -1;
+		move(a, N);
+		a++;
+	}		
 	return 0;
 }
