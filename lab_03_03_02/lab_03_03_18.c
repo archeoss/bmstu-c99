@@ -70,7 +70,7 @@ int form_matrix(int *a, int *arr, int n, int m)
 			rc = scanf("%d", a);
 			a++;
 			j++;
-			if (rc == 0 || rc != EOF)
+			if (rc == 0 || rc == EOF)
 				error_code = INPUT_ERROR;
 		}
 		*arr = 1;
