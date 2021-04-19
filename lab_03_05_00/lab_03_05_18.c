@@ -123,7 +123,7 @@ int form_result(int *a, int *arr, int n, int m)
 int is_simple(int x)
 {
 	int result = 1, i = 2;
-	if (x == 0 || x == 1)
+	if (x < 2)
 		result = 0;
 	while (i < x / 2 + 1 && result == 1)
 	{		
