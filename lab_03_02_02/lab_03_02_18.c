@@ -85,19 +85,18 @@ int form_matrix(int *a, int n, int m)
 
 int form_result(int *a, int *expand, int n, int m)
 {
-	int cnt = 0, error_code = INCORRECT_DATA;
+	int cnt = 0;
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
 		{
-			if (nechet_sum(abs(*a)) == 1)
+			if (nechet_sum(*a) == 1)
 				cnt++;
 			a++;
 		}
 		a = a - m;
 		if (cnt > 1)
 		{
-			error_code = NO_ERRORS;
 			for (int k = n; k > i; k--)
 			{
 				move_lines(a + N * (k - i), m);
@@ -113,7 +112,7 @@ int form_result(int *a, int *expand, int n, int m)
 		cnt = 0;
 		a += N;
 	}
-	return error_code;	
+	return 0;	
 }
 
 int nechet_sum(int a)
