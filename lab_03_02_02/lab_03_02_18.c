@@ -90,7 +90,7 @@ int form_result(int *a, int *expand, int n, int m)
 	{
 		for (int j = 0; j < m; j++)
 		{
-			if (nechet_sum(*a) == 1)
+			if (nechet_sum(abs(*a)) == 1)
 				cnt++;
 			a++;
 		}
