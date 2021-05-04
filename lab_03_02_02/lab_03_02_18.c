@@ -87,7 +87,7 @@ int form_matrix(int **a, int n, int m)
 int form_result(int **a, int n, int m)
 {
 	int cnt = 0, exp = 0, flag = 0;
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < n + exp; i++)
 	{
 		for (int j = 0; j < m; j++)
 		{

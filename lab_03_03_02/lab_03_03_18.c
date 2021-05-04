@@ -90,7 +90,7 @@ int form_result(int **a, int *arr, int n, int m)
 	{
 		for (int i = 0; i < m; i++)
 		{
-			*arr *= a[i][j];
+			*arr *= a[j][i];
 		}
 		arr++;
 	}
@@ -106,7 +106,7 @@ void sort(int **a, int *arr, int n, int m)
 		for (int i = 1; i < n; i++)
 		{
 			arr++;
-			if (*arr > *(arr - 1))
+			if (*arr < *(arr - 1))
 			{
 				swap(arr, arr - 1);
 				swap_lines(a, i, m);
