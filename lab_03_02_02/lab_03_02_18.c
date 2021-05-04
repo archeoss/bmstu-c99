@@ -7,30 +7,32 @@
 #define INPUT_ERROR 1
 #define INCORRECT_DATA 2
 
-int form_matrix(int *, int n, int m);
-int print_arr(int *a, int n, int m);
-int form_result(int *a, int *, int n, int m);
+int form_matrix(int **, int n, int m);
+void print_arr(int **a, int n, int m);
+int form_result(int **a, int n, int m);
 int nechet_sum(int a);
-int move_lines(int *a, int m);
-int move(int *a, int n);
+void move_lines(int **a, int start, int exp, int n, int m);
+void get_pntrs(int *, int **);
 
 int main(void)
 {
 	int error_code = NO_ERRORS, n, m, rc, expand = 0;
 	int a[2 * N][N];
+	int *pntrs[N];
 	rc = scanf("%d%d", &n, &m);
 	if (rc == 2)
 	{
-		if (n < 11 && n > 0 && m < 11 && m > 0)
+		if (n < 1 || n > N || m > N || m < 1)
+			error_code = INCORRECT_DATA;
+		else
 		{
-			error_code = form_matrix(&a[0][0], n, m);
+			get_pntrs(&a[0][0], pntrs);
+			error_code = form_matrix(pntrs, n, m);
 			if (error_code == NO_ERRORS)
 			{	
-				error_code = form_result(&a[0][0], &expand, n, m);
+				expand = form_result(pntrs, n, m);
 			}
 		}
-		else
-			error_code = INCORRECT_DATA;
 	}
 	else
 		error_code = INPUT_ERROR;
@@ -41,27 +43,30 @@ int main(void)
 	else
 	{
 		printf("\n");
-		print_arr(a[0], n + expand, m);
+		print_arr(pntrs, n + expand, m);
 	}
 	return error_code;
 }
 
-int print_arr(int *a, int n, int m)
+void get_pntrs(int *a, int **pntrs)
+{
+	for (int i = 0; i < N; i++)
+		pntrs[i] = a + i * N;
+}
+
+void print_arr(int **a, int n, int m)
 {
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
 		{	
-			printf("%d ", *a);
-			a++;
+			printf("%d ", a[i][j]);
 		}
 		printf("\n");
-		a = a - m + N;
 	}
-	return 0;
 }
 
-int form_matrix(int *a, int n, int m)
+int form_matrix(int **a, int n, int m)
 {
 	int error_code = NO_ERRORS, i = 0, j = 0, rc = 1;
 	while (rc == 1 && i < n && rc != EOF)
@@ -69,50 +74,39 @@ int form_matrix(int *a, int n, int m)
 		j = 0;
 		while (rc == 1 && j < m && rc != EOF)
 		{
-			rc = scanf("%d", a);
-			a++;
+			rc = scanf("%d", &a[i][j]);
 			j++;
 			if (rc == 0 || rc == EOF)
 				error_code = INPUT_ERROR;
 		}
-		a = a - m + N;
 		i++;
 	}
-	
-	printf("\n");
 	return error_code;
 }
 
-int form_result(int *a, int *expand, int n, int m)
+int form_result(int **a, int n, int m)
 {
-	int cnt = 0;
+	int cnt = 0, exp = 0, flag = 0;
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
 		{
-			if (nechet_sum(*a) == 1)
+			if (nechet_sum(a[i][j]) == 1)
 				cnt++;
-			a++;
 		}
-		a = a - m;
-		if (cnt > 1)
+		if (cnt > 1 && flag == 0)
 		{
-			for (int k = n; k > i; k--)
-			{
-				move_lines(a + N * (k - i), m);
-			}
-			for (int i = 0; i < m; i++)
-			{
-				*a = -1;
-				a++;
-			}
-			(*expand)++;
-			a = a - m + N;
+			flag = 1;
+			move_lines(a, i, exp, n, m);
+			for (int j = 0; j < m; j++)
+				a[i][j] = -1;
+			exp++;
 		}
+		else
+			flag = 0;
 		cnt = 0;
-		a += N;
 	}
-	return 0;	
+	return exp;
 }
 
 int nechet_sum(int a)
@@ -128,20 +122,11 @@ int nechet_sum(int a)
 	return result;
 }
 
-int move(int *a, int n)
+void move_lines(int **a, int start, int exp, int n, int m)
 {
-	int *b;
-	b = (a - n);
-	*a = *b;
-	return 0;
-}
-
-int move_lines(int *a, int m)
-{
-	for (int i = 0; i < m; i++)
+	for (int i = n + exp; i > start - 1; i--)
 	{
-		move(a, N);
-		a++;
-	}		
-	return 0;
+		for (int j = 0; j < m; j++)
+			a[i + 1][j] = a[i][j];
+	}
 }

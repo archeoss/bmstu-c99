@@ -2,36 +2,39 @@
 #include <stdlib.h>
 
 #define N 10
+#define END 5
 
 #define NO_ERRORS 0
 #define INPUT_ERROR 1
 #define INCORRECT_DATA 2
 
-int form_matrix(int *, int n, int m);
-int print_arr(int *a, int n, int m);
-int form_result(int *a, int *result, int n, int m);
+int form_matrix(int **, int n, int m);
+int form_result(int **a, int n, int m);
+void get_pntrs(int *, int **);
 
 int main(void)
 {
 	int error_code = NO_ERRORS, n, m, rc, result = -1;
 	int a[N][N];
+	int *pntrs[N];
 	rc = scanf("%d%d", &n, &m);
 	if (rc == 2)
 	{
-		if (n < 11 && n > 1 && n == m)
+		if (n < 1 || n > N || m != n)
+			error_code = INCORRECT_DATA;
+		else
 		{
-			error_code = form_matrix(&a[0][0], n, m);
+			get_pntrs(&a[0][0], pntrs);
+			error_code = form_matrix(pntrs, n, m);
 			if (error_code == NO_ERRORS)
 			{	
-				form_result(&a[1][m - 2], &result, n, m);
+				result = form_result(pntrs, n, m);
 				if (result == -1)
 					error_code = INCORRECT_DATA;
 				else
 					printf("\n%d", result);
 			}
 		}
-		else
-			error_code = INCORRECT_DATA;
 	}
 	else
 		error_code = INPUT_ERROR;
@@ -42,55 +45,38 @@ int main(void)
 	return error_code;
 }
 
-int print_arr(int *a, int n, int m)
+void get_pntrs(int *a, int **pntrs)
 {
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < m; j++)
-		{
-			printf("%d ", *a);
-			a++;
-		}
-		printf("\n");
-		a = a - m + N;
-	}
-	return 0;
+	for (int i = 0; i < N; i++)
+		pntrs[i] = a + i * N;
 }
 
-int form_matrix(int *a, int n, int m)
+int form_matrix(int **a, int n, int m)
 {
 	int error_code = NO_ERRORS, i = 0, j = 0, rc = 1;
-	while (rc == 1 && i < n)
+	while (rc == 1 && i < n && rc != EOF)
 	{	
 		j = 0;
-		while (rc == 1 && j < m)
+		while (rc == 1 && j < m && rc != EOF)
 		{
-			rc = scanf("%d", a);
-			a++;
+			rc = scanf("%d", &a[i][j]);
 			j++;
-			if (rc == 0)
+			if (rc == 0 || rc == EOF)
 				error_code = INPUT_ERROR;
 		}
-		a = a - m + N;
 		i++;
 	}
-	printf("\n");
 	return error_code;
 }
 
-int form_result(int *a, int *result, int n, int m)
+int form_result(int **a, int n, int m)
 {
+	int result = -1;
 	for (int i = 1; i < n; i++)
-	{
 		for (int j = m - i; j < m; j++)
-		{
-			a++;
-			if (abs(*a) % 10 == 5)
-				if (*result < *a || *result == -1)
-					*result = *a;
-		}
-		a = a - i - 1 + N;
-	}
-	return 0;
+			if (abs(a[i][j]) % 10 == 5)
+				if (result < a[i][j] || result == -1)
+					result = a[i][j];
+	return result;
 }
 

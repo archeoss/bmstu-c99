@@ -6,12 +6,13 @@
 #define INPUT_ERROR 1
 #define INCORRECT_DATA 2
 
-int form_matrix(int *, int *, int n, int m);
-int print_arr(int *a, int n, int m);
-int form_result(int *a, int *arr, int n, int m);
-int swap(int *a, int n);
-int swap_lines(int *a, int m);
-int sort(int *a, int *arr, int n, int m);
+int form_matrix(int **, int *, int n, int m);
+void print_arr(int **a, int n, int m);
+int form_result(int **a, int *arr, int n, int m);
+void swap(int *a, int *b);
+void swap_lines(int **a, int n, int m);
+void sort(int **a, int *arr, int n, int m);
+void get_pntrs(int *, int **);
 
 int main(void)
 {
@@ -19,20 +20,22 @@ int main(void)
 	int a[N][N];
 	rc = scanf("%d%d", &n, &m);
 	int arr[N];
+	int *pntrs[N];
 	if (rc == 2)
 	{
-		if (n < 11 && n > 0 && m < 11 && m > 0)
+		if (n < 1 || n > N || m > N || m < 1)
+			error_code = INCORRECT_DATA;
+		else
 		{
-			error_code = form_matrix(&a[0][0], &arr[0], n, m);
+			get_pntrs(&a[0][0], pntrs);
+			error_code = form_matrix(pntrs, &arr[0], n, m);
 			if (error_code == NO_ERRORS)
 			{	
-				form_result(&a[0][0], &arr[0], n, m);
-				printf("Result:");
-				print_arr(&a[0][0], n, m);
+				form_result(pntrs, &arr[0], n, m);
+				printf("Result: \n");
+				print_arr(pntrs, n, m);
 			}
 		}
-		else
-			error_code = INCORRECT_DATA;
 	}
 	else
 		error_code = INPUT_ERROR;
@@ -43,23 +46,25 @@ int main(void)
 	return error_code;
 }
 
-int print_arr(int *a, int n, int m)
+void get_pntrs(int *a, int **pntrs)
 {
-	printf("\n");
+	for (int i = 0; i < N; i++)
+		pntrs[i] = a + i * N;
+}
+
+void print_arr(int **a, int n, int m)
+{
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
 		{	
-			printf("%d ", *a);
-			a++;
+			printf("%d ", a[i][j]);
 		}
 		printf("\n");
-		a = a - m + N;
 	}
-	return 0;
 }
 
-int form_matrix(int *a, int *arr, int n, int m)
+int form_matrix(int **a, int *arr, int n, int m)
 {
 	int error_code = NO_ERRORS, i = 0, j = 0, rc = 1;
 	while (rc == 1 && i < n && rc != EOF)
@@ -67,80 +72,60 @@ int form_matrix(int *a, int *arr, int n, int m)
 		j = 0;
 		while (rc == 1 && j < m && rc != EOF)
 		{
-			rc = scanf("%d", a);
-			a++;
+			rc = scanf("%d", &a[i][j]);
 			j++;
 			if (rc == 0 || rc == EOF)
 				error_code = INPUT_ERROR;
 		}
 		*arr = 1;
 		arr++;
-		a = a - m + N;
 		i++;
 	}
 	return error_code;
 }
 
-int form_result(int *a, int *arr, int n, int m)
+int form_result(int **a, int *arr, int n, int m)
 {
 	for (int j = 0; j < n; j++)
 	{
 		for (int i = 0; i < m; i++)
 		{
-			*arr *= *a;
-			a++;
+			*arr *= a[i][j];
 		}
-		//printf("%d %d \n", *arr, *a);
 		arr++;
-		a = a - m + N;
 	}
-	a = a - N * n;
 	arr -= n;
-	//printf("%d %d \n", *arr, *a);
 	sort(a, arr, n, m);
 	return 0;
 }
 
-int sort(int *a, int *arr, int n, int m)
+void sort(int **a, int *arr, int n, int m)
 {
 	for (int j = 0; j < n; j++)
 	{
 		for (int i = 1; i < n; i++)
 		{
 			arr++;
-			a += N;
-			//printf("%d %d ,", *arr, *(arr - 1));
-			if (*arr < *(arr - 1))
+			if (*arr > *(arr - 1))
 			{
-				swap(arr, 1);
-				swap_lines(a, m);
+				swap(arr, arr - 1);
+				swap_lines(a, i, m);
 			}
 		}
 		arr = arr - n + 1;
-		a -= (n - 1) * N;
 	}
-	return 0;
 }
 
-int swap(int *a, int n)
+void swap(int *a, int *b)
 {
-	int *b;
-	b = (a - n);
-	//printf("%d %d ,", *a, *b);
 	*a = *b ^ *a;
 	*b = *b ^ *a;
 	*a = *a ^ *b;
-	//printf("%d %d \n", *a, *b);
-	return 0;
 }
 
-int swap_lines(int *a, int m)
+void swap_lines(int **a, int n, int m)
 {
 	for (int i = 0; i < m; i++)
-	{
-		swap(a, N);
-		a++;
-	}		
-	return 0;
+		swap(&a[n][i], &a[n - 1][i]);
 }
 
