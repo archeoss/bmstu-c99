@@ -84,7 +84,6 @@ int my_strspn(char *str, char *key)
 
 int my_strcspn(char *str, char *key)
 {
-	int result = -1;
 	char *p_s; 
 	char *p_k;
 	p_s = str;
@@ -92,9 +91,10 @@ int my_strcspn(char *str, char *key)
 	int i = 0, j = 0;
 	int size_k = getlen(key);
 	int size_s = getlen(str);
-	while (i < size_s && result == -1)
+	int result = size_s;
+	while (i < size_s && result == size_s)
 	{
-		while (j < size_k && result == -1)
+		while (j < size_k && result == size_s)
 		{
 			if (*p_k == *p_s)
 				result = i;
@@ -106,6 +106,7 @@ int my_strcspn(char *str, char *key)
 		p_k -= j;
 		j = 0;
 	}
+	
 	return result;
 }
 
