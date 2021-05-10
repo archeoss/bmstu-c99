@@ -117,7 +117,7 @@ char *my_strchr(char *str, int sym)
 	p_s = str;
 	int i = 0;
 	int size_s = getlen(str);
-	while (i < size_s && result == NULL)
+	while (i < size_s + 1 && result == NULL)
 	{
 		if (sym == *p_s)
 			result = p_s;
@@ -134,7 +134,7 @@ char *my_strrchr(char *str, int sym)
 	p_s = str;
 	int i = 0;
 	int size_s = getlen(str);
-	while (i < size_s)
+	while (i < size_s + 1)
 	{
 		if (sym == *p_s)
 			result = p_s;

@@ -2,15 +2,17 @@
 #include "my_string.h"
 #include <string.h>
 
+#define MAX_LENGTH 256
+
 #define NO_ERRORS 0
 #define INPUT_ERROR 1
 #define INCORRECT_DATA 2
 
 int main(void)
 {
-	char str[256], key[256];
-	read_line(str, 256);
-	read_line(key, 256);
+	char str[MAX_LENGTH], key[MAX_LENGTH];
+	read_line(str, MAX_LENGTH);
+	read_line(key, MAX_LENGTH);
 	int sym = getchar();
 	char *s = my_strpbrk(str, key);
 	printf("%s ", s);
@@ -31,7 +33,15 @@ int main(void)
 	s = my_strrchr(str, sym);
 	printf("%s ", s);
 	s = strrchr(str, sym);
-	printf("%s ", s);
+	printf("%s \n\n", s);
+	s = my_strchr(str, (int)'\0');
+	printf("%s s", s);
+	s = strchr(str, (int)'\0');
+	printf("%s s\n\n", s);
+	s = my_strrchr(str, (int)'\0');
+	printf("%s s", s);
+	s = strrchr(str, (int)'\0');
+	printf("%s s", s);
 	return 0;
 }
 
