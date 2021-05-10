@@ -22,6 +22,7 @@ int main(void)
 	char wordt[MAX_WORD];
 	int rc = -1;
 	int len2 = getlen(str2);
+	int len1 = getlen(str1);
 	char *i;
 	i = str1 + getlen(str1);
 	char *j;
@@ -59,5 +60,5 @@ int main(void)
 			p2 = j - len2;
 			k = str1;
 		}
-	return 0;
+	return error_code;
 }
