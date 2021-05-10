@@ -20,10 +20,8 @@ int main(void)
 	char *p_o = output;
 	char word1[MAX_WORD];
 	char *i;
-	char temp;
 	i = str1 + getlen(str1);
 	int	j = 0;
-	int len;
 	while (i > p1)
 	{
 		get_word(p1, word1);
