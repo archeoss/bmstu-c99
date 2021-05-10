@@ -13,6 +13,7 @@ void reverse_cst(char *str);
 
 int main(void)
 {
+	int	j = 0, error_code = NO_ERRORS;
 	char output[MAX_LENGTH];
 	char str1[MAX_LENGTH];
 	read_line(str1, MAX_LENGTH);
@@ -21,28 +22,31 @@ int main(void)
 	char word1[MAX_WORD];
 	char *i;
 	i = str1 + getlen(str1);
-	int	j = 0;
 	while (i > p1)
 	{
 		get_word(p1, word1);
 		strip_r(word1, p_o + j);
 		j = getlen(p_o) + 1;
-		p_o[j - 1] = ' ';
 		p1 += getlen(word1) + 1;
+		if (i > p1)
+			p_o[j - 1] = ' ';
 	}
 	reverse_cst(output);
-	printf("Result: %s\n", output);
-	return 0;
+	if (j != 0)
+		printf("Result: %s\n", output);
+	else
+		error_code = INCORRECT_DATA;
+	return error_code;
 }
 
 void reverse_cst(char *str)
 {
 	int len = getlen(str);
 	char temp;
-	for (int j = 0; j < (len - 1) / 2; j++)
+	for (int j = 0; j < (len - len % 2) / 2; j++)
 	{
 		temp = str[j];
-		str[j] = str[len - j - 2];
-		str[len - j - 2] = temp;
+		str[j] = str[len - j - 1];
+		str[len - j - 1] = temp;
 	}
 }

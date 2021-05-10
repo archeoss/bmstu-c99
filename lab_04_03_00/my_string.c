@@ -29,12 +29,13 @@ void reverse(char *word)
 {
 	int len = getlen(word);
 	char temp;
-	for (int j = 0; j < len / 2; j++)
-	{
-		temp = word[j];
-		word[j] = word[len - j - 1];
-		word[len - j - 1] = temp;
-	}
+	if (len > 1)
+		for (int j = 0; j < len / 2; j++)
+		{
+			temp = word[j];
+			word[j] = word[len - j - 1];
+			word[len - j - 1] = temp;
+		}
 }
 
 void strip_r(char *input, char *output)
@@ -50,6 +51,7 @@ void strip_r(char *input, char *output)
 			count++;
 		}
 	}
+	*output = '\0';
 	reverse(output - count);
 }
 
