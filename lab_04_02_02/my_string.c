@@ -53,11 +53,11 @@ char *get_word(char *str, char *word)
 	char *p_s = str;
 	int i = 0;
 	int size_s = getlen(str);
-	if (size_s == 0)
+	if (size_s == 0 || *p_s == ' ' || *p_s == ',' || *p_s== ';' || *p_s == ':' || *p_s == '-' || *p_s == '.' || *p_s == '?' || *p_s == '!')
 		result = NULL;
 	else
 	{
-		while (i < size_s && i < MAX_WORD && *p_s != ' ')
+		while (i < size_s && i < MAX_WORD && *p_s != ' ' && *p_s != ',' && *p_s != ';' && *p_s != ':' && *p_s != '-' && *p_s != '.' && *p_s != '?' && *p_s != '!')
 		{
 			if (*p_s != ' ')
 				word[i] = *p_s;

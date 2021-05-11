@@ -21,15 +21,21 @@ int main(void)
 	char *p_o = output;
 	char word1[MAX_WORD];
 	char *i;
+	char *tmp;
 	i = str1 + getlen(str1);
 	while (i > p1)
 	{
-		get_word(p1, word1);
-		strip_r(word1, p_o + j);
-		j = getlen(p_o) + 1;
-		p1 += getlen(word1) + 1;
-		if (i > p1)
-			p_o[j - 1] = ' ';
+		tmp = get_word(p1, word1);
+		if (tmp != NULL)
+		{
+			strip_r(word1, p_o + j);
+			j = getlen(p_o) + 1;
+			p1 += getlen(word1) + 1;
+			if (i > p1)
+				p_o[j - 1] = ' ';
+		}
+		else
+			p1++;
 	}
 	reverse_cst(output);
 	if (j != 0)
