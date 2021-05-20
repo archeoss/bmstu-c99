@@ -2,7 +2,8 @@
 #include <stdlib.h>
 
 #define N 10
-#define END 5
+#define LAST_DIGIT 5
+#define NO_RESULT -1
 
 #define NO_ERRORS 0
 #define INPUT_ERROR 1
@@ -29,7 +30,7 @@ int main(void)
 			if (error_code == NO_ERRORS)
 			{	
 				result = form_result(pntrs, n, m);
-				if (result == -1)
+				if (result == NO_RESULT)
 					error_code = INCORRECT_DATA;
 				else
 					printf("\n%d", result);
@@ -71,11 +72,11 @@ int form_matrix(int **a, int n, int m)
 
 int form_result(int **a, int n, int m)
 {
-	int result = -1;
+	int result = NO_RESULT;
 	for (int i = 1; i < n; i++)
 		for (int j = m - i; j < m; j++)
-			if (abs(a[i][j]) % 10 == 5)
-				if (result < a[i][j] || result == -1)
+			if (abs(a[i][j]) % 10 == LAST_DIGIT)
+				if (result < a[i][j] || result == NO_RESULT)
 					result = a[i][j];
 	return result;
 }
