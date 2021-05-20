@@ -1,7 +1,7 @@
 #include "my_string.h"
 #include <stdio.h>
 #define MAX_LENGTH 256
-#define MAX_WORD 30
+#define MAX_WORD 16
 
 void read_line(char *s, int n)
 {
@@ -47,24 +47,27 @@ int eql_wrds(char *str1, char *str2)
 	return result;
 }
 
-char *get_word(char *str, char *word)
+int get_words(char *str, char **arr)
 {
-	char *result = &word[0];
-	char *p_s = str;
 	int i = 0;
-	int size_s = getlen(str);
-	if (size_s == 0 || *p_s == ' ' || *p_s == ',' || *p_s== ';' || *p_s == ':' || *p_s == '-' || *p_s == '.' || *p_s == '?' || *p_s == '!')
-		result = NULL;
-	else
-	{
-		while (i < size_s && i < MAX_WORD && *p_s != ' ' && *p_s != ',' && *p_s != ';' && *p_s != ':' && *p_s != '-' && *p_s != '.' && *p_s != '?' && *p_s != '!')
+	int j = 0;
+	char *p_s = str;
+	while (*p_s != '\0')
+	{	
+		while (j < MAX_WORD && *p_s != '\0' && *p_s != ' ' && *p_s != ',' && *p_s != ';' && *p_s != ':' && *p_s != '-' && *p_s != '.' && *p_s != '?' && *p_s != '!')
 		{
-			if (*p_s != ' ')
-				word[i] = *p_s;
-			i++;
+			arr[i][j] = *p_s;
+			j++;
 			p_s++;
 		}
-		word[i] = '\0';
+		if (j != 0)
+		{
+			arr[i][j] = '\0';
+			i++;
+			j = 0;
+		}
+		if (*p_s != '\0')
+			p_s++;
 	}
-	return result;
+	return i;
 }

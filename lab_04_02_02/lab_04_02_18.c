@@ -9,56 +9,60 @@
 #define INPUT_ERROR 1
 #define INCORRECT_DATA 2
 
+void get_pntrs(char *a, char **pntrs);
+
 int main(void)
 {
 	int error_code = NO_ERRORS;
+	int count1, count2; 
 	char str1[MAX_LENGTH], str2[MAX_LENGTH];
+	char arr1[MAX_LENGTH/2][MAX_WORD], arr2[MAX_LENGTH/2][MAX_WORD];
+	char *pntrs1[MAX_LENGTH];
+	char *pntrs2[MAX_LENGTH];
+	get_pntrs(&arr1[0][0], pntrs1);
+	get_pntrs(&arr2[0][0], pntrs2);
 	read_line(str1, MAX_LENGTH);
 	read_line(str2, MAX_LENGTH);
-	char *p1 = str1;
-	char *p2 = str2;
-	char word1[MAX_WORD];
-	char word2[MAX_WORD];
-	char wordt[MAX_WORD];
+	count1 = get_words(str1, pntrs1);
+	count2 = get_words(str2, pntrs2);
 	int rc = -1;
-	int len2 = getlen(str2);
-	int len1 = getlen(str1);
-	char *i;
-	i = str1 + getlen(str1);
-	char *j;
-	j = str2 + getlen(str2);
-	char *k;
-	k = str1;
+	int i = 0, j = 0, k = 0;
 	printf("Result: ");
-	if (len2 == 0 || len1 == 0)
+	if (getlen(str1) == 0 || getlen(str1) == 0)
+	{
+		printf("INPUT_ERROR");
 		error_code = INPUT_ERROR;
+	}
 	else
-		while (i > p1)
-		{
-			get_word(p1, word1);
-			while (k < p1 && rc == -1)
+	{
+		while (i < count1 && rc == -1)
+		{			
+			while (k < i && rc == -1)
 			{
-				get_word(k, wordt);
-				if (eql_wrds(word1, wordt) == 1)
-					rc = 2;
-				k += getlen(wordt) + 1;
+				rc = eql_wrds(arr1[i], arr1[k]);
+				k++;
 			}
-			while (j > p2 && rc == -1)
+			if (rc == 1)
+				rc = 3;
+			while(j < count2 && rc == -1)
 			{
-				get_word(p2, word2);
-				rc = eql_wrds(word1, word2);
-				if (rc == 1)
-				{
-					printf("%s yes\n", word1);
-				}
-				p2 += getlen(word2) + 1;
+				rc = eql_wrds(arr1[i], arr2[j]);
+				j++;				
 			}
-			if (rc == -1)
-				printf("%s no\n", word1);
+			if (rc == 1)
+				printf("%s yes\n", arr1[i]);
+			else if (rc == -1)
+				printf("%s no\n", arr1[i]);
+			i++;
+			j = 0;
 			rc = -1;
-			p1 += getlen(word1) + 1;
-			p2 = j - len2;
-			k = str1;
 		}
+	}
 	return error_code;
+}
+
+void get_pntrs(char *a, char **pntrs)
+{
+	for (int i = 0; i < MAX_LENGTH/2; i++)
+		pntrs[i] = a + i * MAX_WORD;
 }
