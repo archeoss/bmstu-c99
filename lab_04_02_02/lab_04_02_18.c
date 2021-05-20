@@ -27,7 +27,7 @@ int main(void)
 	count2 = get_words(str2, pntrs2);
 	int rc = -1;
 	int i = 0, j = 0, k = 0;
-	if (getlen(str1) == 0 || getlen(str1) == 0)
+	if (count1 == 0 || count2 == 0)
 	{
 		error_code = INPUT_ERROR;
 	}
