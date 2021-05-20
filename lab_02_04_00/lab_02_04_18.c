@@ -10,8 +10,8 @@
 #define OVERFLOW 100
 
 int form_arr(int *, int *);
-int bubble_sort(int *, int);
-int swap(int *a, int *b);
+void bubble_sort(int *, int);
+void swap(int *a, int *b);
 
 int main(void)
 {
@@ -58,23 +58,21 @@ int form_arr(int *a, int *cnt)
 	return error_code;
 }
 
-int bubble_sort(int *a, int n)
+void bubble_sort(int *a, int n)
 {	
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n - i - 1; j++)
 		{
 			if (a[j] > a[j + 1])
-				swap(&a[j], &a[j + 1]);
+				swap(a + j, a + j + 1);
 		}
 	}
-	return 0;
 }
 
-int swap(int *a, int *b)
+void swap(int *a, int *b)
 {
 	*a = *a ^ *b;
 	*b = *a ^ *b;
 	*a = *b ^ *a;
-	return 0;
 }
