@@ -27,14 +27,13 @@ int main(void)
 	count2 = get_words(str2, pntrs2);
 	int rc = -1;
 	int i = 0, j = 0, k = 0;
-	printf("Result: ");
 	if (getlen(str1) == 0 || getlen(str1) == 0)
 	{
-		printf("INPUT_ERROR");
 		error_code = INPUT_ERROR;
 	}
 	else
 	{
+		printf("Result: ");
 		while (i < count1 && rc == -1)
 		{			
 			while (k < i && rc == -1)
@@ -44,7 +43,7 @@ int main(void)
 			}
 			if (rc == 1)
 				rc = 3;
-			while(j < count2 && rc == -1)
+			while (j < count2 && rc == -1)
 			{
 				rc = eql_wrds(arr1[i], arr2[j]);
 				j++;				
@@ -56,6 +55,7 @@ int main(void)
 			i++;
 			j = 0;
 			rc = -1;
+			k = 0;
 		}
 	}
 	return error_code;
