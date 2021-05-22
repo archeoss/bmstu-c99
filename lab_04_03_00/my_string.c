@@ -42,9 +42,12 @@ void strip_r(char *input, char *output)
 {
 	int len = getlen(input);
 	int count = 0;
-	for (int i = 0; i < len; i++)
+	*output = input[0];
+	output++;
+	count++;
+	for (int i = 1; i < len; i++)
 	{
-		if (strchr(output - count, input[i]) == NULL)
+		if (input[i] != input[0])
 		{
 			*output = input[i];
 			output++;
