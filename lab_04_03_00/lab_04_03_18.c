@@ -10,32 +10,27 @@
 #define INCORRECT_DATA 2
 
 void reverse_cst(char *str);
+void get_pntrs(char *a, char **pntrs);
 
 int main(void)
 {
 	int	j = 0, error_code = NO_ERRORS;
 	char output[MAX_LENGTH];
 	char str1[MAX_LENGTH];
-	read_line(str1, MAX_LENGTH);
-	char *p1 = str1;
+	char *pntrs1[MAX_LENGTH/2];
+	char arr1[MAX_LENGTH/2][MAX_WORD];
+	get_pntrs(&arr1[0][0], pntrs1);
+	read_line(str1, MAX_LENGTH);	
+	int count1 = get_words(str1, pntrs1);
 	char *p_o = output;
-	char word1[MAX_WORD];
-	char *i;
-	char *tmp;
-	i = str1 + getlen(str1);
-	while (i > p1)
+	int i = 0;
+	while (i < count1)
 	{
-		tmp = get_word(p1, word1);
-		if (tmp != NULL)
-		{
-			strip_r(word1, p_o + j);
-			j = getlen(p_o) + 1;
-			p1 += getlen(word1) + 1;
-			if (i > p1)
-				p_o[j - 1] = ' ';
-		}
-		else
-			p1++;
+		strip_r(pntrs1[i], p_o + j);
+		j = getlen(p_o) + 1;
+		if (i < count1 - 1)
+			p_o[j - 1] = ' ';
+		i++;
 	}
 	reverse_cst(output);
 	if (j != 0)
@@ -55,4 +50,10 @@ void reverse_cst(char *str)
 		str[j] = str[len - j - 1];
 		str[len - j - 1] = temp;
 	}
+}
+
+void get_pntrs(char *a, char **pntrs)
+{
+	for (int i = 0; i < MAX_LENGTH/2; i++)
+		pntrs[i] = a + i * MAX_WORD;
 }
