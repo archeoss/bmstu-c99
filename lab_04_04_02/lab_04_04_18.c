@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include "my_string.h"
+#include <string.h>
+
+#define MAX_LENGTH 256
+#define MAX_WORD 16
+#define MONTH_COUNT 12
+
+#define NO_ERRORS 0
+#define INPUT_ERROR 1
+#define INCORRECT_DATA 2
+
+void get_pntrs(char *a, char **pntrs);
+
+int main(void)
+{
+	char months[][10] = {"january", "JANUARY", "february", "FEBRUARY", "march", "MARCH", "april", "APRIL", "may",
+	"MAY", "june", "JUNE", "july", "JULY", "august", "AUGUST", "september", "SEPTEMBER", "october", "OCTOBER", "november", "NOVEMBER", "december", "DECEMBER"};
+	int days[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	int error_code = NO_ERRORS;
+	int count1; 
+	char str1[MAX_LENGTH];
+	char arr1[MAX_LENGTH/2][MAX_WORD];
+	char *pntrs1[MAX_LENGTH];
+	get_pntrs(&arr1[0][0], pntrs1);
+	read_line(str1, MAX_LENGTH);
+	count1 = get_words(str1, pntrs1);
+	char *p_m1;
+	char *p_m2;
+	char *p_p;
+	int rc = -1;
+	int i = 0;
+	if (count1 != 3)
+	{
+		error_code = INPUT_ERROR;
+	}
+	else
+	{
+		if (getlen(pntrs1[2]) != 4)
+		{
+			rc = INCORRECT_DATA;
+			error_code = INCORRECT_DATA;
+		}
+		while (i < MONTH_COUNT && rc == -1)
+		{
+			p_m1 = months[i * 2];
+			p_m2 = months[i * 2 + 1];
+			p_p = pntrs1[1];
+			while (*p_m1 != '\0' && rc == -1)
+			{
+				if (*p_m1 != *p_p && *p_m2 != *p_p)
+					rc = INCORRECT_DATA;
+				p_m1++;
+				p_m2++;
+				p_p++;
+			}
+			if (rc == -1 && *p_p == '\0')
+				rc = NO_ERRORS;
+			else
+				rc = -1;
+			i++;
+		}
+		if (rc == NO_ERRORS)
+		{
+			if (getlen(arr1[0]) == 2)
+			{
+				if (i == 1)
+				{
+					if (((int)(arr1[0][0]) - 48) * 10 + ((int)(arr1[0][1]) - 48) > days[i] + 1)
+					{
+						rc = INCORRECT_DATA;
+						error_code = INCORRECT_DATA;
+					}
+				}
+				else
+				{
+					if (((int)(arr1[0][0]) - 48) * 10 + ((int)(arr1[0][1]) - 48) > days[i])
+					{
+						rc = INCORRECT_DATA;
+						error_code = INCORRECT_DATA;
+					}
+				}
+			}
+			else
+			error_code = INCORRECT_DATA;
+		}
+		else
+			error_code = INCORRECT_DATA;
+	}
+	if (error_code == NO_ERRORS)
+		printf("YES");
+	else
+		printf("NO");
+	return error_code;
+}
+
+void get_pntrs(char *a, char **pntrs)
+{
+	for (int i = 0; i < MAX_LENGTH/2; i++)
+		pntrs[i] = a + i * MAX_WORD;
+}
