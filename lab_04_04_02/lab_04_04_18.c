@@ -30,6 +30,7 @@ int main(void)
 	char *p_p;
 	int rc = -1;
 	int i = 0;
+	int add = 0;
 	if (count1 != 3)
 	{
 		error_code = INPUT_ERROR;
@@ -60,25 +61,20 @@ int main(void)
 				rc = -1;
 			i++;
 		}
+		i--;
 		if (rc == NO_ERRORS)
 		{
 			if (getlen(arr1[0]) == 2)
 			{
 				if (i == 1)
 				{
-					if (((int)(arr1[0][0]) - 48) * 10 + ((int)(arr1[0][1]) - 48) > days[i] + 1)
-					{
-						rc = INCORRECT_DATA;
-						error_code = INCORRECT_DATA;
-					}
+					if ((((int)(arr1[2][2]) - 48) * 10 + ((int)(arr1[2][3]) - 48)) % 4 == 0)
+						add = 1;
 				}
-				else
+				if (((int)(arr1[0][0]) - 48) * 10 + ((int)(arr1[0][1]) - 48) > days[i] + add)
 				{
-					if (((int)(arr1[0][0]) - 48) * 10 + ((int)(arr1[0][1]) - 48) > days[i])
-					{
-						rc = INCORRECT_DATA;
-						error_code = INCORRECT_DATA;
-					}
+					rc = INCORRECT_DATA;
+					error_code = INCORRECT_DATA;
 				}
 			}
 			else
