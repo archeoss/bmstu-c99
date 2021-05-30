@@ -11,9 +11,7 @@ int process(FILE *f);
 
 int main(void)
 {
-	char file_in[N];
 	int error_code;
-	scanf("%s", file_in);
 	error_code = process(stdin);
 	if (error_code == INPUT_ERROR)
 		printf("INPUT_ERROR");
