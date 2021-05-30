@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "my_string.h"
 #include <string.h>
-
 #define MAX_LENGTH 256
 #define MAX_WORD 16
 #define MONTH_COUNT 12
@@ -10,7 +9,9 @@
 #define INPUT_ERROR 1
 #define INCORRECT_DATA 2
 
+#define YEAR_LENGTH 4
 void get_pntrs(char *a, char **pntrs);
+int get_year(char *a);
 
 int main(void)
 {
@@ -31,6 +32,8 @@ int main(void)
 	int rc = -1;
 	int i = 0;
 	int add = 0;
+	int year;
+	int day = 0;
 	if (count1 != 3)
 	{
 		error_code = INPUT_ERROR;
@@ -40,7 +43,6 @@ int main(void)
 		if (getlen(pntrs1[2]) != 4)
 		{
 			rc = INCORRECT_DATA;
-			error_code = INCORRECT_DATA;
 		}
 		while (i < MONTH_COUNT && rc == -1)
 		{
@@ -66,24 +68,28 @@ int main(void)
 		{
 			if (getlen(arr1[0]) == 2)
 			{
-				if (i == 1)
-				{
-					if ((((int)(arr1[2][2]) - 48) * 10 + ((int)(arr1[2][3]) - 48)) % 4 == 0)
-						add = 1;
-				}
-				if (((int)(arr1[0][0]) - 48) * 10 + ((int)(arr1[0][1]) - 48) > days[i] + add)
-				{
-					rc = INCORRECT_DATA;
-					error_code = INCORRECT_DATA;
-				}
+				day = ((int)(arr1[0][0]) - 48) * 10 + ((int)(arr1[0][1]) - 48);
 			}
 			else
-			error_code = INCORRECT_DATA;
+				rc = INCORRECT_DATA;
+			if (rc == NO_ERRORS)
+			{
+				year = get_year(&arr1[2][0]);
+				if (i == 1)
+				{
+					if (year % 4 == 0)
+						add = 1;
+				}
+				if (day > days[i] + add || day < 1)
+				{
+					rc = INCORRECT_DATA;
+				}
+			}
 		}
 		else
-			error_code = INCORRECT_DATA;
+			rc = INCORRECT_DATA;
 	}
-	if (error_code == NO_ERRORS)
+	if (rc == NO_ERRORS)
 		printf("YES");
 	else
 		printf("NO");
@@ -94,4 +100,15 @@ void get_pntrs(char *a, char **pntrs)
 {
 	for (int i = 0; i < MAX_LENGTH/2; i++)
 		pntrs[i] = a + i * MAX_WORD;
+}
+int get_year(char *a)
+{
+	int year = 0;
+	int st = 1000;
+	for (int j = 0; j < YEAR_LENGTH; j++)
+	{
+		year += ((int)(a[j]) - 48) * st;
+		st /= 10;
+	}
+	return year;
 }
