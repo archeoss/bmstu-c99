@@ -14,7 +14,5 @@ int find_pos_after_neg(FILE *f)
 			flag = 0;
 		}
 	}
-	if (rc == 0)
-		max_n = -1;
 	return max_n;
 }

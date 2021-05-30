@@ -14,12 +14,7 @@ int main(void)
 	char file_in[N];
 	int error_code;
 	scanf("%s", file_in);
-	FILE *f;
-	if ((f = fopen(file_in,"r")) == NULL)
-		error_code = INPUT_ERROR;
-	else
-		error_code = process(f);
-	fclose(f);
+	error_code = process(stdin);
 	if (error_code == INPUT_ERROR)
 		printf("INPUT_ERROR");
 	else if (error_code == INCORRECT_DATA)
