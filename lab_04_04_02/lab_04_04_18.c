@@ -11,12 +11,13 @@
 
 #define YEAR_LENGTH 4
 void get_pntrs(char *a, char **pntrs);
-int get_year(char *a);
+int get_int_date(char *a);
 
 int main(void)
 {
 	char months[][10] = {"january", "JANUARY", "february", "FEBRUARY", "march", "MARCH", "april", "APRIL", "may",
-	"MAY", "june", "JUNE", "july", "JULY", "august", "AUGUST", "september", "SEPTEMBER", "october", "OCTOBER", "november", "NOVEMBER", "december", "DECEMBER"};
+	"MAY", "june", "JUNE", "july", "JULY", "august", "AUGUST", "september",
+	"SEPTEMBER", "october", "OCTOBER", "november", "NOVEMBER", "december", "DECEMBER"};
 	int days[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	int error_code = NO_ERRORS;
 	int count1; 
@@ -40,10 +41,6 @@ int main(void)
 	}
 	else
 	{
-		if (getlen(pntrs1[2]) != 4)
-		{
-			rc = INCORRECT_DATA;
-		}
 		while (i < MONTH_COUNT && rc == -1)
 		{
 			p_m1 = months[i * 2];
@@ -66,23 +63,26 @@ int main(void)
 		i--;
 		if (rc == NO_ERRORS)
 		{
-			if (getlen(arr1[0]) == 2)
-			{
-				day = ((int)(arr1[0][0]) - 48) * 10 + ((int)(arr1[0][1]) - 48);
-			}
-			else
-				rc = INCORRECT_DATA;
+			
 			if (rc == NO_ERRORS)
 			{
-				year = get_year(&arr1[2][0]);
-				if (i == 1)
-				{
-					if (year % 4 == 0)
-						add = 1;
-				}
-				if (day > days[i] + add || day < 1)
+				year = get_int_date(&arr1[2][0]);
+				day =  get_int_date(&arr1[0][0]);
+				if (year > 9999)
 				{
 					rc = INCORRECT_DATA;
+				}
+				else
+				{
+					if (i == 1)
+					{
+						if (year % 4 == 0)
+							add = 1;
+					}
+					if (day > days[i] + add || day < 1)
+					{
+						rc = INCORRECT_DATA;
+					}
 				}
 			}
 		}
@@ -101,14 +101,14 @@ void get_pntrs(char *a, char **pntrs)
 	for (int i = 0; i < MAX_LENGTH/2; i++)
 		pntrs[i] = a + i * MAX_WORD;
 }
-int get_year(char *a)
+
+int get_int_date(char *a)
 {
-	int year = 0;
-	int st = 1000;
-	for (int j = 0; j < YEAR_LENGTH; j++)
+	int date = 0;
+	while (*a != '\0')
 	{
-		year += ((int)(a[j]) - 48) * st;
-		st /= 10;
+		date = date * 10 + ((int)(*a) - 48);
+		a++;
 	}
-	return year;
+	return date;
 }
