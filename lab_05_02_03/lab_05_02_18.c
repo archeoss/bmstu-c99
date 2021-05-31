@@ -21,11 +21,7 @@ int main(int args, char **file)
 	else
 		result = process(f);
 	fclose(f);
-	if (error_code == INPUT_ERROR)
-		printf("INPUT_ERROR");
-	else if (error_code == INCORRECT_DATA)
-		printf("INCORRECT_DATA");
-	else
+	if (error_code == NO_ERRORS)
 		printf("%d", result);
 	return error_code;
 }
