@@ -37,7 +37,7 @@ int main(void)
 	int day = 0;
 	if (count1 != 3)
 	{
-		error_code = INPUT_ERROR;
+		rc = INPUT_ERROR;
 	}
 	else
 	{
