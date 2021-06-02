@@ -54,7 +54,7 @@ int get_words(char *str, char **arr)
 	char *p_s = str;
 	while (*p_s != '\0')
 	{	
-		while (j < MAX_WORD && *p_s != '\0' && *p_s != ' ' && *p_s != ',' && *p_s != ';' && *p_s != ':' && *p_s != '.' && *p_s != '?' && *p_s != '!')
+		while (j < MAX_WORD && *p_s != '\0' && *p_s != ' ')
 		{
 			arr[i][j] = *p_s;
 			j++;
