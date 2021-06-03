@@ -68,7 +68,7 @@ int main(void)
 			{
 				year = get_int_date(&arr1[2][0]);
 				day =  get_int_date(&arr1[0][0]);
-				if (year > 9999)
+				if (year > 9999 || year < 1)
 				{
 					rc = INCORRECT_DATA;
 				}
