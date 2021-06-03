@@ -21,11 +21,11 @@ int main(void)
 	int days[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	int error_code = NO_ERRORS;
 	int count1; 
-	char str1[MAX_LENGTH];
-	char arr1[MAX_LENGTH/2][MAX_WORD];
-	char *pntrs1[MAX_LENGTH];
+	char str1[MAX_LENGTH + 1];
+	char arr1[MAX_LENGTH/2][MAX_WORD + 1];
+	char *pntrs1[MAX_LENGTH + 1];
 	get_pntrs(&arr1[0][0], pntrs1);
-	read_line(str1, MAX_LENGTH);
+	read_line(str1, MAX_LENGTH + 1);
 	count1 = get_words(str1, pntrs1);
 	char *p_m1;
 	char *p_m2;
@@ -35,6 +35,8 @@ int main(void)
 	int add = 0;
 	int year;
 	int day = 0;
+	for (int k = 0; k < count1; k++)
+		printf("%s ", arr1[k]);
 	if (count1 != 3)
 	{
 		rc = INPUT_ERROR;
@@ -98,8 +100,8 @@ int main(void)
 
 void get_pntrs(char *a, char **pntrs)
 {
-	for (int i = 0; i < MAX_LENGTH/2; i++)
-		pntrs[i] = a + i * MAX_WORD;
+	for (int i = 0; i < MAX_LENGTH/2 + 1; i++)
+		pntrs[i] = a + i * (MAX_WORD + 1);
 }
 
 int get_int_date(char *a)
