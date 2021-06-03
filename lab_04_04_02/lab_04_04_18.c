@@ -35,8 +35,6 @@ int main(void)
 	int add = 0;
 	int year;
 	int day = 0;
-	for (int k = 0; k < count1; k++)
-		printf("%s ", arr1[k]);
 	if (count1 != 3)
 	{
 		rc = INPUT_ERROR;
