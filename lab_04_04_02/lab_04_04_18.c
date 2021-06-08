@@ -35,7 +35,7 @@ int main(void)
 	int add = 0;
 	int year;
 	int day = 0;
-	if (count1 != 3)
+	if (count1 == 0)
 	{
 		error_code = INPUT_ERROR;
 	}

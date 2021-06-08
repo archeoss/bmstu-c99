@@ -45,8 +45,8 @@ int main(void)
 			p_o[j] = '\0';
 			j--;
 		}
+		reverse_cst(output);
 	}
-	reverse_cst(output);
 	if (error_code == NO_ERRORS)
 		printf("Result: %s\n", output);
 	return error_code;
