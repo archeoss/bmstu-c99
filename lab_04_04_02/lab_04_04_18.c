@@ -37,7 +37,7 @@ int main(void)
 	int day = 0;
 	if (count1 != 3)
 	{
-		rc = INPUT_ERROR;
+		error_code = INPUT_ERROR;
 	}
 	else
 	{
@@ -89,10 +89,13 @@ int main(void)
 		else
 			rc = INCORRECT_DATA;
 	}
-	if (rc == NO_ERRORS)
-		printf("YES");
-	else
-		printf("NO");
+	if (error_code == NO_ERRORS)
+	{	
+		if (rc == NO_ERRORS)
+			printf("YES");
+		else
+			printf("NO");
+	}
 	return error_code;
 }
 

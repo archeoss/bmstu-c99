@@ -105,36 +105,22 @@ int get_words(char *str, char **arr)
 	int i = 0;
 	int j = 0;
 	char *p_s = str;
-	char word[MAX_WORD];
 	while (*p_s != '\0')
 	{	
 		while (j < MAX_WORD && *p_s != '\0' && *p_s != ' ' && *p_s != ',' && *p_s != ';' && *p_s != ':' && *p_s != '-' && *p_s != '.' && *p_s != '?' && *p_s != '!')
 		{
-			word[j] = *p_s;
+			arr[i][j] = *p_s;
 			j++;
 			p_s++;
 		}
 		if (j != 0)
 		{
-			word[j] = '\0';
+			arr[i][j] = '\0';
 			i++;
 			j = 0;
 		}
 		if (*p_s != '\0')
 			p_s++;
-		if (is_uniq(word, arr, i - 1) == 1)
-		{
-			j = 0;
-			while (word[j] != '\0')
-			{
-				arr[i - 1][j] = word[j];
-				j++;
-			}
-			arr[i - 1][j] = '\0';
-			j = 0;
-		}
-		else
-			i -= 1;
 	}
 	return i;
 }
