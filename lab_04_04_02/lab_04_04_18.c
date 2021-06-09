@@ -15,9 +15,7 @@ int get_int_date(char *a);
 
 int main(void)
 {
-	char months[][10] = {"january", "JANUARY", "february", "FEBRUARY", "march", "MARCH", "april", "APRIL", "may",
-	"MAY", "june", "JUNE", "july", "JULY", "august", "AUGUST", "september",
-	"SEPTEMBER", "october", "OCTOBER", "november", "NOVEMBER", "december", "DECEMBER"};
+	char months[][10] = {"january", "JANUARY", "february", "FEBRUARY", "march", "MARCH", "april", "APRIL", "may", "MAY", "june", "JUNE", "july", "JULY", "august", "AUGUST", "september","SEPTEMBER", "october", "OCTOBER", "november", "NOVEMBER", "december", "DECEMBER"};
 	int days[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	int error_code = NO_ERRORS;
 	int count1; 
@@ -63,11 +61,10 @@ int main(void)
 		i--;
 		if (rc == NO_ERRORS)
 		{
-			
 			if (rc == NO_ERRORS)
 			{
 				year = get_int_date(&arr1[2][0]);
-				day =  get_int_date(&arr1[0][0]);
+				day = get_int_date(&arr1[0][0]);
 				if (year > 9999 || year < 1)
 				{
 					rc = INCORRECT_DATA;

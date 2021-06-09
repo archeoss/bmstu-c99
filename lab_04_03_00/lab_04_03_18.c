@@ -14,16 +14,15 @@ void get_pntrs(char *a, char **pntrs);
 
 int main(void)
 {
-	int	j = 0, error_code = NO_ERRORS;
 	char output[MAX_LENGTH];
 	char str1[MAX_LENGTH];
 	char *pntrs1[MAX_LENGTH/2];
 	char arr1[MAX_LENGTH/2][MAX_WORD];
 	get_pntrs(&arr1[0][0], pntrs1);
-	read_line(str1, MAX_LENGTH);	
+	read_line(str1, MAX_LENGTH);
 	int count1 = get_words(str1, pntrs1);
 	char *p_o = output;
-	int i = 0;
+	int i = 0, j = 0, error_code = NO_ERRORS;
 	while (i < count1 - 1)
 	{
 		if ((eql_wrds(pntrs1[i], pntrs1[count1 - 1])) == -1)
