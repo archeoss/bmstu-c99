@@ -19,18 +19,24 @@ int main(int args, char **keys)
 	int error_code = NO_ERRORS;
 	FILE *f;
 	int n;
-	if (args > 4)
+	char *temp;
+	if (args > 4 || args < 3)
 		error_code = INPUT_ERROR;
 	else
 	{
-		if (keys[1][0] == 'c' && keys[1][1] == '\0')
+		if (args == 4 && keys[1][0] == 'c' && keys[1][1] == '\0')
 		{
-			n = get_n(keys[2]);
-			f = fopen(keys[3], "wb");
-			put_random_numbers(f, n);
-			fclose(f);
+			n = strtol(keys[2], &temp, 0);
+			if (*temp == '\0')
+			{
+				f = fopen(keys[3], "wb");
+				put_random_numbers(f, n);
+				fclose(f);
+			}
+			else
+				error_code = INPUT_ERROR;
 		}
-		else if (keys[1][0] == 'p' && keys[1][1] == '\0')
+		else if (args == 3 && keys[1][0] == 'p' && keys[1][1] == '\0')
 		{
 			f = fopen(keys[2], "rb");
 			if (f == NULL)
@@ -42,7 +48,7 @@ int main(int args, char **keys)
 				print_f(f);
 			fclose(f);
 		}
-		else if (keys[1][0] == 's' && keys[1][1] == '\0')
+		else if (args == 3 && keys[1][0] == 's' && keys[1][1] == '\0')
 		{
 			f = fopen(keys[2], "r+b");
 			if (f == NULL)
@@ -54,24 +60,14 @@ int main(int args, char **keys)
 				sort_f(f);
 			fclose(f);
 		}
+		else
+			error_code = INPUT_ERROR;
 	}
 	if (error_code == INPUT_ERROR)
 		printf("INPUT_ERROR");
 	else if (error_code == INCORRECT_DATA)
 		printf("INCORRECT_DATA");
 	return error_code;
-}
-
-
-int get_n(char *chr)
-{
-	int n = 0;
-	while (*chr != '\0')
-	{
-		n = n * 10 + ((int)*chr - 48);
-		chr++;
-	}
-	return n;
 }
 
 void sort_f(FILE *f)

@@ -16,7 +16,7 @@ int main(int args, char **file)
 {
 	int error_code = NO_ERRORS, result = -1;
 	FILE *f;
-	if ((f = fopen(file[1], "r")) == NULL || args > 2)
+	if ((f = fopen(file[1], "r")) == NULL || args != 2)
 		error_code = INPUT_ERROR;
 	else
 		result = process(f);

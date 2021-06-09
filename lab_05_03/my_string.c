@@ -26,7 +26,7 @@ size_t getlen(FILE *f)
 {
 	size_t n;
 	fseek(f, 0, SEEK_END);
-	n = ((size_t)ftell(f))/sizeof(int);
+	n = ((size_t)ftell(f)) / sizeof(int);
 	rewind(f);
 	return n;
 }
