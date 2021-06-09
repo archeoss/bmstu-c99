@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <io.h>
 #include "my_string.h"
 
 #define NO_ERRORS 0
@@ -17,7 +16,8 @@
 
 int sortMe(FILE *f);
 int getStudentsBySubstr(FILE *f, FILE *f_out, char *);
-int deleteUnderAvg(FILE *f);
+int deleteUnderAvg(FILE *f, FILE *f_temp);
+int f_copy(FILE *f, FILE *f_temp);
 
 int main(int args, char **keys)
 {
@@ -60,14 +60,21 @@ int main(int args, char **keys)
 		}
 		else if (args == 3 && keys[1][0] == 'd' && keys[1][1] == 'b' && keys[1][2] == '\0')
 		{
-			f = fopen(keys[2], "r+b");
+			f = fopen(keys[2], "rb");
 			if (f == NULL)
 			{		
 				error_code = INPUT_ERROR;
 			}
 			else
 			{
-				deleteUnderAvg(f);
+				char tmp_f[] = {"temp.bin"};
+				FILE *f_temp = fopen(tmp_f, "w+b");
+				deleteUnderAvg(f, f_temp);
+				fclose(f);
+				f = fopen(keys[2], "wb");
+				f_copy(f, f_temp);
+				fclose(f_temp);
+				remove(tmp_f);
 			}			
 			fclose(f);
 		}
@@ -159,13 +166,12 @@ int getStudentsBySubstr(FILE *f, FILE *f_out, char *substr)
 	return error_code;
 }
 
-int deleteUnderAvg(FILE *f)
+int deleteUnderAvg(FILE *f, FILE *f_temp)
 {
 	int error_code = NO_ERRORS;
 	struct Student std1;
 	float avg = 0;
 	uint32_t mark_t;
-	int deleted = 0;
 	fseek(f, 0, SEEK_END);
 	int n = ftell(f) / (long int)sizeof(struct Student);   
 	fseek(f, 0, SEEK_SET);
@@ -180,25 +186,33 @@ int deleteUnderAvg(FILE *f)
 				avg += std1.marks[k];
 		}
 		avg = avg / n;
+		fseek(f, 0, SEEK_SET);
 		for (int k = 0; k < n; k++)
 		{
-			fseek(f, k * (long int)sizeof(struct Student), SEEK_SET);
 			fread(&std1, sizeof(struct Student), 1, f);
-			
 			for (int j = 0; j < N; j++)
 				mark_t += std1.marks[j];
-			if (mark_t < avg)
+			if (mark_t >= avg)
 			{
-				for (int i = k; i < n - deleted; i++)
-				{
-					fwrite(&std1, sizeof(struct Student), 1, f);
-					fread(&std1, sizeof(struct Student), 1, f);
-				}
-				deleted++;
+				fwrite(&std1, sizeof(struct Student), 1, f_temp);
 			}
 			mark_t = 0;
 		}
-		chsize(fileno(f), (int)sizeof(struct Student) * (n - deleted));
+	}
+	return error_code;
+}
+
+int f_copy(FILE *f, FILE *f_temp)
+{
+	int error_code = NO_ERRORS;
+	struct Student std1;
+	fseek(f_temp, 0, SEEK_END);
+	int n = ftell(f_temp) / (long int)sizeof(struct Student);   
+	fseek(f_temp, 0, SEEK_SET);
+	for (int k = 0; k < n; k++)
+	{
+		fread(&std1, sizeof(struct Student), 1, f_temp);
+		fwrite(&std1, sizeof(struct Student), 1, f);
 	}
 	return error_code;
 }
