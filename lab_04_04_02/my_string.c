@@ -3,13 +3,17 @@
 #define MAX_LENGTH 256
 #define MAX_WORD 16
 
-void read_line(char *s, int n)
+int read_line(char *s, int n)
 {
 	int ch, i = 0;
-	while ((ch = getchar()) != '\n' && ch != EOF)
+	int rc = 0;
+	while ((ch = getchar()) != '\n' && ch != EOF && i < MAX_LENGTH)
 		if (i < n - 1)
 			s[i++] = ch;
 	s[i] = '\0';
+	if (ch != EOF && ch != '\n')
+		rc = -1;
+	return rc;
 }
 
 int getlen(char *s)
@@ -54,7 +58,7 @@ int get_words(char *str, char **arr)
 	char *p_s = str;
 	while (*p_s != '\0')
 	{	
-		while (j < MAX_WORD + 1 && *p_s != '\0' && *p_s != ' ' && *p_s != ',' && *p_s != ';' && *p_s != ':' && *p_s != '-' && *p_s != '.' && *p_s != '?' && *p_s != '!')
+		while (j < MAX_WORD + 1 && *p_s != '\0' && *p_s != ' ')
 		{
 			arr[i][j] = *p_s;
 			j++;

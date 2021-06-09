@@ -18,26 +18,21 @@ int main(void)
 	char months[][10] = {"january", "JANUARY", "february", "FEBRUARY", "march", "MARCH", "april", "APRIL", "may", "MAY", "june", "JUNE", "july", "JULY", "august", "AUGUST", "september","SEPTEMBER", "october", "OCTOBER", "november", "NOVEMBER", "december", "DECEMBER"};
 	int days[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	int error_code = NO_ERRORS;
-	int count1; 
+	int rc = -1;
 	char str1[MAX_LENGTH + 1];
 	char arr1[MAX_LENGTH/2][MAX_WORD + 1];
-	char *pntrs1[MAX_LENGTH + 1];
+	char *pntrs1[MAX_LENGTH/2];
 	get_pntrs(&arr1[0][0], pntrs1);
-	read_line(str1, MAX_LENGTH + 1);
-	count1 = get_words(str1, pntrs1);
+	error_code = read_line(str1, MAX_LENGTH + 1);
+	get_words(str1, pntrs1);
 	char *p_m1;
 	char *p_m2;
 	char *p_p;
-	int rc = -1;
 	int i = 0;
 	int add = 0;
 	int year;
 	int day = 0;
-	if (count1 == 0)
-	{
-		error_code = INPUT_ERROR;
-	}
-	else
+	if (error_code == NO_ERRORS)
 	{
 		while (i < MONTH_COUNT && rc == -1)
 		{
@@ -98,7 +93,7 @@ int main(void)
 
 void get_pntrs(char *a, char **pntrs)
 {
-	for (int i = 0; i < MAX_LENGTH/2 + 1; i++)
+	for (int i = 0; i < MAX_LENGTH/2; i++)
 		pntrs[i] = a + i * (MAX_WORD + 1);
 }
 
