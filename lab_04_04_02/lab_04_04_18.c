@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "my_string.h"
 #include <string.h>
+#include <ctype.h>
 #define MAX_LENGTH 256
 #define MAX_WORD 32
 #define MONTH_COUNT 12
@@ -100,10 +101,19 @@ void get_pntrs(char *a, char **pntrs)
 int get_int_date(char *a)
 {
 	int date = 0;
-	while (*a != '\0')
+	int flag = 0;
+	while (*a != '\0' && flag == 0)
 	{
-		date = date * 10 + ((int)(*a) - 48);
-		a++;
+		if (isdigit(*a) != 0)
+		{
+			date = date * 10 + ((int)(*a) - 48);
+			a++;
+		}
+		else
+		{
+			date = 0;
+			flag = 1;
+		}
 	}
 	return date;
 }
