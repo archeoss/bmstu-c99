@@ -2,7 +2,7 @@
 #include "my_string.h"
 #include <string.h>
 #define MAX_LENGTH 256
-#define MAX_WORD 16
+#define MAX_WORD 32
 #define MONTH_COUNT 12
 
 #define NO_ERRORS 0
@@ -15,8 +15,8 @@ int get_int_date(char *a);
 
 int main(void)
 {
-	char months[][10] = {"january", "JANUARY", "february", "FEBRUARY", "march", "MARCH", "april", "APRIL", "may", "MAY", "june", "JUNE", "july", "JULY", "august", "AUGUST", "september","SEPTEMBER", "october", "OCTOBER", "november", "NOVEMBER", "december", "DECEMBER"};
-	int days[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	char months[][10] = { "january", "JANUARY", "february", "FEBRUARY", "march", "MARCH", "april", "APRIL", "may", "MAY", "june", "JUNE", "july", "JULY", "august", "AUGUST", "september","SEPTEMBER", "october", "OCTOBER", "november", "NOVEMBER", "december", "DECEMBER" };
+	int days[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	int error_code = NO_ERRORS;
 	int rc = -1;
 	char str1[MAX_LENGTH + 1];
