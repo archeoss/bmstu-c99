@@ -35,7 +35,7 @@ int main(void)
 	int add = 0;
 	if (count1 != 3)
 		rc = INPUT_ERROR;
-	if (rc == -1)
+	if (rc == -1) 
 	{
 		while (i < MONTH_COUNT && rc == -1)
 		{
@@ -71,8 +71,14 @@ int main(void)
 				{
 					if (i == 1)
 					{
-						if (year % 4 == 0)
-							add = 1;
+						if (year % 100 == 0)
+						{
+							if (year % 400 == 0)
+								add = 1;
+						}
+						else
+							if (year % 4 == 0)
+								add = 1;
 					}
 					if (day > days[i] + add || day < 1)
 					{
