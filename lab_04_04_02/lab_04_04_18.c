@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #define MAX_LENGTH 256
-#define MAX_WORD 32
+#define MAX_WORD 16
 #define MONTH_COUNT 12
 
 #define NO_ERRORS 0
@@ -20,35 +20,40 @@ int main(void)
 	int days[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	int error_code = NO_ERRORS;
 	int rc = -1;
-	char str1[MAX_LENGTH + 1];
-	char arr1[MAX_LENGTH/2][MAX_WORD + 1];
-	char *pntrs1[MAX_LENGTH/2];
-	get_pntrs(&arr1[0][0], pntrs1);
-	error_code = read_line(str1, MAX_LENGTH + 1);
-	get_words(str1, pntrs1);
+	char temp[MAX_WORD];
+	//get_words(str1, pntrs1);
+	int day, year;
+	int ch;
+	char month[MAX_WORD + 1];
+	int count1 = 0, count2 = 0;
+	count1 = scanf("%d %s %d", &day, month, &year);
+	if ((ch = getchar()) != '\n' && ch != EOF)
+		rc = INPUT_ERROR;
 	char *p_m1;
 	char *p_m2;
-	char *p_p;
+	char *p_m;
 	int i = 0;
 	int add = 0;
-	int year;
-	int day = 0;
-	if (error_code == NO_ERRORS)
+	if (count1 != 3)
+		rc = INPUT_ERROR;
+	
+	printf("%d",rc);
+	if (rc == -1)
 	{
 		while (i < MONTH_COUNT && rc == -1)
 		{
 			p_m1 = months[i * 2];
 			p_m2 = months[i * 2 + 1];
-			p_p = pntrs1[1];
+			p_m = month;
 			while (*p_m1 != '\0' && rc == -1)
 			{
-				if (*p_m1 != *p_p && *p_m2 != *p_p)
+				if (*p_m1 != *p_m && *p_m2 != *p_m)
 					rc = INCORRECT_DATA;
 				p_m1++;
 				p_m2++;
-				p_p++;
+				p_m++;
 			}
-			if (rc == -1 && *p_p == '\0')
+			if (rc == -1 && *p_m == '\0')
 				rc = NO_ERRORS;
 			else
 				rc = -1;
@@ -59,8 +64,8 @@ int main(void)
 		{
 			if (rc == NO_ERRORS)
 			{
-				year = get_int_date(&arr1[2][0]);
-				day = get_int_date(&arr1[0][0]);
+			//	year = get_int_date(&arr1[2][0]);
+				//day = get_int_date(&arr1[0][0]);
 				if (year > 9999 || year < 1)
 				{
 					rc = INCORRECT_DATA;
@@ -94,7 +99,7 @@ int main(void)
 
 void get_pntrs(char *a, char **pntrs)
 {
-	for (int i = 0; i < MAX_LENGTH/2; i++)
+	for (int i = 0; i < MAX_LENGTH; i++)
 		pntrs[i] = a + i * (MAX_WORD + 1);
 }
 
