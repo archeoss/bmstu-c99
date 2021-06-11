@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #define MAX_LENGTH 256
-#define MAX_WORD 32
+#define MAX_WORD 256
 #define MONTH_COUNT 12
 
 #define NO_ERRORS 0

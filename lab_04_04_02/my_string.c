@@ -1,7 +1,7 @@
 #include "my_string.h"
 #include <stdio.h>
 #define MAX_LENGTH 256
-#define MAX_WORD 16
+#define MAX_WORD 256
 
 int read_line(char *s, int n)
 {
