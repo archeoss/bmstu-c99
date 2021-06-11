@@ -20,12 +20,11 @@ int main(void)
 	int days[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	int error_code = NO_ERRORS;
 	int rc = -1;
-	char temp[MAX_WORD];
 	//get_words(str1, pntrs1);
 	int day, year;
 	int ch;
 	char month[MAX_WORD + 1];
-	int count1 = 0, count2 = 0;
+	int count1 = 0;
 	count1 = scanf("%d %s %d", &day, month, &year);
 	if ((ch = getchar()) != '\n' && ch != EOF)
 		rc = INPUT_ERROR;
