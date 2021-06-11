@@ -35,8 +35,6 @@ int main(void)
 	int add = 0;
 	if (count1 != 3)
 		rc = INPUT_ERROR;
-	
-	printf("%d",rc);
 	if (rc == -1)
 	{
 		while (i < MONTH_COUNT && rc == -1)
