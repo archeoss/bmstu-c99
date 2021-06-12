@@ -60,10 +60,9 @@ int main(void)
 				{
 					if (i == 1)
 					{
-						if (year % 100 == 0)
-							if (year % 400 == 0)
-								add = 1;
-						else if (year % 4 == 0)
+						if (year % 100 == 0 && year % 400 == 0)
+							add = 1;
+						else if (year % 4 == 0 && year % 100 != 0)
 							add = 1;
 					}
 					if (day > days[i] + add || day < 1)
