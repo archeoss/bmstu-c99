@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 #include "my_string.h"
 
 #define NO_ERRORS 0
@@ -24,7 +25,7 @@ int main(int args, char **keys)
 	int error_code = NO_ERRORS;
 	FILE *f;
 	FILE *f_out;
-	char known_keys[3][3] = { "sb", "fb", "db" }
+	char known_keys[3][3] = { "sb", "fb", "db" };
 	if (args > 5 || args < 3)
 		error_code = UNKOWN_KEY;
 	else

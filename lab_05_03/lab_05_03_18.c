@@ -73,17 +73,15 @@ void sort_al(FILE *f, int n)
 {
 	int number2;
 	int number1;
-	int flag = 1, i = 0;
-	while (i < n && flag == 1)
+	int i = 0;
+	while (i < n)
 	{
-		flag = 0;
-		for (int j = 0; j < n - i - 1; j++)
+		for (int j = 0; j < n - 1; j++)
 		{
 			number1 = get_number_by_pos(f, j);
 			number2 = get_number_by_pos(f, j + 1);
 			if (number1 < number2)
 			{
-				flag = 1;
 				put_number_by_pos(f, j + 1, number1);
 				put_number_by_pos(f, j, number2);
 			}
