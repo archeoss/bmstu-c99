@@ -35,7 +35,7 @@ int get_words(char *str, char **arr)
 	char *c;
 	char sep[] = {'\t', ' ', '\0'};
 	c = strtok(str,sep);
-    while (istr != NULL)
+    while (c != NULL)
     {
 		arr[i] = c;
 		c = strtok(NULL, sep);
