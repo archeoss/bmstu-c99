@@ -1,4 +1,5 @@
 #include "my_string.h"
+#include <string.h>
 #include <stdio.h>
 #define MAX_LENGTH 256
 #define MAX_WORD 256
@@ -28,50 +29,15 @@ int getlen(char *s)
 	return len;
 }
 
-int eql_wrds(char *str1, char *str2)
-{
-	char *p_s; 
-	char *p_k;
-	p_s = str1;
-	p_k = str2;
-	int i = 0;
-	int size_s = getlen(str1);
-	int size_k = getlen(str2);
-	int result = 1;
-	if (size_s != size_k)
-		result = -1;
-	while (i < size_s && result == 1)
-	{
-		if (*p_k != *p_s)
-			result = -1;
-		p_k++;
-		i++;
-		p_s++;
-	}
-	return result;
-}
-
 int get_words(char *str, char **arr)
 {
 	int i = 0;
-	int j = 0;
-	char *p_s = str;
-	while (*p_s != '\0')
+	char dels[] = { '\0', '\t', ' '};
+	char *p_s = strtok(str, dels);
+	while (p_s != NULL)
 	{	
-		while (j < MAX_WORD + 1 && *p_s != '\0' && *p_s != ' ')
-		{
-			arr[i][j] = *p_s;
-			j++;
-			p_s++;
-		}
-		if (j != 0)
-		{
-			arr[i][j] = '\0';
-			i++;
-			j = 0;
-		}
-		if (*p_s != '\0')
-			p_s++;
+		arr[i++] = p_s;
+		p_s = strtok(str, dels);
 	}
 	return i;
 }
