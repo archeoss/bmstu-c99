@@ -44,6 +44,8 @@ int main(int args, char **keys)
 				error_code = INPUT_ERROR;
 				printf("File do not exist");
 			}
+			else if (getlen(f) < 1)
+				error_code = INCORRECT_DATA;
 			else
 				print_f(f);
 			fclose(f);
@@ -73,7 +75,12 @@ int main(int args, char **keys)
 void sort_f(FILE *f)
 {
 	int n = getlen(f);
-	sort_al(f, n);
+	int error_code = NO_ERRORS;
+	if (n < 1)
+		error_code = INCORRECT_DATA;
+	else
+		sort_al(f, n);
+	return error_code
 }
 
 void sort_al(FILE *f, int n)

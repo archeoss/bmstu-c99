@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <math.h>
 
+#define NO_ERRORS 0
+#define INPUT_ERROR -1
+#define INCORRECT_DATA -2
+
 float find_sr(FILE *f)
 {
 	float sr = 0, i = 0, sum_s = 0;
@@ -10,7 +14,10 @@ float find_sr(FILE *f)
 		sum_s += i;
 		n++;
 	}
-	sr = sum_s / n;
+	if (n < 2)
+		sr = INCORRECT_DATA;
+	else
+		sr = sum_s / n;
 	return sr;
 }
 
@@ -25,7 +32,10 @@ double find_dispersion(FILE *f, float sr)
 		sum_s += pow(sr - i, 2);
 		n++;
 	}
-	disp = sqrt(sum_s / n);
+	if (n < 2)
+		disp = INCORRECT_DATA;
+	else
+		disp = sqrt(sum_s / n);
 	return disp;
 }
 
@@ -40,9 +50,14 @@ int check_three_sigma(FILE *f, double disp, float sr, double k)
 			n_correct++;
 		n++;
 	}
-	if (n_correct / n >= k)
-		result = 1;
+	if (n < 2)
+		result = INCORRECT_DATA;
 	else
-		result = 0;
+	{
+		if (n_correct / n >= k)
+			result = 1;
+		else
+			result = 0;
+	}
 	return result;
 }

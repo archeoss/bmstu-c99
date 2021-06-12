@@ -14,9 +14,9 @@
 
 #include "my_string.h"
 
-int sortMe(FILE *f);
-int getStudentsBySubstr(FILE *f, FILE *f_out, char *);
-int deleteUnderAvg(FILE *f, FILE *f_temp);
+int sort_me(FILE *f);
+int get_students_by_substr(FILE *f, FILE *f_out, char *);
+int delete_under_avg(FILE *f, FILE *f_temp);
 int f_copy(FILE *f, FILE *f_temp);
 
 int main(int args, char **keys)
@@ -37,7 +37,7 @@ int main(int args, char **keys)
 			}
 			else
 			{
-				error_code = sortMe(f);
+				error_code = sort_me(f);
 				if (error_code == NO_ERRORS)
 					print_f(f);
 			}
@@ -53,7 +53,7 @@ int main(int args, char **keys)
 			}
 			else
 			{
-				error_code = getStudentsBySubstr(f, f_out, keys[4]);
+				error_code = get_students_by_substr(f, f_out, keys[4]);
 			}
 			fclose(f);
 			fclose(f_out);
@@ -67,9 +67,9 @@ int main(int args, char **keys)
 			}
 			else
 			{
-				char tmp_f[] = {"temp.bin"};
+				char tmp_f[] = { "temp.bin" };
 				FILE *f_temp = fopen(tmp_f, "w+b");
-				deleteUnderAvg(f, f_temp);
+				delete_under_avg(f, f_temp);
 				fclose(f);
 				f = fopen(keys[2], "wb");
 				f_copy(f, f_temp);
@@ -88,17 +88,17 @@ int main(int args, char **keys)
 	return error_code;
 }
 
-int sortMe(FILE *f)
+int sort_me(FILE *f)
 {
 	int error_code = NO_ERRORS;
-	struct Student std1;
-	struct Student std2;
-	struct Student temp;
+	struct student std1;
+	struct student std2;
+	struct student temp;
 	int i = 0, j = 0;
 	int flag = 1;
 	int rc;
 	fseek(f, 0, SEEK_END);
-	int n = ftell(f) / (long int)sizeof(struct Student);   
+	int n = ftell(f) / (long int)sizeof(struct student);   
 	fseek(f, 0, SEEK_SET);
 	if (n < 2)
 		error_code = INCORRECT_DATA;
@@ -110,8 +110,8 @@ int sortMe(FILE *f)
 				while (i < n - 1)
 				{
 					flag = 0;
-					fread(&std1, sizeof(struct Student), 1, f);
-					fread(&std2, sizeof(struct Student), 1, f);
+					fread(&std1, sizeof(struct student), 1, f);
+					fread(&std2, sizeof(struct student), 1, f);
 					i++;
 					rc = compare_wrds(std1.surname, std2.surname);
 					if (rc == -1)
@@ -132,10 +132,10 @@ int sortMe(FILE *f)
 							std2 = temp;
 						}
 					}
-					fseek(f, (i - 1) * (long int)sizeof(struct Student), SEEK_SET);
-					fwrite(&std1,sizeof(struct Student),1,f);
-					fwrite(&std2,sizeof(struct Student),1,f);
-					fseek(f, (i) * (long int)sizeof(struct Student), SEEK_SET);
+					fseek(f, (i - 1) * (long int)sizeof(struct student), SEEK_SET);
+					fwrite(&std1, sizeof(struct student), 1, f);
+					fwrite(&std2, sizeof(struct student), 1, f);
+					fseek(f, (i) * (long int)sizeof(struct student), SEEK_SET);
 				}
 				rewind(f);
 				i = 0;
@@ -145,35 +145,35 @@ int sortMe(FILE *f)
 	return error_code;
 }
 
-int getStudentsBySubstr(FILE *f, FILE *f_out, char *substr)
+int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 {
 	int error_code = NO_ERRORS;
-	struct Student std1;
+	struct student std1;
 	int rc;
 	fseek(f, 0, SEEK_END);
-	int n = ftell(f) / (long int)sizeof(struct Student);   
+	int n = ftell(f) / (long int)sizeof(struct student);   
 	fseek(f, 0, SEEK_SET);
 	if (n < 2)
 		error_code = INCORRECT_DATA;
 	else	
 		for (int k = 0; k < n; k++)
 		{
-			fread(&std1, sizeof(struct Student), 1, f);
+			fread(&std1, sizeof(struct student), 1, f);
 			rc = findSubstr(std1.surname, substr);
 			if (rc == 1)
-				fwrite(&std1, sizeof(struct Student), 1, f_out);
+				fwrite(&std1, sizeof(struct student), 1, f_out);
 		}
 	return error_code;
 }
 
-int deleteUnderAvg(FILE *f, FILE *f_temp)
+int delete_under_avg(FILE *f, FILE *f_temp)
 {
 	int error_code = NO_ERRORS;
-	struct Student std1;
+	struct student std1;
 	float avg = 0;
 	uint32_t mark_t;
 	fseek(f, 0, SEEK_END);
-	int n = ftell(f) / (long int)sizeof(struct Student);   
+	int n = ftell(f) / (long int)sizeof(struct student);   
 	fseek(f, 0, SEEK_SET);
 	if (n < 2)
 		error_code = INCORRECT_DATA;
@@ -181,7 +181,7 @@ int deleteUnderAvg(FILE *f, FILE *f_temp)
 	{
 		for (int k = 0; k < n; k++)
 		{
-			fread(&std1, sizeof(struct Student), 1, f);
+			fread(&std1, sizeof(struct student), 1, f);
 			for (int k = 0; k < N; k++)
 				avg += std1.marks[k];
 		}
@@ -189,12 +189,12 @@ int deleteUnderAvg(FILE *f, FILE *f_temp)
 		fseek(f, 0, SEEK_SET);
 		for (int k = 0; k < n; k++)
 		{
-			fread(&std1, sizeof(struct Student), 1, f);
+			fread(&std1, sizeof(struct student), 1, f);
 			for (int j = 0; j < N; j++)
 				mark_t += std1.marks[j];
 			if (mark_t >= avg)
 			{
-				fwrite(&std1, sizeof(struct Student), 1, f_temp);
+				fwrite(&std1, sizeof(struct student), 1, f_temp);
 			}
 			mark_t = 0;
 		}
@@ -205,14 +205,14 @@ int deleteUnderAvg(FILE *f, FILE *f_temp)
 int f_copy(FILE *f, FILE *f_temp)
 {
 	int error_code = NO_ERRORS;
-	struct Student std1;
+	struct student std1;
 	fseek(f_temp, 0, SEEK_END);
-	int n = ftell(f_temp) / (long int)sizeof(struct Student);   
+	int n = ftell(f_temp) / (long int)sizeof(struct student);   
 	fseek(f_temp, 0, SEEK_SET);
 	for (int k = 0; k < n; k++)
 	{
-		fread(&std1, sizeof(struct Student), 1, f_temp);
-		fwrite(&std1, sizeof(struct Student), 1, f);
+		fread(&std1, sizeof(struct student), 1, f_temp);
+		fwrite(&std1, sizeof(struct student), 1, f);
 	}
 	return error_code;
 }

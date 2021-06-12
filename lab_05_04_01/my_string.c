@@ -36,21 +36,21 @@ int compare_wrds(char *str1, char *str2)
 
 void print_f(FILE *f)
 {
-	struct Student std;
+	struct student std;
 	fseek(f, 0, SEEK_END);
-	int cnt = ftell(f) / (long int)sizeof(struct Student);   
+	int cnt = ftell(f) / (long int)sizeof(struct student);   
 	fseek(f, 0, SEEK_SET);
 	for (int i = 0; i < cnt; i++)
 	{
-		fread(&std, sizeof(struct Student), 1, f);
-		printf("%s\n%s\n",std.surname, std.name);
+		fread(&std, sizeof(struct student), 1, f);
+		printf("%s\n%s\n", std.surname, std.name);
 		for (int j = 0; j < N; j++)
 			printf("%d ", std.marks[j]);
 		printf("\n");
 	}
 }
 
-int findSubstr(char *str1, char *substr)
+int find_substr(char *str1, char *substr)
 {
 	char *p_s; 
 	char *p_k;

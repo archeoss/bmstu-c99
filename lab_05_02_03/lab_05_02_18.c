@@ -21,6 +21,8 @@ int main(int args, char **file)
 	else
 		result = process(f);
 	fclose(f);
+	if (result == INCORRECT_DATA)
+		error_code = INCORRECT_DATA)
 	if (error_code == NO_ERRORS)
 		printf("%d", result);
 	return error_code;
@@ -30,8 +32,14 @@ int process(FILE *f)
 {
 	float sr = find_sr(f);
 	rewind(f);
-	double disp = find_dispersion(f, sr);
+	if (sr != INCORRECT_DATA)
+		double disp = find_dispersion(f, sr);
+	else
+		result = INCORRECT_DATA;
 	rewind(f);
-	int result = check_three_sigma(f, disp, sr, DISPERSION_COEF);
+	if (disp != INCORRECT_DATA)
+		int result = check_three_sigma(f, disp, sr, DISPERSION_COEF);
+	else
+		result = INCORRECT_DATA;
 	return result;
 }
