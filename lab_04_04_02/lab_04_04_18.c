@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #define MAX_LENGTH 256
-#define MAX_WORD 256
+#define MAX_WORD 16
 #define MONTH_COUNT 12
 
 #define NO_ERRORS 0
@@ -21,11 +21,9 @@ int main(void)
 	int error_code = NO_ERRORS;
 	int rc = -1;
 	char str1[MAX_LENGTH + 1];
-	char arr1[MAX_LENGTH][MAX_WORD + 1];
-	char *pntrs1[MAX_LENGTH];
-	get_pntrs(&arr1[0][0], pntrs1);
+	char *arr1[MAX_LENGTH];
 	error_code = read_line(str1, MAX_LENGTH + 1);
-	get_words(str1, pntrs1);
+	get_words(str1, arr1);
 	char *p_m1;
 	char *p_m2;
 	char *p_p;
@@ -39,7 +37,7 @@ int main(void)
 		{
 			p_m1 = months[i * 2];
 			p_m2 = months[i * 2 + 1];
-			p_p = pntrs1[1];
+			p_p = arr1[1];
 			while (*p_m1 != '\0' && rc == -1)
 			{
 				if (*p_m1 != *p_p && *p_m2 != *p_p)
@@ -96,12 +94,6 @@ int main(void)
 			printf("NO");
 	}
 	return error_code;
-}
-
-void get_pntrs(char *a, char **pntrs)
-{
-	for (int i = 0; i < MAX_LENGTH; i++)
-		pntrs[i] = a + i * (MAX_WORD + 1);
 }
 
 int get_int_date(char *a)

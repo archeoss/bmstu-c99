@@ -1,6 +1,6 @@
 #include "my_string.h"
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 #define MAX_LENGTH 256
 #define MAX_WORD 256
 
@@ -32,12 +32,14 @@ int getlen(char *s)
 int get_words(char *str, char **arr)
 {
 	int i = 0;
-	char dels[] = { '\0', '\t', ' '};
-	char *p_s = strtok(str, dels);
-	while (p_s != NULL)
-	{	
-		arr[i++] = p_s;
-		p_s = strtok(str, dels);
-	}
+	char *c;
+	char sep[] = {'\t', ' ', '\0'};
+	c = strtok(str,sep);
+    while (istr != NULL)
+    {
+		arr[i] = c;
+		c = strtok(NULL, sep);
+		i++;
+    }
 	return i;
 }
