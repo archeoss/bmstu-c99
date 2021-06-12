@@ -23,6 +23,7 @@ int main(int args, char **file)
 		error_code = check_n(f);
 	if (error_code == NO_ERRORS)
 		result = process(f);
+	rewind(f);
 	fclose(f);
 	if (error_code == NO_ERRORS)
 		printf("%d", result);
@@ -42,8 +43,10 @@ int process(FILE *f)
 int check_n(FILE *f)
 {
 	float i = 0;
-	int rc, error_code = NO_ERRORS;
-	if ((rc = fscanf(f, "%f", &i)) == EOF || rc == 0)
+	int rc, n = 0, error_code = NO_ERRORS;
+	while ((rc = fscanf(f, "%f", &i)) != EOF && rc == 1 && n < 2)
+		n++;
+	if (n < 2)
 		error_code = INCORRECT_DATA;
 	return error_code;
 }
