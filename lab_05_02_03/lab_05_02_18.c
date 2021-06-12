@@ -42,7 +42,7 @@ int process(FILE *f)
 int check_n(FILE *f)
 {
 	float i = 0;
-	int rc, n = 0, error_code = NO_ERRORS;
+	int rc, error_code = NO_ERRORS;
 	if ((rc = fscanf(f, "%f", &i)) == EOF || rc == 0)
 		error_code = INCORRECT_DATA;
 	return error_code;
