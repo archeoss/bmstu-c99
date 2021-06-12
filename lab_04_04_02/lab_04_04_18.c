@@ -24,7 +24,7 @@ int main(void)
 	char *arr1[MAX_LENGTH];
 	error_code = read_line(str1, MAX_LENGTH + 1);
 	get_words(str1, arr1);
-	int i = 0, j = 0;
+	int i = 0;
 	int add = 0;
 	int year;
 	int day = 0;
