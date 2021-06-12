@@ -6,7 +6,7 @@
 #define NO_ERRORS 0
 #define INPUT_ERROR -1
 #define INCORRECT_DATA -2
-
+#define UNKOWN_KEY 53
 
 #define SURNAME_LEN 25
 #define NAME_LEN 10
@@ -79,7 +79,7 @@ int main(int args, char **keys)
 			fclose(f);
 		}
 		else
-			error_code = INPUT_ERROR;
+			error_code = UNKOWN_KEY;
 	}
 	if (error_code == INPUT_ERROR)
 		printf("INPUT_ERROR");

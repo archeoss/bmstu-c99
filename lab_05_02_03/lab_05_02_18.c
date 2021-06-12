@@ -11,7 +11,6 @@
 #define INCORRECT_DATA -2
 
 int process(FILE *f);
-int check_n(FILE *f);
 
 int main(int args, char **file)
 {
@@ -20,11 +19,10 @@ int main(int args, char **file)
 	if ((f = fopen(file[1], "r")) == NULL || args != 2)
 		error_code = INPUT_ERROR;
 	else
-		error_code = check_n(f);
-	if (error_code == NO_ERRORS)
 		result = process(f);
-	rewind(f);
 	fclose(f);
+	if (result == INCORRECT_DATA)
+		error_code = INCORRECT_DATA;
 	if (error_code == NO_ERRORS)
 		printf("%d", result);
 	return error_code;
@@ -32,21 +30,19 @@ int main(int args, char **file)
 
 int process(FILE *f)
 {
-	float sr = find_sr(f);
+	float sr;
+	double disp;
+	int error_code;
+	int result;
+	error_code = find_sr(f, &sr);
 	rewind(f);
-	double disp = find_dispersion(f, sr);
-	rewind(f);
-	int result = check_three_sigma(f, disp, sr, DISPERSION_COEF);
+	if (error_code != INCORRECT_DATA)
+	{
+		find_dispersion(f, sr, &disp);
+		rewind(f);
+		result = check_three_sigma(f, disp, sr, DISPERSION_COEF);
+	}
+	else
+		result = INCORRECT_DATA;
 	return result;
-}
-
-int check_n(FILE *f)
-{
-	float i = 0;
-	int rc, n = 0, error_code = NO_ERRORS;
-	while ((rc = fscanf(f, "%f", &i)) != EOF && rc == 1 && n < 2)
-		n++;
-	if (n < 2)
-		error_code = INCORRECT_DATA;
-	return error_code;
 }

@@ -2,7 +2,7 @@
 
 #define _MY_STRING_H_
 
-void print_f(FILE *f);
+int print_f(FILE *f);
 void put_random_numbers(FILE *f, int n);
 int getlen(FILE *f);
 void put_number_by_pos(FILE *f, int pos, int number);

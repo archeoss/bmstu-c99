@@ -1,22 +1,28 @@
 #include <stdio.h>
 #include <math.h>
 
-float find_sr(FILE *f)
+#define NO_ERRORS 0
+#define INPUT_ERROR -1
+#define INCORRECT_DATA -2
+
+int find_sr(FILE *f, float *sr)
 {
-	float sr = 0, i = 0, sum_s = 0;
-	int rc, n = 0;
+	float i = 0, sum_s = 0;
+	int rc, n = 0, error_code = NO_ERRORS;
 	while ((rc = fscanf(f, "%f", &i)) != EOF && rc == 1)
 	{
 		sum_s += i;
 		n++;
 	}
-	sr = sum_s / n;
-	return sr;
+	if (n < 2)
+		error_code = INCORRECT_DATA;
+	else
+		*sr = sum_s / n;
+	return error_code;
 }
 
-double find_dispersion(FILE *f, float sr)
+void find_dispersion(FILE *f, float sr, double *disp)
 {
-	double disp = 0;
 	double sum_s = 0;
 	float i = 0;
 	int n = 0, rc;
@@ -25,8 +31,7 @@ double find_dispersion(FILE *f, float sr)
 		sum_s += pow(sr - i, 2);
 		n++;
 	}
-	disp = sqrt(sum_s / n);
-	return disp;
+	*disp = sqrt(sum_s / n);
 }
 
 int check_three_sigma(FILE *f, double disp, float sr, double k)
