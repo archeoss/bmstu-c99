@@ -23,14 +23,15 @@ int main(void)
 	char str1[MAX_LENGTH + 1];
 	char *arr1[MAX_LENGTH];
 	error_code = read_line(str1, MAX_LENGTH + 1);
-	get_words(str1, arr1);
+	int count1 = get_words(str1, arr1);
 	int i = 0;
 	int add = 0;
 	int year;
 	int day = 0;
-	char *p_m = arr1[1];
-	if (error_code == NO_ERRORS)
+	
+	if (error_code == NO_ERRORS && count1 == 3)
 	{
+		char *p_m = arr1[1];
 		while (*p_m)
 		{
 			*p_m = tolower(*p_m);
@@ -78,6 +79,8 @@ int main(void)
 		else
 			rc = INCORRECT_DATA;
 	}
+	else 
+		rc = INCORRECT_DATA;
 	if (error_code == NO_ERRORS)
 	{	
 		if (rc == NO_ERRORS)
