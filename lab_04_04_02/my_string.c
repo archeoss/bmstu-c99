@@ -9,12 +9,12 @@ int read_line(char *s, int n)
 	int i = 0;
 	int rc = 0;
 	char ch;
-	while ((ch = getchar()) != '\n' && ch != EOF && i < MAX_LENGTH)
+	while ((ch = getchar()) != '\n' && ch != EOF)
 		if (i < n)
 			s[i++] = ch;
 	s[i] = '\0';
 	if (i == n)
-		rc = -1;
+		rc = 1;
 	return rc;
 }
 
