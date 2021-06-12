@@ -49,8 +49,8 @@ int main(int args, char **keys)
 			error_code = INPUT_ERROR;
 			printf("File do not exist");
 		}
-		else
-			error_code = sort_f(f);
+		//else
+			//error_code = sort_f(f);
 		fclose(f);
 	}
 	else
