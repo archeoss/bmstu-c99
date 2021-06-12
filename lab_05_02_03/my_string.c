@@ -1,41 +1,32 @@
 #include <stdio.h>
 #include <math.h>
 
-#define NO_ERRORS 0
-#define INPUT_ERROR -1
-#define INCORRECT_DATA -2
-
-int find_sr(FILE *f, float *sr)
+float find_sr(FILE *f)
 {
-	float i = 0, sum_s = 0;
-	int rc, n = 0, error_code = NO_ERRORS;
+	float sr = 0, i = 0, sum_s = 0;
+	int rc, n = 0;
 	while ((rc = fscanf(f, "%f", &i)) != EOF && rc == 1)
 	{
 		sum_s += i;
 		n++;
 	}
-	if (n < 2)
-		error_code = INCORRECT_DATA;
-	else
-		*sr = sum_s / n;
-	return error_code;
+	sr = sum_s / n;
+	return sr;
 }
 
-int find_dispersion(FILE *f, float sr, double *disp)
+double find_dispersion(FILE *f, float sr)
 {
+	double disp = 0;
 	double sum_s = 0;
 	float i = 0;
-	int n = 0, rc, error_code;
+	int n = 0, rc;
 	while ((rc = fscanf(f, "%f", &i)) != EOF && rc == 1)
 	{
 		sum_s += pow(sr - i, 2);
 		n++;
 	}
-	if (n < 2)
-		error_code = INCORRECT_DATA;
-	else
-		*disp = sqrt(sum_s / n);
-	return error_code;
+	disp = sqrt(sum_s / n);
+	return disp;
 }
 
 int check_three_sigma(FILE *f, double disp, float sr, double k)
@@ -49,14 +40,9 @@ int check_three_sigma(FILE *f, double disp, float sr, double k)
 			n_correct++;
 		n++;
 	}
-	if (n < 2)
-		result = INCORRECT_DATA;
+	if (n_correct / n >= k)
+		result = 1;
 	else
-	{
-		if (n_correct / n >= k)
-			result = 1;
-		else
-			result = 0;
-	}
+		result = 0;
 	return result;
 }
