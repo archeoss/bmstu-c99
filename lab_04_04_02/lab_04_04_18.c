@@ -42,9 +42,12 @@ int main(void)
 			{
 				if (*p_m1 != *p_p && *p_m2 != *p_p)
 					rc = INCORRECT_DATA;
-				p_m1++;
-				p_m2++;
-				p_p++;
+				else
+				{
+					p_m1++;
+					p_m2++;
+					p_p++;
+				}
 			}
 			if (rc == -1 && *p_p == '\0')
 				rc = NO_ERRORS;
@@ -57,8 +60,8 @@ int main(void)
 		{
 			if (rc == NO_ERRORS)
 			{
-				year = get_int_date(&arr1[2][0]);
-				day = get_int_date(&arr1[0][0]);
+				year = get_int_date(arr1[2]);
+				day = get_int_date(arr1[0]);
 				if (year > 9999 || year < 1)
 				{
 					rc = INCORRECT_DATA;
