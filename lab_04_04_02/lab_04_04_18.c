@@ -33,6 +33,8 @@ int main(void)
 	int day = 0;
 	if (error_code == NO_ERRORS)
 	{
+		if (arr1[0] == NULL || arr1[1] == NULL || arr1[2] == NULL)
+			rc = INCORRECT_DATA;
 		while (i < MONTH_COUNT && rc == -1)
 		{
 			p_m1 = months[i * 2];
