@@ -43,9 +43,7 @@ int check_n(FILE *f)
 {
 	float i = 0;
 	int rc, n = 0, error_code = NO_ERRORS;
-	while ((rc = fscanf(f, "%f", &i)) != EOF && rc == 1 && n < 2)
-		n++;
-	if (n < 2)
+	if ((rc = fscanf(f, "%f", &i)) == EOF || rc == 0)
 		error_code = INCORRECT_DATA;
 	return error_code;
 }
