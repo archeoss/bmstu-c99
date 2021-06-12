@@ -24,11 +24,12 @@ int main(int args, char **keys)
 	int error_code = NO_ERRORS;
 	FILE *f;
 	FILE *f_out;
+	char known_keys[3][3] = { "sb", "fb", "db" }
 	if (args > 5 || args < 3)
-		error_code = INPUT_ERROR;
+		error_code = UNKOWN_KEY;
 	else
 	{
-		if (args == 3 && keys[1][0] == 's' && keys[1][1] == 'b' && keys[1][2] == '\0')
+		if (args == 3 && strcmp(keys[1], known_keys[0]) == 0)
 		{
 			f = fopen(keys[2], "r+b");
 			if (f == NULL)
@@ -43,7 +44,7 @@ int main(int args, char **keys)
 			}
 			fclose(f);
 		}
-		else if (args == 5 && keys[1][0] == 'f' && keys[1][1] == 'b' && keys[1][2] == '\0')
+		else if (args == 5 && strcmp(keys[1], known_keys[1]) == 0)
 		{
 			f = fopen(keys[2], "rb");
 			f_out = fopen(keys[3], "wb");
@@ -58,7 +59,7 @@ int main(int args, char **keys)
 			fclose(f);
 			fclose(f_out);
 		}
-		else if (args == 3 && keys[1][0] == 'd' && keys[1][1] == 'b' && keys[1][2] == '\0')
+		else if (args == 3 && strcmp(keys[1], known_keys[2]) == 0)
 		{
 			f = fopen(keys[2], "rb");
 			if (f == NULL)
@@ -100,7 +101,7 @@ int sort_me(FILE *f)
 	fseek(f, 0, SEEK_END);
 	int n = ftell(f) / (long int)sizeof(struct student);   
 	fseek(f, 0, SEEK_SET);
-	if (n < 2)
+	if (n < 1)
 		error_code = INCORRECT_DATA;
 	else
 		while (flag == 1)

@@ -18,7 +18,7 @@ int main(int args, char **keys)
 	FILE *f;
 	int n;
 	char *temp;
-	if (args == 4 && keys[1][0] == 'c' && keys[1][1] == '\0')
+	if (keys[1][0] == 'c')
 	{
 		n = strtol(keys[2], &temp, 0);
 		if (*temp == '\0')
@@ -30,19 +30,18 @@ int main(int args, char **keys)
 		else
 			error_code = INPUT_ERROR;
 	}
-	else if (args == 3 && keys[1][0] == 'p' && keys[1][1] == '\0')
+	else if (keys[1][0] == 'p')
 	{
 		f = fopen(keys[2], "rb");
 		if (f == NULL)
 		{		
 			error_code = INPUT_ERROR;
-			printf("File do not exist");
 		}
 		else
 			error_code = print_f(f);
 		fclose(f);
 	}
-	else if (args == 3 && keys[1][0] == 's' && keys[1][1] == '\0')
+	else if (keys[1][0] == 's')
 	{
 		f = fopen(keys[2], "r+b");
 		if (f == NULL)
@@ -56,10 +55,6 @@ int main(int args, char **keys)
 	}
 	else
 		error_code = INPUT_ERROR;
-	if (error_code == INPUT_ERROR)
-		printf("INPUT_ERROR");
-	else if (error_code == INCORRECT_DATA)
-		printf("INCORRECT_DATA");
 	return error_code;
 }
 

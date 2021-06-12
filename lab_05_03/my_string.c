@@ -19,8 +19,8 @@ int getlen(FILE *f)
 {
 	int n;
 	fseek(f, 0, SEEK_END);
-	n = ((size_t)ftell(f)) / sizeof(int);
-	rewind(f);
+	n = ((int)ftell(f)) / sizeof(int);
+	fseek(f, 0, SEEK_SET);
 	return n;
 }
 
@@ -46,7 +46,7 @@ int get_number_by_pos(FILE *f, long long unsigned int pos)
 	int number;
 	fseek(f, pos * sizeof(int), SEEK_SET);
 	fread(&number, sizeof(int), 1, f);
-	rewind(f);
+	fseek(f, 0, SEEK_SET);
 	return number;
 }
 
