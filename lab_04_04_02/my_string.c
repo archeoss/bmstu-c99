@@ -6,27 +6,16 @@
 
 int read_line(char *s, int n)
 {
-	int ch, i = 0;
+	int i = 0;
 	int rc = 0;
+	char ch;
 	while ((ch = getchar()) != '\n' && ch != EOF && i < MAX_LENGTH)
 		if (i < n)
 			s[i++] = ch;
 	s[i] = '\0';
-	if (ch != EOF && ch != '\n')
+	if (i == n)
 		rc = -1;
 	return rc;
-}
-
-int getlen(char *s)
-{
-	char *cur = s;
-	int len = 0;
-	while (*cur)
-	{
-		len++;
-		cur++;
-	}	
-	return len;
 }
 
 int get_words(char *str, char **arr)
