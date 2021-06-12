@@ -20,7 +20,7 @@ int main(int args, char **file)
 	if ((f = fopen(file[1], "r")) == NULL || args != 2)
 		error_code = INPUT_ERROR;
 	else
-		error_code = check_n(f)
+		error_code = check_n(f);
 	if (error_code == NO_ERRORS)
 		result = process(f);
 	fclose(f);
