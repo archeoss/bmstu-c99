@@ -49,8 +49,8 @@ int main(int args, char **keys)
 			error_code = INPUT_ERROR;
 			printf("File do not exist");
 		}
-		//else
-			//error_code = sort_f(f);
+		else
+			error_code = sort_f(f);
 		fclose(f);
 	}
 	else
@@ -80,7 +80,7 @@ void sort_al(FILE *f, int n)
 		{
 			number1 = get_number_by_pos(f, j);
 			number2 = get_number_by_pos(f, j + 1);
-			if (number1 < number2)
+			if (number1 > number2)
 			{
 				put_number_by_pos(f, j + 1, number1);
 				put_number_by_pos(f, j, number2);
