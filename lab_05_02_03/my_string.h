@@ -2,7 +2,7 @@
 
 #define _MY_STRING_H_
  
-float find_sr(FILE *f);
-double find_dispersion(FILE *f, float sr);
+int find_sr(FILE *f, float *sr);
+int find_dispersion(FILE *f, float sr, double *disp);
 int check_three_sigma(FILE *f, double disp, float sr, double k);
 #endif

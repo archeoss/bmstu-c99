@@ -5,38 +5,37 @@
 #define INPUT_ERROR -1
 #define INCORRECT_DATA -2
 
-float find_sr(FILE *f)
+int find_sr(FILE *f, float *sr)
 {
-	float sr = 0, i = 0, sum_s = 0;
-	int rc, n = 0;
+	float i = 0, sum_s = 0;
+	int rc, n = 0, error_code = NO_ERRORS;
 	while ((rc = fscanf(f, "%f", &i)) != EOF && rc == 1)
 	{
 		sum_s += i;
 		n++;
 	}
 	if (n < 2)
-		sr = INCORRECT_DATA;
+		error_code = INCORRECT_DATA;
 	else
-		sr = sum_s / n;
-	return sr;
+		*sr = sum_s / n;
+	return error_code;
 }
 
-double find_dispersion(FILE *f, float sr)
+int find_dispersion(FILE *f, float sr, double *disp)
 {
-	double disp = 0;
 	double sum_s = 0;
 	float i = 0;
-	int n = 0, rc;
+	int n = 0, rc, error_code;
 	while ((rc = fscanf(f, "%f", &i)) != EOF && rc == 1)
 	{
 		sum_s += pow(sr - i, 2);
 		n++;
 	}
 	if (n < 2)
-		disp = INCORRECT_DATA;
+		error_code = INCORRECT_DATA;
 	else
-		disp = sqrt(sum_s / n);
-	return disp;
+		*disp = sqrt(sum_s / n);
+	return error_code;
 }
 
 int check_three_sigma(FILE *f, double disp, float sr, double k)

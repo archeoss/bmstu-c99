@@ -159,7 +159,7 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 		for (int k = 0; k < n; k++)
 		{
 			fread(&std1, sizeof(struct student), 1, f);
-			rc = findSubstr(std1.surname, substr);
+			rc = find_substr(std1.surname, substr);
 			if (rc == 1)
 				fwrite(&std1, sizeof(struct student), 1, f_out);
 		}

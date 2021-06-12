@@ -11,7 +11,7 @@
 
 int process(FILE *f);
 int get_n(char *chr);
-void sort_f(FILE *f);
+int sort_f(FILE *f);
 void sort_al(FILE *f, int n);
 
 int main(int args, char **keys)
@@ -59,7 +59,7 @@ int main(int args, char **keys)
 				printf("File do not exist");
 			}
 			else
-				sort_f(f);
+				error_code = sort_f(f);
 			fclose(f);
 		}
 		else
@@ -72,7 +72,7 @@ int main(int args, char **keys)
 	return error_code;
 }
 
-void sort_f(FILE *f)
+int sort_f(FILE *f)
 {
 	int n = getlen(f);
 	int error_code = NO_ERRORS;
@@ -80,7 +80,7 @@ void sort_f(FILE *f)
 		error_code = INCORRECT_DATA;
 	else
 		sort_al(f, n);
-	return error_code
+	return error_code;
 }
 
 void sort_al(FILE *f, int n)
