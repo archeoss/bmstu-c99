@@ -158,7 +158,7 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 			if (rc == 1)
 				fwrite(&std1, sizeof(struct student), 1, f_out);
 		}
-	n = getlen(f);
+	n = getlen(f_out);
 	if (n < 1)
 		error_code = INCORRECT_DATA;
 	return error_code;
