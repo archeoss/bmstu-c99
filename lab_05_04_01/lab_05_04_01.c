@@ -133,7 +133,7 @@ int sort_me(FILE *f)
 						time_to_swap = 1;
 					}
 				}
-				if (time_to_swap = 1)
+				if (time_to_swap == 1)
 				{
 					fseek(f, (j - 1) * (long int)sizeof(struct student), SEEK_SET);
 					fwrite(&std1, sizeof(struct student), 1, f);
