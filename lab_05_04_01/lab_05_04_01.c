@@ -143,22 +143,25 @@ int sort_me(FILE *f)
 
 int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 {
-	int error_code = NO_ERRORS;
-	int n = getlen(f);
-	if (n < 1)
-		error_code = INCORRECT_DATA;
-	else	
-		for (int k = 0; k < n; k++)
-		{
-			student std1 = { 0 };
-			fread(&std1, sizeof(student), 1, f);
-			if (strstr(std1.surname, substr) == std1.surname)
-                fwrite(&std1, sizeof(student), 1, f_out);
-		}
-	n = getlen(f_out);
-	if (n < 1)
-		error_code = INCORRECT_DATA;
-	return error_code;
+    int error_code = NO_ERRORS;
+    if (getlen(f) < 1)
+    {
+        error_code = INCORRECT_DATA;
+    }
+    else
+    {
+        int n = getlen(f);
+        for (int i = 0; i < n; i++)
+        {
+            student std = get_student(f, i);
+            char *p_std = std.surname;
+            if (strstr(p_std, substr) == p_std)
+                fwrite(&std, sizeof(student), 1, f_out);
+        }
+        if (getlen(f_out) < 1)
+            error_code = INCORRECT_DATA;
+    }
+    return error_code;
 }
 
 int delete_under_avg(FILE *f, FILE *f_temp)
