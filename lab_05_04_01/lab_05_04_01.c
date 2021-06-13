@@ -68,17 +68,17 @@ int main(int args, char **keys)
 			{		
 				error_code = INPUT_ERROR;
 			}
-			// else
-			// {
-				// char tmp_f[] = { "temp.bin" };
-				// FILE *f_temp = fopen(tmp_f, "w+b");
-				// delete_under_avg(f, f_temp);
-				// fclose(f);
-				// f = fopen(keys[2], "wb");
-				// f_copy(f, f_temp);
-				// fclose(f_temp);
-				// remove(tmp_f);
-			// }			
+			else
+			{
+				char tmp_f[] = { "temp.bin" };
+				FILE *f_temp = fopen(tmp_f, "w+b");
+				delete_under_avg(f, f_temp);
+				fclose(f);
+				f = fopen(keys[2], "wb");
+				f_copy(f, f_temp);
+				fclose(f_temp);
+				remove(tmp_f);
+			}			
 			fclose(f);
 		}
 		else
@@ -213,6 +213,8 @@ void f_copy(FILE *f, FILE *f_temp)
 {
 	struct student std1;
 	int n = getlen(f_temp);
+	fseek(f, 0, SEEK_SET);
+	fseek(f_temp, 0, SEEK_SET);
 	for (int k = 0; k < n; k++)
 	{
 		fread(&std1, sizeof(struct student), 1, f_temp);
