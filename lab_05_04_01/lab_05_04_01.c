@@ -17,9 +17,10 @@
 
 int sort_me(FILE *f);
 int get_students_by_substr(FILE *f, FILE *f_out, char *);
-int delete_under_avg(FILE *f, FILE *f_temp);
+int delete_under_avg(char *name);
 void f_copy(FILE *f, FILE *f_temp);
 void swap(FILE *f, int pos1, int pos2);
+double avg_of_std(student *std);
 
 int main(int args, char **keys)
 {
@@ -67,27 +68,8 @@ int main(int args, char **keys)
 		}
 		else if (args == 3 && strcmp(keys[1], known_keys[2]) == 0)
 		{
-			f = fopen(keys[2], "rb");
-			if (f == NULL)
-			{		
-				error_code = INPUT_ERROR;
-			}
-			else if(getlen(f) < 1)
-				error_code = INCORRECT_DATA;
-			else
-			{
-				char tmp_f[] = { "temp.bin" };
-				FILE *f_temp = fopen(tmp_f, "wb");
-				error_code = delete_under_avg(f, f_temp);
-				fclose(f);
-				fclose(f_temp);
-				f_temp = fopen(tmp_f, "rb");
-				f = fopen(keys[2], "wb");
-				f_copy(f, f_temp);
-				fclose(f_temp);
-				remove(tmp_f);
-				fclose(f);
-			}
+			error_code = delete_under_avg(keys[2]);
+			
 		}
 		else
 			error_code = UNKOWN_KEY;
@@ -143,86 +125,96 @@ int sort_me(FILE *f)
 
 int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 {
-    int error_code = NO_ERRORS;
-    if (getlen(f) < 1)
-    {
-        error_code = INCORRECT_DATA;
-    }
-    else
-    {
-        int n = getlen(f);
-        for (int i = 0; i < n; i++)
-        {
-            student std = get_student(f, i);
-            char *p_std = std.surname;
-            if (strstr(p_std, substr) == p_std)
-                fwrite(&std, sizeof(student), 1, f_out);
-        }
-        if (getlen(f_out) < 1)
-            error_code = INCORRECT_DATA;
-    }
-    return error_code;
-}
-
-int delete_under_avg(FILE *f, FILE *f_temp)
-{
 	int error_code = NO_ERRORS;
-	float avg = 0;
-	float mark_t;
-	int n = getlen(f);
-	if (n < 1)
-		error_code = INCORRECT_DATA;
-	else	
+	if (getlen(f) < 1)
 	{
-		for (int k = 0; k < n; k++)
-		{
-			student std1 = { 0 };
-			fread(&std1, sizeof(student), 1, f);
-			for (int k = 0; k < N; k++)
-				avg += std1.marks[k];
-		}
-		avg = avg / n;
-		fseek(f, 0, SEEK_SET);
-		for (int k = 0; k < n; k++)
-		{
-			student std1 = { 0 };
-			fread(&std1, sizeof(student), 1, f);
-			for (int j = 0; j < N; j++)
-				mark_t += std1.marks[j];
-			if (mark_t >= avg)
-			{
-				fwrite(&std1, sizeof(student), 1, f_temp);
-			}
-			mark_t = 0;
-		}
-	}
-	n = getlen(f_temp);
-	if (n < 1)
 		error_code = INCORRECT_DATA;
+	}
+	else
+	{
+		int n = getlen(f);
+		for (int i = 0; i < n; i++)
+		{
+			student std = get_student(f, i);
+			char *p_std = std.surname;
+			if (strstr(p_std, substr) == p_std)
+				fwrite(&std, sizeof(student), 1, f_out);
+		}
+		if (getlen(f_out) < 1)
+			error_code = INCORRECT_DATA;
+	}
 	return error_code;
 }
 
+int delete_under_avg(char *name)
+{
+	int error_code = NO_ERRORS;
+	FILE *f = fopen(name, "wb");
+	if (f == NULL)
+		error_code = INPUT_ERROR;
+	if (getlen(f) < 1)
+		error_code = INCORRECT_DATA;
+	else
+	{
+		FILE *f_temp = fopen("temp.bin", "w+b");
+		int n = getlen(f);
+		double avg_s = 0;
+		for (int i = 0; i < n; i++)
+		{
+			student std = { 0 };
+			fread(&std, sizeof(student), 1, f);
+			avg_s += std.marks[0] + std.marks[1] + std.marks[2] + std.marks[3];
+		}
+		avg_s = avg_s / n;
+		for (int i = 0; i < n; i++)
+		{
+			student std = { 0 };
+			fread(&std, sizeof(student), 1, f);
+			double cur_avg = avg_of_std(&std);
+			if (cur_avg >= avg_s)
+				fwrite(&std, sizeof(student), 1, f_temp);
+		}
+		fclose(f);
+		f = fopen(name, "wb");
+		if (getlen(f_temp) < 1)
+			error_code = INCORRECT_DATA;
+		f_copy(f, f_temp);
+		fclose(f_temp);
+		remove("temp.bin");
+		fclose(f);
+	}
+	return error_code;
+}
+
+
+double avg_of_std(student *std)
+{
+	double sum;
+	for (int i = 0; i < N; i++)
+		sum += (std->marks[i]);
+	return sum;
+}
+
+
 void swap(FILE *f, int pos1, int pos2)
 {
-    student temp1 = { 0 };
+	student temp1 = { 0 };
 	student temp2 = { 0 };
-	
+
 	fseek(f, (long long unsigned int)pos1 * sizeof(student), SEEK_SET);
-    fread(&temp1, sizeof(student), 1, f);
+	fread(&temp1, sizeof(student), 1, f);
 	fseek(f, (long long unsigned int)pos2 * sizeof(student), SEEK_SET);
-    fread(&temp2, sizeof(student), 1, f);
+	fread(&temp2, sizeof(student), 1, f);
 	fseek(f, (long long unsigned int)pos1 * sizeof(student), SEEK_SET);
-    fwrite(&temp2, sizeof(student), 1, f);
+	fwrite(&temp2, sizeof(student), 1, f);
 	fseek(f, (long long unsigned int)pos2 * sizeof(student), SEEK_SET);
-    fwrite(&temp1, sizeof(student), 1, f);
+	fwrite(&temp1, sizeof(student), 1, f);
 	fseek(f, 0, SEEK_SET);
 }
 
 void f_copy(FILE *f, FILE *f_temp)
 {
 	int n = getlen(f_temp);
-	fseek(f, 0, SEEK_SET);
-	fseek(f_temp, 0, SEEK_SET);
 	for (int k = 0; k < n; k++)
 	{
 		student std1 = { 0 };
