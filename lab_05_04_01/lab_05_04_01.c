@@ -181,7 +181,7 @@ int delete_under_avg(FILE *f, char *key)
 			mark_t = 0;
 		}
 		f = fopen(key, "wb");
-		//n = getlen(f_temp);
+		n = getlen(f_temp);
 		fclose(f_temp);
 		remove("temp.bin");
 	}
