@@ -34,12 +34,24 @@ int compare_wrds(char *str1, char *str2)
 	return result;
 }
 
+int getlen(FILE *f)
+{
+	int n;
+	fseek(f, 0, SEEK_END);
+	if (ftell(f) % (long int)sizeof(struct student) == 0)
+	{
+		n = ((int)ftell(f)) / (long int)sizeof(struct student);
+    }
+	else
+        n = -1;
+	fseek(f, 0, SEEK_SET);
+	return n;
+}
+
 void print_f(FILE *f)
 {
 	struct student std;
-	fseek(f, 0, SEEK_END);
-	int cnt = ftell(f) / (long int)sizeof(struct student);   
-	fseek(f, 0, SEEK_SET);
+	int cnt = getlen(f);
 	for (int i = 0; i < cnt; i++)
 	{
 		fread(&std, sizeof(struct student), 1, f);

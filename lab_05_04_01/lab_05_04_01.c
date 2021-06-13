@@ -18,7 +18,7 @@
 int sort_me(FILE *f);
 int get_students_by_substr(FILE *f, FILE *f_out, char *);
 int delete_under_avg(FILE *f, FILE *f_temp);
-int f_copy(FILE *f, FILE *f_temp);
+void f_copy(FILE *f, FILE *f_temp);
 
 int main(int args, char **keys)
 {
@@ -97,9 +97,7 @@ int sort_me(FILE *f)
 	struct student std2;
 	struct student temp;
 	int rc;
-	fseek(f, 0, SEEK_END);
-	int n = ftell(f) / (long int)sizeof(struct student);   
-	fseek(f, 0, SEEK_SET);
+	int n = getlen(f);
 	if (n < 1)
 		error_code = INCORRECT_DATA;
 	else
@@ -149,9 +147,7 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 	int error_code = NO_ERRORS;
 	struct student std1;
 	int rc;
-	fseek(f, 0, SEEK_END);
-	int n = ftell(f) / (long int)sizeof(struct student);   
-	fseek(f, 0, SEEK_SET);
+	int n = getlen(f);
 	if (n < 1)
 		error_code = INCORRECT_DATA;
 	else	
@@ -162,9 +158,7 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 			if (rc == 1)
 				fwrite(&std1, sizeof(struct student), 1, f_out);
 		}
-	fseek(f_out, 0, SEEK_END);
-	n = ftell(f_out) / (long int)sizeof(struct student);   
-	fseek(f_out, 0, SEEK_SET);
+	n = getlen(f);
 	if (n < 1)
 		error_code = INCORRECT_DATA;
 	return error_code;
@@ -176,9 +170,7 @@ int delete_under_avg(FILE *f, FILE *f_temp)
 	struct student std1;
 	float avg = 0;
 	uint32_t mark_t;
-	fseek(f, 0, SEEK_END);
-	int n = ftell(f) / (long int)sizeof(struct student);   
-	fseek(f, 0, SEEK_SET);
+	int n = getlen(f);
 	if (n < 1)
 		error_code = INCORRECT_DATA;
 	else	
@@ -206,17 +198,13 @@ int delete_under_avg(FILE *f, FILE *f_temp)
 	return error_code;
 }
 
-int f_copy(FILE *f, FILE *f_temp)
+void f_copy(FILE *f, FILE *f_temp)
 {
-	int error_code = NO_ERRORS;
 	struct student std1;
-	fseek(f_temp, 0, SEEK_END);
-	int n = ftell(f_temp) / (long int)sizeof(struct student);   
-	fseek(f_temp, 0, SEEK_SET);
+	int n = getlen(f);
 	for (int k = 0; k < n; k++)
 	{
 		fread(&std1, sizeof(struct student), 1, f_temp);
 		fwrite(&std1, sizeof(struct student), 1, f);
 	}
-	return error_code;
 }
