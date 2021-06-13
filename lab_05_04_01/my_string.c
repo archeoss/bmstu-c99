@@ -6,6 +6,10 @@
 #define NAME_LEN 10
 #define N 4
 
+#define NO_ERRORS 0
+#define INPUT_ERROR -1
+#define INCORRECT_DATA -2
+
 #include "my_string.h"
 
 int getlen(FILE *f)
@@ -25,16 +29,24 @@ int getlen(FILE *f)
 
 void print_f(FILE *f)
 {
-	int cnt = getlen(f);
-	for (int i = 0; i < cnt; i++)
-	{
-		student std = { 0 };
-		fread(&std, sizeof(student), 1, f);
-		printf("%s\n%s\n", std.surname, std.name);
-		for (int j = 0; j < N; j++)
-			printf("%d ", std.marks[j]);
-		printf("\n");
+    int n = getlen(f);
+    for (int i = 0; i < n; i++)
+    {
+        student std = { 0 };
+        fread(&std, sizeof(student), 1, f);
+        print_std(&std);
+    }
+}
+
+void print_std(student *std)
+{
+    printf("%s\n", std->surname);
+    printf("%s\n", std->name);
+	for (int i = 0; i < N; i++)
+    {
+		printf("%d ", std->marks[i]);
 	}
+    printf("\n");
 }
 
 student get_student(FILE *f, int pos)

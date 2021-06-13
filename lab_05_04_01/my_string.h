@@ -15,5 +15,6 @@ typedef struct
 int getlen(FILE *f);
 void print_f(FILE *f);
 student get_student(FILE *f, int pos);
+void print_std(student *std);
 
 #endif

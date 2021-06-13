@@ -38,6 +38,8 @@ int main(int args, char **keys)
 			{		
 				error_code = INPUT_ERROR;
 			}
+			else if(getlen(f) < 1)
+				error_code = INCORRECT_DATA;
 			else
 			{
 				error_code = sort_me(f);
@@ -54,6 +56,8 @@ int main(int args, char **keys)
 			{		
 				error_code = INPUT_ERROR;
 			}
+			else if(getlen(f) < 1)
+				error_code = INCORRECT_DATA;
 			else
 			{
 				error_code = get_students_by_substr(f, f_out, keys[4]);
@@ -68,6 +72,8 @@ int main(int args, char **keys)
 			{		
 				error_code = INPUT_ERROR;
 			}
+			else if(getlen(f) < 1)
+				error_code = INCORRECT_DATA;
 			else
 			{
 				char tmp_f[] = { "temp.bin" };
