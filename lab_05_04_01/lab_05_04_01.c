@@ -94,8 +94,8 @@ int main(int args, char **keys)
 int sort_me(FILE *f)
 {
 	int error_code = NO_ERRORS;
-	struct student std1;
-	struct student std2;
+	struct student std1 = { 0 };
+	struct student std2 = { 0 };
 	int rc;
 	int time_to_swap = 0;
 	int n = getlen(f);
@@ -142,7 +142,7 @@ int sort_me(FILE *f)
 int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 {
 	int error_code = NO_ERRORS;
-	struct student std1;
+	struct student std1 = { 0 };
 	int n = getlen(f);
 	if (n < 1)
 		error_code = INCORRECT_DATA;
@@ -162,7 +162,7 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 int delete_under_avg(FILE *f, FILE *f_temp)
 {
 	int error_code = NO_ERRORS;
-	struct student std1;
+	struct student std1 = { 0 };
 	float avg = 0;
 	float mark_t;
 	int n = getlen(f);
@@ -198,8 +198,8 @@ int delete_under_avg(FILE *f, FILE *f_temp)
 
 void swap(FILE *f, int pos1, int pos2)
 {
-    struct student temp1;
-	struct student temp2;
+    struct student temp1 = { 0 };
+	struct student temp2 = { 0 };
 	
 	fseek(f, (long long unsigned int)pos1 * sizeof(struct student), SEEK_SET);
     fread(&temp1, sizeof(struct student), 1, f);
@@ -214,7 +214,7 @@ void swap(FILE *f, int pos1, int pos2)
 
 void f_copy(FILE *f, FILE *f_temp)
 {
-	struct student std1;
+	struct student std1 = { 0 };
 	int n = getlen(f_temp);
 	fseek(f, 0, SEEK_SET);
 	fseek(f_temp, 0, SEEK_SET);
