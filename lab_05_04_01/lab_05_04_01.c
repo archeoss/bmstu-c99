@@ -105,17 +105,27 @@ int sort_me(FILE *f)
 	if (n < 1)
 		error_code = INCORRECT_DATA;
 	else
-		while (flag == 1)
-		{	
-			for (int k = 0; k < n; k++)
-			{			
-				while (i < n - 1)
+	{
+		int flag = 1, i = 0;
+		while (i < n && flag == 1)
+		{
+			flag = 0;
+			for (int j = 0; j < n - i - 1; j++)
+			{
+				fread(&std1, sizeof(struct student), 1, f);
+				fread(&std2, sizeof(struct student), 1, f);
+				i++;
+				rc = compare_wrds(std1.surname, std2.surname);
+				if (rc == -1)
 				{
-					flag = 0;
-					fread(&std1, sizeof(struct student), 1, f);
-					fread(&std2, sizeof(struct student), 1, f);
-					i++;
-					rc = compare_wrds(std1.surname, std2.surname);
+					flag = 1;
+					temp = std1;
+					std1 = std2;
+					std2 = temp;
+				}
+				if (rc == 0)
+				{
+					rc = compare_wrds(std1.name, std2.name);
 					if (rc == -1)
 					{
 						flag = 1;
@@ -123,27 +133,16 @@ int sort_me(FILE *f)
 						std1 = std2;
 						std2 = temp;
 					}
-					if (rc == 0)
-					{
-						rc = compare_wrds(std1.name, std2.name);
-						if (rc == -1)
-						{
-							flag = 1;
-							temp = std1;
-							std1 = std2;
-							std2 = temp;
-						}
-					}
-					fseek(f, (i - 1) * (long int)sizeof(struct student), SEEK_SET);
-					fwrite(&std1, sizeof(struct student), 1, f);
-					fwrite(&std2, sizeof(struct student), 1, f);
-					fseek(f, (i) * (long int)sizeof(struct student), SEEK_SET);
 				}
-				rewind(f);
-				i = 0;
+				fseek(f, (i - 1) * (long int)sizeof(struct student), SEEK_SET);
+				fwrite(&std1, sizeof(struct student), 1, f);
+				fwrite(&std2, sizeof(struct student), 1, f);
+				fseek(f, (i) * (long int)sizeof(struct student), SEEK_SET);
 			}
-			j++;
+			fseek(f, 0, SEEK_SET);
+			i = 0;
 		}
+	}
 	return error_code;
 }
 
@@ -155,7 +154,7 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 	fseek(f, 0, SEEK_END);
 	int n = ftell(f) / (long int)sizeof(struct student);   
 	fseek(f, 0, SEEK_SET);
-	if (n < 2)
+	if (n < 1)
 		error_code = INCORRECT_DATA;
 	else	
 		for (int k = 0; k < n; k++)
@@ -165,6 +164,11 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 			if (rc == 1)
 				fwrite(&std1, sizeof(struct student), 1, f_out);
 		}
+	fseek(f_out, 0, SEEK_END);
+	n = ftell(f_out) / (long int)sizeof(struct student);   
+	fseek(f_out, 0, SEEK_SET);
+	if (n < 1)
+		error_code = INCORRECT_DATA;
 	return error_code;
 }
 
@@ -177,7 +181,7 @@ int delete_under_avg(FILE *f, FILE *f_temp)
 	fseek(f, 0, SEEK_END);
 	int n = ftell(f) / (long int)sizeof(struct student);   
 	fseek(f, 0, SEEK_SET);
-	if (n < 2)
+	if (n < 1)
 		error_code = INCORRECT_DATA;
 	else	
 	{
