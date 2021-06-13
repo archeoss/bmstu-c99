@@ -192,17 +192,16 @@ int delete_under_avg(FILE *f, FILE *f_temp, char *key)
 
 void swap(FILE *f, int pos1, int pos2)
 {
-    struct student temp1 = { 0 };
+	struct student temp1 = { 0 };
 	struct student temp2 = { 0 };
-	
 	fseek(f, (long long unsigned int)pos1 * sizeof(struct student), SEEK_SET);
-    fread(&temp1, sizeof(struct student), 1, f);
+	fread(&temp1, sizeof(struct student), 1, f);
 	fseek(f, (long long unsigned int)pos2 * sizeof(struct student), SEEK_SET);
-    fread(&temp2, sizeof(struct student), 1, f);
+	fread(&temp2, sizeof(struct student), 1, f);
 	fseek(f, (long long unsigned int)pos1 * sizeof(struct student), SEEK_SET);
-    fwrite(&temp2, sizeof(struct student), 1, f);
+	fwrite(&temp2, sizeof(struct student), 1, f);
 	fseek(f, (long long unsigned int)pos2 * sizeof(struct student), SEEK_SET);
-    fwrite(&temp1, sizeof(struct student), 1, f);
+	fwrite(&temp1, sizeof(struct student), 1, f);
 	fseek(f, 0, SEEK_SET);
 }
 

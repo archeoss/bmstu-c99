@@ -16,9 +16,9 @@ int getlen(FILE *f)
 	if (ft % (long long int)sizeof(struct student) == 0)
 	{
 		n = (ft / (long long int)sizeof(struct student));
-    }
+	}
 	else
-        n = 0;
+		n = 0;
 	fseek(f, 0, SEEK_SET);
 	return n;
 }
@@ -40,8 +40,8 @@ void print_f(FILE *f)
 struct student get_student(FILE *f, int pos)
 {
 	fseek(f, pos * sizeof(struct student), SEEK_SET);
-    struct student std = { 0 };
-    fread(&std, sizeof(struct student), 1, f);
-    fseek(f, 0, SEEK_SET);
-    return std;
+	struct student std = { 0 };
+	fread(&std, sizeof(struct student), 1, f);
+	fseek(f, 0, SEEK_SET);
+	return std;
 }
