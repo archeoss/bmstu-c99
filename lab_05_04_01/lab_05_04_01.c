@@ -201,7 +201,7 @@ int delete_under_avg(FILE *f, FILE *f_temp)
 void f_copy(FILE *f, FILE *f_temp)
 {
 	struct student std1;
-	int n = getlen(f);
+	int n = getlen(f_temp);
 	for (int k = 0; k < n; k++)
 	{
 		fread(&std1, sizeof(struct student), 1, f_temp);
