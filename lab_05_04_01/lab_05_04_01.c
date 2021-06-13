@@ -171,7 +171,7 @@ int delete_under_avg(char *fname)
 			fread(&std, sizeof(student), 1, f);
 			double std_avg = get_avg_of_std(&std);
 			if (std_avg >= avg)
-			fwrite(&std, sizeof(student), 1, temp);
+				fwrite(&std, sizeof(student), 1, temp);
 		}
 		fclose(f);
 		f = fopen(fname, "wb");
@@ -204,7 +204,7 @@ double get_avg_of_std(student *std)
 	double sum;
 	for (int i = 0; i < N; i++)
 		sum += (std->marks[i]);
-	return sum;
+	return sum / N;
 }
 
 

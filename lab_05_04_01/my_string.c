@@ -16,14 +16,14 @@ int getlen(FILE *f)
 {
 	int n;
 	fseek(f, 0, SEEK_END);
-	long long int ft = ftell(f);
+	int ft = ftell(f);
+	fseek(f, 0, SEEK_SET);
 	if (ft % sizeof(student) == 0)
 	{
 		n = (ft / sizeof(student));
     }
 	else
         n = 0;
-	fseek(f, 0, SEEK_SET);
 	return n;
 }
 
