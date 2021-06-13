@@ -26,7 +26,7 @@ int main(int args, char **keys)
 {
 	int error_code = NO_ERRORS;
 	FILE *f;
-	//FILE *f_out;
+	FILE *f_out;
 	char known_keys[3][3] = { "sb", "fb", "db" };
 	if (args > 5 || args < 3)
 		error_code = UNKOWN_KEY;
@@ -49,28 +49,28 @@ int main(int args, char **keys)
 				fclose(f);
 			}
 		}
-		// else if (args == 5 && strcmp(keys[1], known_keys[1]) == 0)
-		// {
-			// f = fopen(keys[2], "rb");
-			// f_out = fopen(keys[3], "wb");
-			// if (f == NULL)
-			// {		
-				// error_code = INPUT_ERROR;
-			// }
-			// else if(getlen(f) < 1)
-				// error_code = INCORRECT_DATA;
-			// else
-			// {
-				// error_code = get_students_by_substr(f, f_out, keys[4]);
-				// fclose(f);
-			// }
-			// fclose(f_out);
-		// }
-		// else if (args == 3 && strcmp(keys[1], known_keys[2]) == 0)
-		// {
-			// error_code = delete_under_avg(keys[2]);
+		else if (args == 5 && strcmp(keys[1], known_keys[1]) == 0)
+		{
+			f = fopen(keys[2], "rb");
+			f_out = fopen(keys[3], "wb");
+			if (f == NULL)
+			{		
+				error_code = INPUT_ERROR;
+			}
+			else if(getlen(f) < 1)
+				error_code = INCORRECT_DATA;
+			else
+			{
+				error_code = get_students_by_substr(f, f_out, keys[4]);
+				fclose(f);
+			}
+			fclose(f_out);
+		}
+		else if (args == 3 && strcmp(keys[1], known_keys[2]) == 0)
+		{
+			error_code = delete_under_avg(keys[2]);
 			
-		// }
+		}
 		else
 			error_code = UNKOWN_KEY;
 	}
@@ -95,7 +95,7 @@ int sort_me(FILE *f)
 		while (i < n && flag == 1)
 		{
 			flag = 0;
-			for (int j = 0; j < n - i - 1; j++)
+			for (int j = 0; j < n - 1; j++)
 			{
 				rc = strcmp(get_student(f, j + 1).surname, get_student(f, j).surname);
 				if (rc < 0)
@@ -149,10 +149,10 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 int delete_under_avg(char *name)
 {
 	int error_code = NO_ERRORS;
-	FILE *f = fopen(name, "wb");
+	FILE *f = fopen(name, "rb");
 	if (f == NULL)
 		error_code = INPUT_ERROR;
-	if (getlen(f) < 1)
+	else if (getlen(f) < 1)
 		error_code = INCORRECT_DATA;
 	else
 	{
@@ -165,6 +165,7 @@ int delete_under_avg(char *name)
 			fread(&std, sizeof(student), 1, f);
 			avg_s += std.marks[0] + std.marks[1] + std.marks[2] + std.marks[3];
 		}
+		fseek(f, 0, SEEK_SET);
 		avg_s = avg_s / n;
 		for (int i = 0; i < n; i++)
 		{
