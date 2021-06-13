@@ -113,7 +113,7 @@ int sort_me(FILE *f)
 				fread(&std2, sizeof(struct student), 1, f);
 				i++;
 				rc = strcmp(std1.surname, std2.surname);
-				if (rc < 0)
+				if (rc > 0)
 				{
 					flag = 1;
 					temp = std1;
@@ -124,7 +124,7 @@ int sort_me(FILE *f)
 				if (rc == 0)
 				{
 					rc = strcmp(std1.name, std2.name);
-					if (rc == -1)
+					if (rc > 0)
 					{
 						flag = 1;
 						temp = std1;
@@ -142,7 +142,7 @@ int sort_me(FILE *f)
 				}
 			}
 			fseek(f, 0, SEEK_SET);
-			i = 0;
+			i++;
 		}
 	}
 	return error_code;
