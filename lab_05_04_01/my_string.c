@@ -29,31 +29,31 @@ int getlen(FILE *f)
 
 void print_f(FILE *f)
 {
-    int n = getlen(f);
-    for (int i = 0; i < n; i++)
-    {
-        student std = { 0 };
-        fread(&std, sizeof(student), 1, f);
-        print_std(&std);
-    }
+	int n = getlen(f);
+	for (int i = 0; i < n; i++)
+	{
+		student std = { 0 };
+		fread(&std, sizeof(student), 1, f);
+		print_std(&std);
+	}
 }
 
 void print_std(student *std)
 {
-    printf("%s\n", std->surname);
-    printf("%s\n", std->name);
+	printf("%s\n", std->surname);
+	printf("%s\n", std->name);
 	for (int i = 0; i < N; i++)
-    {
+	{
 		printf("%d ", std->marks[i]);
 	}
-    printf("\n");
+	printf("\n");
 }
 
 student get_student(FILE *f, int pos)
 {
 	fseek(f, pos * sizeof(student), SEEK_SET);
-    student std = { 0 };
-    fread(&std, sizeof(student), 1, f);
-    fseek(f, 0, SEEK_SET);
-    return std;
+	student std = { 0 };
+	fread(&std, sizeof(student), 1, f);
+	fseek(f, 0, SEEK_SET);
+	return std;
 }
