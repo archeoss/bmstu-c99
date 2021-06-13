@@ -15,4 +15,5 @@ struct student
 int getlen(FILE *f);
 void print_f(FILE *f);
 struct student get_student(FILE *f, int pos);
+
 #endif
