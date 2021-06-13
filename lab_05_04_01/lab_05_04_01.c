@@ -15,9 +15,9 @@
 
 #include "my_string.h"
 
-int sort_me(FILE *f);
+int sort_me(char *name);
 int get_students_by_substr(FILE *f, FILE *f_out, char *);
-int delete_under_avg(FILE *f, FILE *f_temp);
+int delete_under_avg(char *name);
 void f_copy(FILE *f, FILE *f_temp);
 void swap(FILE *f, int pos1, int pos2);
 
@@ -33,18 +33,7 @@ int main(int args, char **keys)
 	{
 		if (args == 3 && strcmp(keys[1], known_keys[0]) == 0)
 		{
-			f = fopen(keys[2], "r+b");
-			if (f == NULL)
-			{		
-				error_code = INPUT_ERROR;
-			}
-			else
-			{
-				error_code = sort_me(f);
-				if (error_code == NO_ERRORS)
-					print_f(f);
-			}
-			fclose(f);
+			error_code = sort_me(keys[1]);
 		}
 		else if (args == 5 && strcmp(keys[1], known_keys[1]) == 0)
 		{
@@ -63,23 +52,7 @@ int main(int args, char **keys)
 		}
 		else if (args == 3 && strcmp(keys[1], known_keys[2]) == 0)
 		{
-			f = fopen(keys[2], "rb");
-			if (f == NULL)
-			{		
-				error_code = INPUT_ERROR;
-			}
-			else
-			{
-				char tmp_f[] = { "temp.bin" };
-				FILE *f_temp = fopen(tmp_f, "w+b");
-				error_code = delete_under_avg(f, f_temp);
-				fclose(f);
-				f = fopen(keys[2], "wb");
-				f_copy(f, f_temp);
-				fclose(f_temp);
-				remove(tmp_f);
-			}			
-			fclose(f);
+			error_code = delete_under_avg(keys[1]);
 		}
 		else
 			error_code = UNKOWN_KEY;
@@ -91,13 +64,18 @@ int main(int args, char **keys)
 	return error_code;
 }
 
-int sort_me(FILE *f)
+int sort_me(char *name)
 {
 	int error_code = NO_ERRORS;
 	int rc;
 	int time_to_swap = 0;
+	FILE *f = fopen(name, "r+b");
 	int n = getlen(f);
-	if (n < 1)
+	if (f == NULL)
+	{		
+		error_code = INPUT_ERROR;
+	}
+	else if (n < 1)
 		error_code = INCORRECT_DATA;
 	else
 	{
@@ -129,7 +107,9 @@ int sort_me(FILE *f)
 			}
 			i++;
 		}
+		print_f(f);
 	}
+	fclose(f);
 	return error_code;
 }
 
@@ -153,17 +133,25 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 	return error_code;
 }
 
-int delete_under_avg(FILE *f, FILE *f_temp)
+int delete_under_avg(char *name)
 {
 	int error_code = NO_ERRORS;
 	struct student std1 = { 0 };
 	float avg = 0;
 	float mark_t;
+	FILE *f = fopen(name, "rb");
+	
 	int n = getlen(f);
-	if (n < 1)
+	if (f == NULL)
+	{		
+		error_code = INPUT_ERROR;
+	}
+	else if (n < 1)
 		error_code = INCORRECT_DATA;
 	else	
 	{
+		char tmp_f[] = { "temp.bin" };
+		FILE *f_temp = fopen(tmp_f, "w+b");
 		for (int k = 0; k < n; k++)
 		{
 			fread(&std1, sizeof(struct student), 1, f);
@@ -183,10 +171,18 @@ int delete_under_avg(FILE *f, FILE *f_temp)
 			}
 			mark_t = 0;
 		}
+		fclose(f);
+		f = fopen(name, "wb");
+		fseek(f, 0, SEEK_SET);
+		fseek(f_temp, 0, SEEK_SET);
+		n = getlen(f_temp);
+		f_copy(f, f_temp);
+		fclose(f);
+		fclose(f_temp);
+		remove(tmp_f);
+		if (n < 1)
+			error_code = INCORRECT_DATA;
 	}
-	n = getlen(f_temp);
-	if (n < 1)
-		error_code = INCORRECT_DATA;
 	return error_code;
 }
 
@@ -209,8 +205,6 @@ void swap(FILE *f, int pos1, int pos2)
 void f_copy(FILE *f, FILE *f_temp)
 {
 	int n = getlen(f_temp);
-	fseek(f, 0, SEEK_SET);
-	fseek(f_temp, 0, SEEK_SET);
 	for (int k = 0; k < n; k++)
 	{
 		struct student std1 = { 0 };
