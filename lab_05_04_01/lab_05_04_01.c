@@ -72,10 +72,13 @@ int main(int args, char **keys)
 			{
 				char tmp_f[] = { "temp.bin" };
 				FILE *f_temp = fopen(tmp_f, "w+b");
-				delete_under_avg(f, f_temp);
-				fclose(f);
-				f = fopen(keys[2], "wb");
-				f_copy(f, f_temp);
+				error_code = delete_under_avg(f, f_temp);
+				if (error_code == NO_ERRORS)
+				{
+					fclose(f);
+					f = fopen(keys[2], "wb");
+					f_copy(f, f_temp);
+				}
 				fclose(f_temp);
 				remove(tmp_f);
 			}			

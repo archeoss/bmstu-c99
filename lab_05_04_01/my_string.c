@@ -12,9 +12,10 @@ int getlen(FILE *f)
 {
 	int n;
 	fseek(f, 0, SEEK_END);
-	if (ftell(f) % (long int)sizeof(struct student) == 0)
+	long long int ft = ftell(f);
+	if (ft % (long long int)sizeof(struct student) == 0)
 	{
-		n = (ftell(f)) / (long int)sizeof(struct student);
+		n = (ft / (long long int)sizeof(struct student));
     }
 	else
         n = 0;
