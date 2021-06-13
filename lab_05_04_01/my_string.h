@@ -10,7 +10,7 @@ struct student
 {
 	char surname[SURNAME_LEN + 1];
 	char name[NAME_LEN + 1];
-	uint32_t marks[N];
+	unsigned int marks[N];
 };
 int getlen(FILE *f);
 void print_f(FILE *f);

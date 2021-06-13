@@ -180,12 +180,11 @@ int delete_under_avg(FILE *f, char *key)
 		fclose(f);
 		f = fopen(key, "wb");
 		f_copy(f, f_temp);
-			
-		fclose(f_temp);
-		remove("temp.bin");
 		n = getlen(f_temp);
 		if (n < 1)
 			error_code = INCORRECT_DATA;
+		fclose(f_temp);
+		remove("temp.bin");
 	}
 	return error_code;
 }
