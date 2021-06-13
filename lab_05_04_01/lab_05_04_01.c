@@ -111,9 +111,8 @@ int sort_me(FILE *f)
 			{
 				fread(&std1, sizeof(struct student), 1, f);
 				fread(&std2, sizeof(struct student), 1, f);
-				i++;
-				rc = strcmp(std1.surname, std2.surname);
-				if (rc > 0)
+				rc = strcmp(std2.surname, std1.surname);
+				if (rc < 0)
 				{
 					flag = 1;
 					temp = std1;
@@ -123,7 +122,7 @@ int sort_me(FILE *f)
 				}
 				if (rc == 0)
 				{
-					rc = strcmp(std1.name, std2.name);
+					rc = strcmp(std2.name, std1.name);
 					if (rc > 0)
 					{
 						flag = 1;
