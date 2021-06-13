@@ -66,11 +66,11 @@ int main(int args, char **keys)
 			}
 			fclose(f_out);
 		}
-		else if (args == 3 && strcmp(keys[1], known_keys[2]) == 0)
-		{
-			error_code = delete_under_avg(keys[2]);
+		// else if (args == 3 && strcmp(keys[1], known_keys[2]) == 0)
+		// {
+			// error_code = delete_under_avg(keys[2]);
 			
-		}
+		// }
 		else
 			error_code = UNKOWN_KEY;
 	}
