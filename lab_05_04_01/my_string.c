@@ -30,9 +30,9 @@ void print_f(FILE *f)
 	{
 		struct student std = { 0 };
 		fread(&std, sizeof(struct student), 1, f);
-		printf("%s\n%s\n", std->surname, std->name);
+		printf("%s\n%s\n", std.surname, std.name);
 		for (int j = 0; j < N; j++)
-			printf("%d ", std->marks[j]);
+			printf("%d ", std.marks[j]);
 		printf("\n");
 	}
 }

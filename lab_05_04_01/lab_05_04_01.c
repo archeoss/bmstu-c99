@@ -138,13 +138,13 @@ int sort_me(FILE *f)
 int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 {
 	int error_code = NO_ERRORS;
-	struct student std1 = { 0 };
 	int n = getlen(f);
 	if (n < 1)
 		error_code = INCORRECT_DATA;
 	else	
 		for (int k = 0; k < n; k++)
 		{
+			struct student std1 = { 0 };
 			fread(&std1, sizeof(struct student), 1, f);
 			if (strstr(std1.surname, substr) == std1.surname)
                 fwrite(&std1, sizeof(struct student), 1, f_out);
@@ -158,7 +158,6 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 int delete_under_avg(FILE *f, FILE *f_temp)
 {
 	int error_code = NO_ERRORS;
-	struct student std1 = { 0 };
 	float avg = 0;
 	float mark_t;
 	int n = getlen(f);
@@ -168,6 +167,7 @@ int delete_under_avg(FILE *f, FILE *f_temp)
 	{
 		for (int k = 0; k < n; k++)
 		{
+			struct student std1 = { 0 };
 			fread(&std1, sizeof(struct student), 1, f);
 			for (int k = 0; k < N; k++)
 				avg += std1.marks[k];
@@ -176,6 +176,7 @@ int delete_under_avg(FILE *f, FILE *f_temp)
 		fseek(f, 0, SEEK_SET);
 		for (int k = 0; k < n; k++)
 		{
+			struct student std1 = { 0 };
 			fread(&std1, sizeof(struct student), 1, f);
 			for (int j = 0; j < N; j++)
 				mark_t += std1.marks[j];
