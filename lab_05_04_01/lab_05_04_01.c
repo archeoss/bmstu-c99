@@ -100,6 +100,7 @@ int sort_me(FILE *f)
 			flag = 0;
 			for (int j = 0; j < n - i - 1; j++)
 			{
+				time_to_swap = 0;
 				rc = strcmp(get_student(f, j + 1).surname, get_student(f, j).surname);
 				if (rc < 0)
 				{
