@@ -94,8 +94,6 @@ int main(int args, char **keys)
 int sort_me(FILE *f)
 {
 	int error_code = NO_ERRORS;
-	struct student std1 = { 0 };
-	struct student std2 = { 0 };
 	int rc;
 	int time_to_swap = 0;
 	int n = getlen(f);
@@ -109,10 +107,7 @@ int sort_me(FILE *f)
 			flag = 0;
 			for (int j = 0; j < n - i - 1; j++)
 			{
-				fseek(f, (j) * (long int)sizeof(struct student), SEEK_SET);
-				fread(&std1, sizeof(struct student), 1, f);
-				fread(&std2, sizeof(struct student), 1, f);
-				rc = strcmp(std2.surname, std1.surname);
+				rc = strcmp(get_student(f, j + 1).surname, get_student(f, j).surname);
 				if (rc < 0)
 				{
 					flag = 1;
@@ -120,7 +115,7 @@ int sort_me(FILE *f)
 				}
 				if (rc == 0)
 				{
-					rc = strcmp(std2.name, std1.name);
+					rc = strcmp(get_student(f, j + 1).name, get_student(f, j).name);
 					if (rc < 0)
 					{
 						flag = 1;

@@ -36,3 +36,12 @@ void print_f(FILE *f)
 		printf("\n");
 	}
 }
+
+struct student get_student(FILE *f, int pos)
+{
+	fseek(f, pos * sizeof(struct student), SEEK_SET);
+    struct student std = { 0 };
+    fread(&std, sizeof(struct student), 1, f);
+    fseek(f, 0, SEEK_SET);
+    return std;
+}
