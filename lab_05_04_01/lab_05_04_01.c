@@ -135,6 +135,7 @@ int sort_me(FILE *f)
 				}
 				if (time_to_swap == 1)
 				{
+					fseek(f, (j) * (long int)sizeof(struct student), SEEK_SET);
 					fwrite(&std1, sizeof(struct student), 1, f);
 					fwrite(&std2, sizeof(struct student), 1, f);
 				}
