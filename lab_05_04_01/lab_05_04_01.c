@@ -19,7 +19,7 @@
 
 int sort_me(FILE *f);
 int get_students_by_substr(FILE *f, FILE *f_out, char *);
-int delete_under_avg(FILE *f, int *pos, int *n_pos);
+void delete_under_avg(FILE *f, int *pos, int *n_pos);
 void f_copy(FILE *f, FILE *f_temp);
 void swap(FILE *f, int pos1, int pos2);
 double avg_of_std(student *std);
