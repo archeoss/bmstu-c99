@@ -19,6 +19,7 @@ int sort_me(FILE *f);
 int get_students_by_substr(FILE *f, FILE *f_out, char *);
 int delete_under_avg(FILE *f, FILE *f_temp);
 void f_copy(FILE *f, FILE *f_temp);
+void swap(FILE *f, int pos1, int pos2);
 
 int main(int args, char **keys)
 {
@@ -95,7 +96,6 @@ int sort_me(FILE *f)
 	int error_code = NO_ERRORS;
 	struct student std1;
 	struct student std2;
-	struct student temp;
 	int rc;
 	int time_to_swap = 0;
 	int n = getlen(f);
@@ -116,9 +116,6 @@ int sort_me(FILE *f)
 				if (rc < 0)
 				{
 					flag = 1;
-					temp = std1;
-					std1 = std2;
-					std2 = temp;
 					time_to_swap = 1;
 				}
 				if (rc == 0)
@@ -127,17 +124,12 @@ int sort_me(FILE *f)
 					if (rc > 0)
 					{
 						flag = 1;
-						temp = std1;
-						std1 = std2;
-						std2 = temp;
 						time_to_swap = 1;
 					}
 				}
 				if (time_to_swap == 1)
 				{
-					fseek(f, (j) * (long int)sizeof(struct student), SEEK_SET);
-					fwrite(&std1, sizeof(struct student), 1, f);
-					fwrite(&std2, sizeof(struct student), 1, f);
+					swap(f, j, j + 1);
 				}
 			}
 			fseek(f, 0, SEEK_SET);
@@ -151,7 +143,6 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 {
 	int error_code = NO_ERRORS;
 	struct student std1;
-	int rc;
 	int n = getlen(f);
 	if (n < 1)
 		error_code = INCORRECT_DATA;
@@ -159,9 +150,8 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 		for (int k = 0; k < n; k++)
 		{
 			fread(&std1, sizeof(struct student), 1, f);
-			rc = find_substr(std1.surname, substr);
-			if (rc == 1)
-				fwrite(&std1, sizeof(struct student), 1, f_out);
+			if (strstr(std1.surname, substr) == std1.surname)
+                fwrite(&std1, sizeof(struct student), 1, f_out);
 		}
 	n = getlen(f_out);
 	if (n < 1)
@@ -201,6 +191,22 @@ int delete_under_avg(FILE *f, FILE *f_temp)
 		}
 	}
 	return error_code;
+}
+
+void swap(FILE *f, int pos1, int pos2)
+{
+    struct student temp1;
+	struct student temp2;
+	
+	fseek(f, (long long unsigned int)pos1 * sizeof(struct student), SEEK_SET);
+    fread(&temp1, sizeof(struct student), 1, f);
+	fseek(f, (long long unsigned int)pos2 * sizeof(struct student), SEEK_SET);
+    fread(&temp2, sizeof(struct student), 1, f);
+	fseek(f, (long long unsigned int)pos1 * sizeof(struct student), SEEK_SET);
+    fwrite(&temp2, sizeof(struct student), 1, f);
+	fseek(f, (long long unsigned int)pos2 * sizeof(struct student), SEEK_SET);
+    fwrite(&temp1, sizeof(struct student), 1, f);
+	fseek(f, 0, SEEK_SET);
 }
 
 void f_copy(FILE *f, FILE *f_temp)

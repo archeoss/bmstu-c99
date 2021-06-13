@@ -35,29 +35,3 @@ void print_f(FILE *f)
 		printf("\n");
 	}
 }
-
-int find_substr(char *str1, char *substr)
-{
-	char *p_s; 
-	char *p_k;
-	p_s = str1;
-	p_k = substr;
-	int i = 0;
-	int result = 0;
-	while (*p_k != '\0' && *p_s != '\0' && result == 0)
-	{
-		if (*p_k != *p_s)
-			result = -1;
-		p_k++;
-		i++;
-		p_s++;
-	}
-	if (result == 0)
-	{
-		if (*p_s == '\0' && *p_s != *p_k)
-			result = -1;
-		else
-			result = 1;
-	}
-	return result;
-}
