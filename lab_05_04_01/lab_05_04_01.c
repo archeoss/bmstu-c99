@@ -109,6 +109,7 @@ int sort_me(FILE *f)
 			flag = 0;
 			for (int j = 0; j < n - i - 1; j++)
 			{
+				fseek(f, (j) * (long int)sizeof(struct student), SEEK_SET);
 				fread(&std1, sizeof(struct student), 1, f);
 				fread(&std2, sizeof(struct student), 1, f);
 				rc = strcmp(std2.surname, std1.surname);
@@ -134,10 +135,8 @@ int sort_me(FILE *f)
 				}
 				if (time_to_swap == 1)
 				{
-					fseek(f, (j - 1) * (long int)sizeof(struct student), SEEK_SET);
 					fwrite(&std1, sizeof(struct student), 1, f);
 					fwrite(&std2, sizeof(struct student), 1, f);
-					fseek(f, (j) * (long int)sizeof(struct student), SEEK_SET);
 				}
 			}
 			fseek(f, 0, SEEK_SET);
