@@ -8,32 +8,6 @@
 
 #include "my_string.h"
 
-int compare_wrds(char *str1, char *str2)
-{
-	char *p_s; 
-	char *p_k;
-	p_s = str1;
-	p_k = str2;
-	int result = 0;
-	while (*p_k != '\0' && *p_s != '\0' && result == 0)
-	{
-		if (*p_k < *p_s)
-			result = -1;
-		if (*p_k > *p_s)
-			result = 1;
-		p_k++;
-		p_s++;
-	}
-	if (result == 0)
-	{
-		if (*p_s == '\0' && *p_s != *p_k)
-			result = 1;
-		else if (*p_k == '\0' && *p_s != *p_k)
-			result = -1;
-	}
-	return result;
-}
-
 int getlen(FILE *f)
 {
 	int n;

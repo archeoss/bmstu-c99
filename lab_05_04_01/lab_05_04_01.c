@@ -97,6 +97,7 @@ int sort_me(FILE *f)
 	struct student std2;
 	struct student temp;
 	int rc;
+	int time_to_swap = 0;
 	int n = getlen(f);
 	if (n < 1)
 		error_code = INCORRECT_DATA;
@@ -111,29 +112,34 @@ int sort_me(FILE *f)
 				fread(&std1, sizeof(struct student), 1, f);
 				fread(&std2, sizeof(struct student), 1, f);
 				i++;
-				rc = compare_wrds(std1.surname, std2.surname);
-				if (rc == -1)
+				rc = strcmp(std1.surname, std2.surname);
+				if (rc < 0)
 				{
 					flag = 1;
 					temp = std1;
 					std1 = std2;
 					std2 = temp;
+					time_to_swap = 1;
 				}
 				if (rc == 0)
 				{
-					rc = compare_wrds(std1.name, std2.name);
+					rc = strcmp(std1.name, std2.name);
 					if (rc == -1)
 					{
 						flag = 1;
 						temp = std1;
 						std1 = std2;
 						std2 = temp;
+						time_to_swap = 1;
 					}
 				}
-				fseek(f, (i - 1) * (long int)sizeof(struct student), SEEK_SET);
-				fwrite(&std1, sizeof(struct student), 1, f);
-				fwrite(&std2, sizeof(struct student), 1, f);
-				fseek(f, (i) * (long int)sizeof(struct student), SEEK_SET);
+				if (time_to_swap = 1)
+				{
+					fseek(f, (j - 1) * (long int)sizeof(struct student), SEEK_SET);
+					fwrite(&std1, sizeof(struct student), 1, f);
+					fwrite(&std2, sizeof(struct student), 1, f);
+					fseek(f, (j) * (long int)sizeof(struct student), SEEK_SET);
+				}
 			}
 			fseek(f, 0, SEEK_SET);
 			i = 0;
