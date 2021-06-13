@@ -13,14 +13,18 @@
 #define NAME_LEN 10
 #define N 4
 
+#define BUF_LEN 256
+
 #include "my_string.h"
 
 int sort_me(FILE *f);
 int get_students_by_substr(FILE *f, FILE *f_out, char *);
-int delete_under_avg(char *name);
+int delete_under_avg(FILE *f, int *pos, int *n_pos);
 void f_copy(FILE *f, FILE *f_temp);
 void swap(FILE *f, int pos1, int pos2);
 double avg_of_std(student *std);
+void f_del(char *fname, int *pos, int n_pos);
+float get_sum(student *std);
 
 int main(int args, char **keys)
 {
@@ -68,8 +72,26 @@ int main(int args, char **keys)
 		}
 		else if (args == 3 && strcmp(keys[1], known_keys[2]) == 0)
 		{
-			error_code = delete_under_avg(keys[2]);
-			
+			f = fopen(keys[2], "rb");
+			if (f == NULL)
+			{		
+				error_code = INPUT_ERROR;
+			}
+			else if(getlen(f) < 1)
+			{
+				error_code = INCORRECT_DATA;
+				fclose(f);
+			}
+			else
+			{
+				int buff = BUF_LEN;
+				int pos_buff[BUF_LEN];
+				for (int i = 0; i < BUF_LEN; i++) 
+					pos_buff[i] = i;
+				delete_under_avg(f, pos_buff, &buff);
+				f_del(keys[2], pos_buff, buff);
+				fclose(f);
+			}
 		}
 		else
 			error_code = UNKOWN_KEY;
@@ -146,47 +168,63 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 	return error_code;
 }
 
-int delete_under_avg(char *name)
+void delete_under_avg(FILE *f, int *pos, int *n_pos)
 {
-	int error_code = NO_ERRORS;
-	FILE *f = fopen(name, "rb");
-	if (f == NULL)
-		error_code = INPUT_ERROR;
-	else if (getlen(f) < 1)
-		error_code = INCORRECT_DATA;
-	else
-	{
-		FILE *f_temp = fopen("temp.bin", "w+b");
-		int n = getlen(f);
-		double avg_s = 0;
-		for (int i = 0; i < n; i++)
-		{
-			student std = { 0 };
-			fread(&std, sizeof(student), 1, f);
-			avg_s += std.marks[0] + std.marks[1] + std.marks[2] + std.marks[3];
-		}
-		fseek(f, 0, SEEK_SET);
-		avg_s = avg_s / n;
-		for (int i = 0; i < n; i++)
-		{
-			student std = { 0 };
-			fread(&std, sizeof(student), 1, f);
-			double cur_avg = avg_of_std(&std);
-			if (cur_avg >= avg_s)
-				fwrite(&std, sizeof(student), 1, f_temp);
-		}
-		fclose(f);
-		f = fopen(name, "wb");
-		if (getlen(f_temp) < 1)
-			error_code = INCORRECT_DATA;
-		f_copy(f, f_temp);
-		fclose(f_temp);
-		remove("temp.bin");
-		fclose(f);
-	}
-	return error_code;
+	float avg = 0;
+    int n = getlen(f);
+    for (int i = 0; i < n; i++)
+    {
+        student std = { 0 };
+		fseek(f, sizeof(student) * i, SEEK_SET);
+		fread(&std, sizeof(student), 1, f);
+        avg += get_sum(&std);
+    }
+    avg = avg / n;
+    
+    int cur_pos = 0;
+    for (int i = 0; i < n; i++)
+    {
+        student std = { 0 };
+		fseek(f, sizeof(student) * i, SEEK_SET);
+		fread(&std, sizeof(student), 1, f);
+        float mark = get_sum(&std);
+        if (mark < avg && *n_pos > cur_pos)
+        {
+            pos[cur_pos] = i;
+            cur_pos += 1;
+        }
+    }
+    *n_pos = cur_pos;
 }
 
+void f_del(char *fname, int *pos, int n_pos)
+{
+    FILE *f = fopen(fname, "rb");
+    FILE *temp = tmpfile();
+    student std = { 0 };
+    int n_dels = 0;
+    int n = getlen(f);
+    for (int i = 0; i < n; i++)
+    {
+        if (n_dels < n_pos && pos[n_dels] == i)
+            n_dels += 1;
+        else
+        {
+            std = get_student(f, i);
+			fseek(f, sizeof(student) * (i - n_dels), SEEK_SET);
+			fwrite(&std, sizeof(student), 1, f);
+        }
+    }
+
+    fclose(f);
+    f = fopen(fname, "wb");
+    for (int i = 0; i < getlen(temp); i++)
+    {
+        std = get_student(temp, i);
+		fseek(f, sizeof(student) * i, SEEK_SET);
+        fwrite(&std, sizeof(student), 1, f);
+    }
+}
 
 double avg_of_std(student *std)
 {
@@ -222,4 +260,14 @@ void f_copy(FILE *f, FILE *f_temp)
 		fread(&std1, sizeof(student), 1, f_temp);
 		fwrite(&std1, sizeof(student), 1, f);
 	}
+}
+
+float get_sum(student *std)
+{
+    float sum = 0;
+    for (int i = 0; i < N; i++)
+    {
+        sum += std->marks[i];
+    }
+    return sum;
 }
