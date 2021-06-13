@@ -54,8 +54,10 @@ int main(int args, char **keys)
 			{		
 				error_code = INPUT_ERROR;
 			}
-		//	else
-				//error_code = get_students_by_substr(f, f_out, keys[4]);
+			else
+			{
+				error_code = get_students_by_substr(f, f_out, keys[4]);
+			}
 			fclose(f);
 			fclose(f_out);
 		}
@@ -66,17 +68,17 @@ int main(int args, char **keys)
 			{		
 				error_code = INPUT_ERROR;
 			}
-			else
-			{
-				char tmp_f[] = { "temp.bin" };
-				FILE *f_temp = fopen(tmp_f, "w+b");
-				delete_under_avg(f, f_temp);
-				fclose(f);
-				f = fopen(keys[2], "wb");
-				f_copy(f, f_temp);
-				fclose(f_temp);
-				remove(tmp_f);
-			}			
+			// else
+			// {
+				// char tmp_f[] = { "temp.bin" };
+				// FILE *f_temp = fopen(tmp_f, "w+b");
+				// delete_under_avg(f, f_temp);
+				// fclose(f);
+				// f = fopen(keys[2], "wb");
+				// f_copy(f, f_temp);
+				// fclose(f_temp);
+				// remove(tmp_f);
+			// }			
 			fclose(f);
 		}
 		else
