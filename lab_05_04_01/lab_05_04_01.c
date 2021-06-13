@@ -158,7 +158,7 @@ int delete_under_avg(FILE *f, char *key)
 		error_code = INCORRECT_DATA;
 	else	
 	{
-		//FILE *f_temp = fopen("temp.bin", "wb+");
+		FILE *f_temp = fopen("temp.bin", "wb+");
 		for (int k = 0; k < n; k++)
 		{
 			fread(&std1, sizeof(struct student), 1, f);
@@ -178,22 +178,21 @@ int delete_under_avg(FILE *f, char *key)
 			}
 			mark_t = 0;
 		}
-		// fclose(f);
-		// f = fopen(key, "wb");
-		// int n = getlen(f_temp);
-		// fseek(f, 0, SEEK_SET);
-		// fseek(f_temp, 0, SEEK_SET);
-		// for (int k = 0; k < n; k++)
-		// {
-			// struct student std1 = { 0 };
-			// fread(&std1, sizeof(struct student), 1, f_temp);
-			// fwrite(&std1, sizeof(struct student), 1, f);
-		// }
-		// n = getlen(f_temp);
-		// if (n < 1)
-			// error_code = INCORRECT_DATA;
-		//fclose(f_temp);
-		//remove("temp.bin");
+		f = fopen(key, "wb");
+		n = getlen(f_temp);
+		fseek(f, 0, SEEK_SET);
+		fseek(f_temp, 0, SEEK_SET);
+		for (int k = 0; k < n; k++)
+		{
+			struct student std1 = { 0 };
+			fread(&std1, sizeof(struct student), 1, f_temp);
+			fwrite(&std1, sizeof(struct student), 1, f);
+		}
+		n = getlen(f_temp);
+		if (n < 1)
+			error_code = INCORRECT_DATA;
+		fclose(f_temp);
+		remove("temp.bin");
 	}
 	return error_code;
 }
