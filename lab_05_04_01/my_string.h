@@ -6,15 +6,15 @@
 #define NAME_LEN 10
 #define N 4
 
-typedef struct
+struct student
 {
 	char surname[SURNAME_LEN + 1];
 	char name[NAME_LEN + 1];
 	uint32_t marks[N];
-} student;
+};
 int getlen(FILE *f);
 void print_f(FILE *f);
-student get_student(FILE *f, int pos);
-void print_std(student *std);
+struct student get_student(FILE *f, int pos);
+
 
 #endif

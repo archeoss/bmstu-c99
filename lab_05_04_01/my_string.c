@@ -6,54 +6,42 @@
 #define NAME_LEN 10
 #define N 4
 
-#define NO_ERRORS 0
-#define INPUT_ERROR -1
-#define INCORRECT_DATA -2
-
 #include "my_string.h"
 
 int getlen(FILE *f)
 {
 	int n;
 	fseek(f, 0, SEEK_END);
-	int ft = ftell(f);
-	fseek(f, 0, SEEK_SET);
-	if (ft % sizeof(student) == 0)
+	long long int ft = ftell(f);
+	if (ft % (long long int)sizeof(struct student) == 0)
 	{
-		n = (ft / sizeof(student));
+		n = (ft / (long long int)sizeof(struct student));
     }
 	else
         n = 0;
+	fseek(f, 0, SEEK_SET);
 	return n;
 }
 
 void print_f(FILE *f)
 {
-	int n = getlen(f);
-	for (int i = 0; i < n; i++)
+	int cnt = getlen(f);
+	for (int i = 0; i < cnt; i++)
 	{
-		student std = { 0 };
-		fread(&std, sizeof(student), 1, f);
-		print_std(&std);
+		struct student std = { 0 };
+		fread(&std, sizeof(struct student), 1, f);
+		printf("%s\n%s\n", std.surname, std.name);
+		for (int j = 0; j < N; j++)
+			printf("%d ", std.marks[j]);
+		printf("\n");
 	}
 }
 
-void print_std(student *std)
+struct student get_student(FILE *f, int pos)
 {
-	printf("%s\n", std->surname);
-	printf("%s\n", std->name);
-	for (int i = 0; i < N; i++)
-	{
-		printf("%d ", std->marks[i]);
-	}
-	printf("\n");
-}
-
-student get_student(FILE *f, int pos)
-{
-	fseek(f, pos * sizeof(student), SEEK_SET);
-	student std = { 0 };
-	fread(&std, sizeof(student), 1, f);
-	fseek(f, 0, SEEK_SET);
-	return std;
+	fseek(f, pos * sizeof(struct student), SEEK_SET);
+    struct student std = { 0 };
+    fread(&std, sizeof(struct student), 1, f);
+    fseek(f, 0, SEEK_SET);
+    return std;
 }
