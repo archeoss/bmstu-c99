@@ -96,8 +96,6 @@ int sort_me(FILE *f)
 	struct student std1;
 	struct student std2;
 	struct student temp;
-	int i = 0, j = 0;
-	int flag = 1;
 	int rc;
 	fseek(f, 0, SEEK_END);
 	int n = ftell(f) / (long int)sizeof(struct student);   
