@@ -40,9 +40,9 @@ int main(int args, char **keys)
 			}
 			else
 			{
-				error_code = sort_me(f);
+				//error_code = sort_me(f);
 				if (error_code == NO_ERRORS)
-					print_f(f);
+					//print_f(f);
 			}
 			fclose(f);
 		}
