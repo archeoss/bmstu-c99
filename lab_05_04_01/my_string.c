@@ -25,10 +25,10 @@ int getlen(FILE *f)
 
 void print_f(FILE *f)
 {
-	struct student std = { 0 };
 	int cnt = getlen(f);
 	for (int i = 0; i < cnt; i++)
 	{
+		struct student std = { 0 };
 		fread(&std, sizeof(struct student), 1, f);
 		printf("%s\n%s\n", std.surname, std.name);
 		for (int j = 0; j < N; j++)

@@ -127,7 +127,6 @@ int sort_me(FILE *f)
 					swap(f, j, j + 1);
 				}
 			}
-			fseek(f, 0, SEEK_SET);
 			i++;
 		}
 	}
@@ -209,12 +208,12 @@ void swap(FILE *f, int pos1, int pos2)
 
 void f_copy(FILE *f, FILE *f_temp)
 {
-	struct student std1 = { 0 };
 	int n = getlen(f_temp);
 	fseek(f, 0, SEEK_SET);
 	fseek(f_temp, 0, SEEK_SET);
 	for (int k = 0; k < n; k++)
 	{
+		struct student std1 = { 0 };
 		fread(&std1, sizeof(struct student), 1, f_temp);
 		fwrite(&std1, sizeof(struct student), 1, f);
 	}
