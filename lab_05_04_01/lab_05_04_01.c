@@ -40,9 +40,9 @@ int main(int args, char **keys)
 			}
 			else
 			{
-				//error_code = sort_me(f);
+				error_code = sort_me(f);
 				if (error_code == NO_ERRORS)
-					//print_f(f);
+					print_f(f);
 			}
 			fclose(f);
 		}
@@ -54,10 +54,8 @@ int main(int args, char **keys)
 			{		
 				error_code = INPUT_ERROR;
 			}
-			else
-			{
-				error_code = get_students_by_substr(f, f_out, keys[4]);
-			}
+		//	else
+				//error_code = get_students_by_substr(f, f_out, keys[4]);
 			fclose(f);
 			fclose(f_out);
 		}
