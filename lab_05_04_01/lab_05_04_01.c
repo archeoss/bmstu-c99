@@ -17,7 +17,7 @@
 
 int sort_me(FILE *f);
 int get_students_by_substr(FILE *f, FILE *f_out, char *);
-int delete_under_avg(FILE *f, FILE *f_temp);
+int delete_under_avg(FILE *f, char *key);
 void f_copy(FILE *f, FILE *f_temp);
 void swap(FILE *f, int pos1, int pos2);
 
@@ -70,7 +70,7 @@ int main(int args, char **keys)
 			}
 			else
 			{
-				error_code = delete_under_avg(f, f_temp, keys[2]);
+				error_code = delete_under_avg(f, keys[2]);
 				fclose(f);
 			}
 		}
@@ -146,7 +146,7 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 	return error_code;
 }
 
-int delete_under_avg(FILE *f, FILE *f_temp, char *key)
+int delete_under_avg(FILE *f, char *key)
 {
 	int error_code = NO_ERRORS;
 	struct student std1 = { 0 };
