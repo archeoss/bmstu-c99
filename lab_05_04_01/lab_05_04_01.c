@@ -180,7 +180,15 @@ int delete_under_avg(FILE *f, char *key)
 		}
 		fclose(f);
 		f = fopen(key, "wb");
-		f_copy(f, f_temp);
+		int n = getlen(f_temp);
+		fseek(f, 0, SEEK_SET);
+		fseek(f_temp, 0, SEEK_SET);
+		for (int k = 0; k < n; k++)
+		{
+			struct student std1 = { 0 };
+			fread(&std1, sizeof(struct student), 1, f_temp);
+			fwrite(&std1, sizeof(struct student), 1, f);
+		}
 		n = getlen(f_temp);
 		if (n < 1)
 			error_code = INCORRECT_DATA;
