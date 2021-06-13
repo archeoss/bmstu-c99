@@ -73,12 +73,9 @@ int main(int args, char **keys)
 				char tmp_f[] = { "temp.bin" };
 				FILE *f_temp = fopen(tmp_f, "w+b");
 				error_code = delete_under_avg(f, f_temp);
-				if (error_code == NO_ERRORS)
-				{
-					fclose(f);
-					f = fopen(keys[2], "wb");
-					f_copy(f, f_temp);
-				}
+				fclose(f);
+				f = fopen(keys[2], "wb");
+				f_copy(f, f_temp);
 				fclose(f_temp);
 				remove(tmp_f);
 			}			
@@ -167,7 +164,7 @@ int delete_under_avg(FILE *f, FILE *f_temp)
 	int error_code = NO_ERRORS;
 	struct student std1;
 	float avg = 0;
-	uint32_t mark_t;
+	float mark_t;
 	int n = getlen(f);
 	if (n < 1)
 		error_code = INCORRECT_DATA;
@@ -193,6 +190,9 @@ int delete_under_avg(FILE *f, FILE *f_temp)
 			mark_t = 0;
 		}
 	}
+	n = getlen(f_temp);
+	if (n < 1)
+		error_code = INCORRECT_DATA;
 	return error_code;
 }
 
