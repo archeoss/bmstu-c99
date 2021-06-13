@@ -121,7 +121,7 @@ int sort_me(FILE *f)
 				if (rc == 0)
 				{
 					rc = strcmp(std2.name, std1.name);
-					if (rc > 0)
+					if (rc < 0)
 					{
 						flag = 1;
 						time_to_swap = 1;
