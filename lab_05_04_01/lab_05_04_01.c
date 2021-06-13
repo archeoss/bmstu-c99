@@ -174,14 +174,14 @@ int delete_under_avg(FILE *f, char *key)
 			fread(&std1, sizeof(struct student), 1, f);
 			for (int j = 0; j < N; j++)
 				mark_t += std1.marks[j];
-			if (mark_t >= avg)
-			{
-				fwrite(&std1, sizeof(struct student), 1, f_temp);
-			}
+			// if (mark_t >= avg)
+			// {
+				// fwrite(&std1, sizeof(struct student), 1, f_temp);
+			// }
 			mark_t = 0;
 		}
 		f = fopen(key, "wb");
-		n = getlen(f_temp);
+		//n = getlen(f_temp);
 		fclose(f_temp);
 		remove("temp.bin");
 	}
