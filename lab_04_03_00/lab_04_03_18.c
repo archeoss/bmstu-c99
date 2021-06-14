@@ -22,7 +22,7 @@ int main(void)
 	int i = 0, j = 0, error_code = NO_ERRORS;
 	while (i < count1 - 1)
 	{
-		if ((eql_wrds(pntrs1[i], pntrs1[count1 - 1])) == -1)
+		if ((strcmp(pntrs1[i], pntrs1[count1 - 1])) != 0)
 		{
 			strip_r(pntrs1[i], p_o + j);
 			j = getlen(p_o) + 1;

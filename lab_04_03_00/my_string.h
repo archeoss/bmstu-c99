@@ -4,7 +4,6 @@
  
 void read_line(char *, int);
 int getlen(char *s);
-int eql_wrds(char *str1, char *str2);
 int get_words(char *str, char **arr);
 void strip_r(char *input, char *output);
 void reverse(char *word);
