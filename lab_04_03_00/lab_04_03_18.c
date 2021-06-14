@@ -47,21 +47,3 @@ int main(void)
 		printf("Result: %s\n", output);
 	return error_code;
 }
-
-void reverse_cst(char *str)
-{
-	int len = getlen(str);
-	char temp;
-	for (int j = 0; j < (len - len % 2) / 2; j++)
-	{
-		temp = str[j];
-		str[j] = str[len - j - 1];
-		str[len - j - 1] = temp;
-	}
-}
-
-void get_pntrs(char *a, char **pntrs)
-{
-	for (int i = 0; i < MAX_LENGTH/2; i++)
-		pntrs[i] = a + i * MAX_WORD;
-}
