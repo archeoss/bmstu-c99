@@ -9,16 +9,15 @@
 #define INPUT_ERROR -1
 #define INCORRECT_DATA -2
 
-int sort_f(FILE *f);
-void sort_al(FILE *f, int n);
-
 int main(int args, char **keys)
 {
 	int error_code = NO_ERRORS;
 	FILE *f;
 	int n;
 	char *temp;
-	if (keys[1][0] == 'c')
+	if (args < 3 || args > 4)
+		error_code = INPUT_ERROR;
+	else if (keys[1][0] == 'c')
 	{
 		n = strtol(keys[2], &temp, 0);
 		if (*temp == '\0')
@@ -58,36 +57,3 @@ int main(int args, char **keys)
 	return error_code;
 }
 
-int sort_f(FILE *f)
-{
-	int n = getlen(f);
-	int error_code = NO_ERRORS;
-	if (n < 1)
-		error_code = INCORRECT_DATA;
-	else
-		sort_al(f, n);
-	return error_code;
-}
-
-void sort_al(FILE *f, int n)
-{
-	int number2;
-	int number1;
-	int flag = 1, i = 0;
-	while (i < n && flag == 1)
-	{
-		flag = 0;
-		for (int j = 0; j < n - i - 1; j++)
-		{
-			number1 = get_number_by_pos(f, j);
-			number2 = get_number_by_pos(f, j + 1);
-			if (number1 > number2)
-			{
-				flag = 1;
-				put_number_by_pos(f, j + 1, number1);
-				put_number_by_pos(f, j, number2);
-			}
-		}
-		i++;
-	}
-}

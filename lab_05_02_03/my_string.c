@@ -38,7 +38,7 @@ int check_three_sigma(FILE *f, double disp, float sr, double k)
 {
 	float n_correct = 0, n = 0;
 	float i = 0;
-	int result = 12, rc;
+	int result, rc;
 	while ((rc = fscanf(f, "%f", &i)) != EOF && rc == 1)
 	{
 		if (i > sr - 3 * disp && i < sr + 3 * disp)

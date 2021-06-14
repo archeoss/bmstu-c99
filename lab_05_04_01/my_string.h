@@ -15,6 +15,10 @@ struct student
 int getlen(FILE *f);
 void print_f(FILE *f);
 struct student get_student(FILE *f, int pos);
-
+int sort_me(FILE *f);
+int get_students_by_substr(FILE *f, FILE *f_out, char *);
+int delete_under_avg(FILE *f, char *key);
+void f_copy(FILE *f, FILE *f_temp);
+void swap(FILE *f, int pos1, int pos2);
 
 #endif
