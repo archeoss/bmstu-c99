@@ -9,17 +9,16 @@
 #define NO_ERRORS 0
 #define INPUT_ERROR 1
 #define INCORRECT_DATA 2
-
-#define YEAR_LENGTH 4
-void get_pntrs(char *a, char **pntrs);
-int get_int_date(char *a);
+#define FIRST_INIT -1
+#define MAX_YEAR 9999
+#define MIN_YEAR 1
 
 int main(void)
 {
 	char months[][10] = { "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december" };
 	int days[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	int error_code = NO_ERRORS;
-	int rc = -1;
+	int rc = FIRST_INIT;
 	char str1[MAX_LENGTH + 1];
 	char *arr1[MAX_LENGTH];
 	error_code = read_line(str1, MAX_LENGTH + 1);
@@ -37,13 +36,13 @@ int main(void)
 			*p_m = tolower(*p_m);
 			p_m++;
 		}
-		while (i < MONTH_COUNT && rc == -1)
+		while (i < MONTH_COUNT && rc == FIRST_INIT)
 		{
 			if (strcmp(months[i], arr1[1]) == 0)
 				rc = NO_ERRORS;
 			i++;
 		}
-		if (i == MONTH_COUNT && rc == -1)
+		if (i == MONTH_COUNT && rc == FIRST_INIT)
 			rc = INCORRECT_DATA;
 		i--;
 		if (rc == NO_ERRORS)
@@ -52,7 +51,7 @@ int main(void)
 			{
 				year = get_int_date(arr1[2]);
 				day = get_int_date(arr1[0]);
-				if (year > 9999 || year < 1)
+				if (year > MAX_YEAR || year < MIN_YEAR)
 				{
 					rc = INCORRECT_DATA;
 				}
@@ -85,24 +84,4 @@ int main(void)
 			printf("NO");
 	}
 	return error_code;
-}
-
-int get_int_date(char *a)
-{
-	int date = 0;
-	int flag = 0;
-	while (*a && flag == 0)
-	{
-		if (isdigit(*a) != 0)
-		{
-			date = date * 10 + ((int)(*a) - 48);
-			a++;
-		}
-		else
-		{
-			date = 0;
-			flag = 1;
-		}
-	}
-	return date;
 }

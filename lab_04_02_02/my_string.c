@@ -3,6 +3,9 @@
 #define MAX_LENGTH 256
 #define MAX_WORD 16
 
+#define YES 1
+#define NO -1
+
 void read_line(char *s, int n)
 {
 	int ch, i = 0;
@@ -23,7 +26,7 @@ int getlen(char *s)
 	}	
 	return len;
 }
-
+//Функция возвращает 1 в случае если слова равны, и -1 если нет
 int eql_wrds(char *str1, char *str2)
 {
 	char *p_s; 
@@ -33,13 +36,13 @@ int eql_wrds(char *str1, char *str2)
 	int i = 0;
 	int size_s = getlen(str1);
 	int size_k = getlen(str2);
-	int result = 1;
+	int result = YES;
 	if (size_s != size_k)
-		result = -1;
+		result = NO;
 	while (i < size_s && result == 1)
 	{
 		if (*p_k != *p_s)
-			result = -1;
+			result = NO;
 		p_k++;
 		i++;
 		p_s++;
@@ -70,4 +73,10 @@ int get_words(char *str, char **arr)
 			p_s++;
 	}
 	return i;
+}
+
+void get_pntrs(char *a, char **pntrs)
+{
+	for (int i = 0; i < MAX_LENGTH/2; i++)
+		pntrs[i] = a + i * MAX_WORD;
 }

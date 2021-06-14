@@ -81,46 +81,35 @@ int eql_wrds(char *str1, char *str2)
 	return result;
 }
 
-int is_uniq(char *str, char **arr, int n)
-{
-	int flag = 0;
-	int i = 0;
-	int rc;
-	int result = 0;
-	while (i < n && flag == 0)
-	{
-		if ((rc = eql_wrds(str, arr[i])) == 1)
-			flag = 1;
-		i++;
-	}
-	if (flag == 0)
-		result = 1;
-	else
-		result = 0;
-	return result;
-}
-
 int get_words(char *str, char **arr)
 {
 	int i = 0;
-	int j = 0;
-	char *p_s = str;
-	while (*p_s != '\0')
-	{	
-		while (j < MAX_WORD && *p_s != '\0' && *p_s != ' ' && *p_s != ',' && *p_s != ';' && *p_s != ':' && *p_s != '-' && *p_s != '.' && *p_s != '?' && *p_s != '!')
-		{
-			arr[i][j] = *p_s;
-			j++;
-			p_s++;
-		}
-		if (j != 0)
-		{
-			arr[i][j] = '\0';
-			i++;
-			j = 0;
-		}
-		if (*p_s != '\0')
-			p_s++;
+	char *c;
+	char sep[] = { '\t', ' ', '\0', ',', ';', ':', '-', '.', '?', '!' };
+	c = strtok(str, sep);
+	while (c != NULL)
+	{
+		arr[i] = c;
+		c = strtok(NULL, sep);
+		i++;
 	}
 	return i;
+}
+
+void reverse_cst(char *str)
+{
+	int len = getlen(str);
+	char temp;
+	for (int j = 0; j < (len - len % 2) / 2; j++)
+	{
+		temp = str[j];
+		str[j] = str[len - j - 1];
+		str[len - j - 1] = temp;
+	}
+}
+
+void get_pntrs(char *a, char **pntrs)
+{
+	for (int i = 0; i < MAX_LENGTH/2; i++)
+		pntrs[i] = a + i * MAX_WORD;
 }

@@ -8,7 +8,11 @@
 #define NO_ERRORS 0
 #define INPUT_ERROR 1
 #define INCORRECT_DATA 2
+#define NEW_LINE -1
 
+#define YES 1
+#define NO -1
+#define REPEAT 3
 void get_pntrs(char *a, char **pntrs);
 
 int main(void)
@@ -25,7 +29,7 @@ int main(void)
 	read_line(str2, MAX_LENGTH);
 	count1 = get_words(str1, pntrs1);
 	count2 = get_words(str2, pntrs2);
-	int rc = -1;
+	int rc = NO;
 	int i = 0, j = 0, k = 0;
 	if (count1 == 0 || count2 == 0)
 	{
@@ -34,35 +38,29 @@ int main(void)
 	else
 	{
 		printf("Result: ");
-		while (i < count1 && rc == -1)
+		while (i < count1 && rc == NO)
 		{			
-			while (k < i && rc == -1)
+			while (k < i && rc == NO)
 			{
-				rc = eql_wrds(arr1[i], arr1[k]);
+				rc = eql_wrds(arr1[i], arr1[k]); //Функция возвращает 1 в случае если слова равны, и -1 если нет
 				k++;
 			}
-			if (rc == 1)
-				rc = 3;
-			while (j < count2 && rc == -1)
+			if (rc == YES)
+				rc = REPEAT;
+			while (j < count2 && rc == NO)
 			{
 				rc = eql_wrds(arr1[i], arr2[j]);
 				j++;				
 			}
-			if (rc == 1)
+			if (rc == YES)
 				printf("%s yes\n", arr1[i]);
-			else if (rc == -1)
+			else if (rc == NO)
 				printf("%s no\n", arr1[i]);
 			i++;
 			j = 0;
-			rc = -1;
+			rc = NO;
 			k = 0;
 		}
 	}
 	return error_code;
-}
-
-void get_pntrs(char *a, char **pntrs)
-{
-	for (int i = 0; i < MAX_LENGTH/2; i++)
-		pntrs[i] = a + i * MAX_WORD;
 }

@@ -9,9 +9,6 @@
 #define INPUT_ERROR 1
 #define INCORRECT_DATA 2
 
-void reverse_cst(char *str);
-void get_pntrs(char *a, char **pntrs);
-
 int main(void)
 {
 	char output[MAX_LENGTH];
