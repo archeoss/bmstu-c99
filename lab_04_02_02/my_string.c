@@ -68,14 +68,12 @@ int get_words(char *str, char **arr)
 				if (last_flag == 0)
 				{
 					arr[i] = str - j;
-					printf("%d %c\n", j, *(str-j));
 					i++;
 				}
 				flag = 1;
 			}
 			k++;
 		}
-//		printf("%d %c\n", j, *str);
 		j++;
 		if (*str != '\0')
 		{
@@ -91,11 +89,8 @@ int get_words(char *str, char **arr)
 	if (last_flag == 0)
 	{
 		arr[i] = str - j;
-		printf("%d %c\n", j, *(str-j));
 		i++;
 	}
-	for (int s = 0; s < i; s++)
-		printf("%s\n", arr[s]);
 	return i;
 }
 
