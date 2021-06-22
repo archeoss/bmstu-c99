@@ -102,8 +102,7 @@ int delete_under_avg(FILE *f, char *key)
 				mark_t += std1.marks[j];
 			if (mark_t >= avg)
 			{
-				mark_t = 0;
-				//fwrite(&std1, sizeof(struct student), 1, f_temp);
+				fwrite(&std1, sizeof(struct student), 1, f_temp);
 			}
 			mark_t = 0;
 		}
