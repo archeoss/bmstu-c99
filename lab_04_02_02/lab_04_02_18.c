@@ -13,22 +13,18 @@
 #define YES 1
 #define NO -1
 #define REPEAT 3
-void get_pntrs(char *a, char **pntrs);
 
 int main(void)
 {
 	int error_code = NO_ERRORS;
 	int count1, count2; 
 	char str1[MAX_LENGTH], str2[MAX_LENGTH];
-	char arr1[MAX_LENGTH/2][MAX_WORD], arr2[MAX_LENGTH/2][MAX_WORD];
-	char *pntrs1[MAX_LENGTH];
-	char *pntrs2[MAX_LENGTH];
-	get_pntrs(&arr1[0][0], pntrs1);
-	get_pntrs(&arr2[0][0], pntrs2);
+	char *arr1[MAX_LENGTH];
+	char *arr2[MAX_LENGTH];
 	read_line(str1, MAX_LENGTH);
 	read_line(str2, MAX_LENGTH);
-	count1 = get_words(str1, pntrs1);
-	count2 = get_words(str2, pntrs2);
+	count1 = get_words(str1, arr1);
+	count2 = get_words(str2, arr2);
 	int rc = NO;
 	int i = 0, j = 0, k = 0;
 	if (count1 == 0 || count2 == 0)

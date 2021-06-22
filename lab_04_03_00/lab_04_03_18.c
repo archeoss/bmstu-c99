@@ -12,37 +12,14 @@
 int main(void)
 {
 	char output[MAX_LENGTH];
-	char str1[MAX_LENGTH];
-	char *pntrs1[MAX_LENGTH/2];
-	char arr1[MAX_LENGTH/2][MAX_WORD];
-	get_pntrs(&arr1[0][0], pntrs1);
-	read_line(str1, MAX_LENGTH);
-	int count1 = get_words(str1, pntrs1);
-	char *p_o = output;
-	int i = 0, j = 0, error_code = NO_ERRORS;
-	while (i < count1 - 1)
-	{
-		if ((strcmp(pntrs1[i], pntrs1[count1 - 1])) != 0)
-		{
-			strip_r(pntrs1[i], p_o + j);
-			j = getlen(p_o) + 1;
-			if (i < count1 - 2)
-				p_o[j - 1] = ' ';
-		}
-		i++;
-	}
-	if (j == 0)
-		error_code = INCORRECT_DATA;
-	else
-	{
-		j--;
-		while (p_o[j] == ' ')
-		{
-			p_o[j] = '\0';
-			j--;
-		}
-		reverse_cst(output);
-	}
+	char str[MAX_LENGTH];
+	char *pntrs[MAX_LENGTH/2];
+	char arr[MAX_LENGTH/2][MAX_WORD];
+	get_pntrs(&arr[0][0], pntrs);
+	read_line(str, MAX_LENGTH);
+	int count = get_words(str, pntrs);
+	int error_code = NO_ERRORS;
+	error_code = strip_me(pntrs, output, count);
 	if (error_code == NO_ERRORS)
 		printf("Result: %s\n", output);
 	return error_code;

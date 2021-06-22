@@ -9,5 +9,8 @@ void strip_r(char *input, char *output);
 void reverse(char *word);
 void reverse_cst(char *str);
 void get_pntrs(char *a, char **pntrs);
+void remove_end_spaces(char *str);
+int strip_me(char **arr, char *output, int count);
+void swap(char *str1, char *str2);
 
 #endif

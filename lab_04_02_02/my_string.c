@@ -1,8 +1,11 @@
 #include "my_string.h"
 #include <stdio.h>
+
 #define MAX_LENGTH 256
 #define MAX_WORD 16
 
+#define DELIMS " .:;,-.?!\0"
+#define DELIMS_COUNT 10
 #define YES 1
 #define NO -1
 
@@ -52,26 +55,47 @@ int eql_wrds(char *str1, char *str2)
 
 int get_words(char *str, char **arr)
 {
-	int i = 0;
-	int j = 0;
-	char *p_s = str;
-	while (*p_s != '\0')
+	int i = 0, j = 0, k, flag, last_flag = 1;
+	char delims[] = DELIMS;
+	while (*str != '\0')
 	{	
-		while (j < MAX_WORD && *p_s != '\0' && *p_s != ' ' && *p_s != ',' && *p_s != ';' && *p_s != ':' && *p_s != '-' && *p_s != '.' && *p_s != '?' && *p_s != '!')
+		k = 0;
+		flag = 0;
+		while (k < DELIMS_COUNT && flag == 0)
 		{
-			arr[i][j] = *p_s;
-			j++;
-			p_s++;
+			if (delims[k] == *str)
+			{
+				if (last_flag == 0)
+				{
+					arr[i] = str - j;
+					printf("%d %c\n", j, *(str-j));
+					i++;
+				}
+				flag = 1;
+			}
+			k++;
 		}
-		if (j != 0)
+//		printf("%d %c\n", j, *str);
+		j++;
+		if (*str != '\0')
 		{
-			arr[i][j] = '\0';
-			i++;
-			j = 0;
+			if (flag != 0)
+			{
+				j = 0;
+				*str = '\0';
+			}
+			str++;
 		}
-		if (*p_s != '\0')
-			p_s++;
+		last_flag = flag;
 	}
+	if (last_flag == 0)
+	{
+		arr[i] = str - j;
+		printf("%d %c\n", j, *(str-j));
+		i++;
+	}
+	for (int s = 0; s < i; s++)
+		printf("%s\n", arr[s]);
 	return i;
 }
 

@@ -26,10 +26,8 @@ int getlen(char *s)
 char *my_strpbrk(char *str, char *key)
 {
 	char *result = NULL;
-	char *p_s; 
-	char *p_k;
-	p_s = str;
-	p_k = key;
+	char *p_s = str;
+	char *p_k = key;
 	int i = 0, j = 0;
 	int size_k = getlen(key);
 	int size_s = getlen(str);
@@ -53,10 +51,8 @@ char *my_strpbrk(char *str, char *key)
 int my_strspn(char *str, char *key)
 {
 	int result = 0;
-	char *p_s; 
-	char *p_k;
-	p_s = str;
-	p_k = key;
+	char *p_s = str; 
+	char *p_k = key;
 	int i = 0, j = 0;
 	int size_k = getlen(key);
 	int size_s = getlen(str);
@@ -84,10 +80,8 @@ int my_strspn(char *str, char *key)
 
 int my_strcspn(char *str, char *key)
 {
-	char *p_s; 
-	char *p_k;
-	p_s = str;
-	p_k = key;
+	char *p_s = str;
+	char *p_k = key;
 	int i = 0, j = 0;
 	int size_k = getlen(key);
 	int size_s = getlen(str);
@@ -106,7 +100,6 @@ int my_strcspn(char *str, char *key)
 		p_k -= j;
 		j = 0;
 	}
-	
 	return result;
 }
 

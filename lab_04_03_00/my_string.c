@@ -1,8 +1,13 @@
 #include "my_string.h"
 #include <stdio.h>
 #include <string.h>
+
 #define MAX_LENGTH 256
 #define MAX_WORD 16
+
+#define NO_ERRORS 0
+#define INPUT_ERROR 1
+#define INCORRECT_DATA 2
 
 void read_line(char *s, int n)
 {
@@ -21,7 +26,7 @@ int getlen(char *s)
 	{
 		len++;
 		cur++;
-	}	
+	}
 	return len;
 }
 
@@ -80,24 +85,14 @@ int is_uniq(char *str, char **arr, int n)
 int get_words(char *str, char **arr)
 {
 	int i = 0;
-	int j = 0;
-	char *p_s = str;
-	while (*p_s != '\0')
-	{	
-		while (j < MAX_WORD && *p_s != '\0' && *p_s != ' ' && *p_s != ',' && *p_s != ';' && *p_s != ':' && *p_s != '-' && *p_s != '.' && *p_s != '?' && *p_s != '!')
-		{
-			arr[i][j] = *p_s;
-			j++;
-			p_s++;
-		}
-		if (j != 0)
-		{
-			arr[i][j] = '\0';
-			i++;
-			j = 0;
-		}
-		if (*p_s != '\0')
-			p_s++;
+	char *c;
+	char sep[] = " .:;,-.?!\t\0";
+	c = strtok(str, sep);
+	while (c != NULL)
+	{
+		arr[i] = c;
+		c = strtok(NULL, sep);
+		i++;
 	}
 	return i;
 }
@@ -105,17 +100,50 @@ int get_words(char *str, char **arr)
 void reverse_cst(char *str)
 {
 	int len = getlen(str);
-	char temp;
 	for (int j = 0; j < (len - len % 2) / 2; j++)
 	{
-		temp = str[j];
-		str[j] = str[len - j - 1];
-		str[len - j - 1] = temp;
+		swap(str + j, str + len - j - 1);
 	}
 }
 
-void get_pntrs(char *a, char **pntrs)
+void swap(char *str1, char *str2)
 {
-	for (int i = 0; i < MAX_LENGTH/2; i++)
-		pntrs[i] = a + i * MAX_WORD;
+	char temp;
+	temp = *str1;
+	*str1 = *str2;
+	*str2 = temp;
+}
+
+int strip_me(char **arr, char *output, int count)
+{
+	int i = 0, j = 0, error_code = NO_ERRORS;
+	while (i < count - 1)
+		{
+			if ((strcmp(arr[i], arr[count - 1])) != 0)
+			{
+				strip_r(arr[i], output + j);
+				j = getlen(output) + 1;
+				if (i < count - 2)
+					output[j - 1] = ' ';
+			}
+			i++;
+		}
+	if (j == 0)
+		error_code = INCORRECT_DATA;
+	else
+	{
+		j--;
+		remove_end_spaces(output + j);
+		reverse_cst(output);
+	}
+	return error_code;
+}
+
+void remove_end_spaces(char *str)
+{
+	while (*str == ' ')
+		{
+			str = '\0';
+			str--;
+		}
 }
