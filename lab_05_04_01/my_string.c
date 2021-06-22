@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <string.h>
 
+#define TEMP_FILE "temp.bin"
 #define SURNAME_LEN 25
 #define NAME_LEN 10
 #define N 4
@@ -74,7 +75,6 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *substr)
 int delete_under_avg(FILE *f, char *key)
 {
 	int error_code = NO_ERRORS;
-	struct student std1 = { 0 };
 	float avg = 0;
 	float mark_t;
 	int n = getlen(f);
@@ -84,9 +84,10 @@ int delete_under_avg(FILE *f, char *key)
 		error_code = INCORRECT_DATA;
 	else	
 	{
-		FILE *f_temp = fopen("temp.bin", "wb+");
+		FILE *f_temp = fopen(TEMP_FILE, "wb+");
 		for (int k = 0; k < n; k++)
 		{
+			struct student std1 = { 0 };
 			fread(&std1, sizeof(struct student), 1, f);
 			for (int k = 0; k < N; k++)
 				avg += std1.marks[k];
@@ -95,10 +96,11 @@ int delete_under_avg(FILE *f, char *key)
 		fseek(f, 0, SEEK_SET);
 		for (int k = 0; k < n; k++)
 		{
+			struct student std1 = { 0 };
 			fread(&std1, sizeof(struct student), 1, f);
 			for (int j = 0; j < N; j++)
 				mark_t += std1.marks[j];
-			 if (mark_t >= avg)
+			if (mark_t >= avg)
 			{
 				fwrite(&std1, sizeof(struct student), 1, f_temp);
 			}
