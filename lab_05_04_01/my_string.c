@@ -76,7 +76,6 @@ int delete_under_avg(FILE *f, char *key)
 {
 	int error_code = NO_ERRORS;
 	float avg = 0;
-	float mark_t = 0;
 	int n = getlen(f);
 	if (key)
 		error_code = NO_ERRORS;
@@ -85,27 +84,9 @@ int delete_under_avg(FILE *f, char *key)
 	else	
 	{
 		FILE *f_temp = fopen(TEMP_FILE, "wb+");
-		for (int k = 0; k < n; k++)
-		{
-			struct student std1 = { 0 };
-			fread(&std1, sizeof(struct student), 1, f);
-			for (int k = 0; k < N; k++)
-				avg += std1.marks[k];
-		}
-		avg = avg / n;
+		avg = get_avg(f, n);
 		fseek(f, 0, SEEK_SET);
-		for (int k = 0; k < n; k++)
-		{
-			struct student std1 = { 0 };
-			fread(&std1, sizeof(struct student), 1, f);
-			for (int j = 0; j < N; j++)
-				mark_t += std1.marks[j];
-			if (mark_t >= avg)
-			{
-				fwrite(&std1, sizeof(struct student), 1, f_temp);
-			}
-			mark_t = 0;
-		}
+		copy_students_above_avg(f, f_temp, avg, n);
 		f = fopen(key, "wb");
 		n = getlen(f_temp);
 		f_copy(f, f_temp);
@@ -142,6 +123,38 @@ void f_copy(FILE *f, FILE *f_temp)
 		fwrite(&std1, sizeof(struct student), 1, f);
 	}
 }
+
+void copy_students_above_avg(FILE *f, FILE *f_temp, float avg, int n)
+{
+	float mark_t = 0;
+	for (int k = 0; k < n; k++)
+	{
+		struct student std1 = { 0 };
+		fread(&std1, sizeof(struct student), 1, f);
+		for (int j = 0; j < N; j++)
+			mark_t += std1.marks[j];
+		if (mark_t >= avg)
+		{
+			fwrite(&std1, sizeof(struct student), 1, f_temp);
+		}
+		mark_t = 0;
+	}
+}
+
+float get_avg(FILE *f, int n)
+{
+	float avg = 0;
+	for (int k = 0; k < n; k++)
+	{
+		struct student std1 = { 0 };
+		fread(&std1, sizeof(struct student), 1, f);
+		for (int j = 0; j < N; j++)
+			avg += std1.marks[j];
+	}
+	avg = avg / n;
+	return avg;
+}
+
 int sort_me(FILE *f)
 {
 	int error_code = NO_ERRORS;

@@ -20,5 +20,7 @@ int get_students_by_substr(FILE *f, FILE *f_out, char *);
 int delete_under_avg(FILE *f, char *key);
 void f_copy(FILE *f, FILE *f_temp);
 void swap(FILE *f, int pos1, int pos2);
+void copy_students_above_avg(FILE *f, FILE *f_temp, float avg, int n);
+float get_avg(FILE *f, int n);
 
 #endif
