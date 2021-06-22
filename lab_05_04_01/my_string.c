@@ -76,7 +76,7 @@ int delete_under_avg(FILE *f, char *key)
 {
 	int error_code = NO_ERRORS;
 	float avg = 0;
-	float mark_t;
+	float mark_t = 0;
 	int n = getlen(f);
 	if (key)
 		error_code = NO_ERRORS;
@@ -102,7 +102,8 @@ int delete_under_avg(FILE *f, char *key)
 				mark_t += std1.marks[j];
 			if (mark_t >= avg)
 			{
-				fwrite(&std1, sizeof(struct student), 1, f_temp);
+				mark_t = 0;
+				//fwrite(&std1, sizeof(struct student), 1, f_temp);
 			}
 			mark_t = 0;
 		}
