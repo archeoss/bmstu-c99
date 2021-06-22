@@ -1,0 +1,4 @@
+Result: 6 yes
+11 yes
+16 no
+22 yes

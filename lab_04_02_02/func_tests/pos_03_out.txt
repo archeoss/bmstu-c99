@@ -1,0 +1,6 @@
+Result: abb yes
+aaabbb no
+c no
+d yes
+t no
+y yes

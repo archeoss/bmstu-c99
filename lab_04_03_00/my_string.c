@@ -114,20 +114,26 @@ void swap(char *str1, char *str2)
 	*str2 = temp;
 }
 
+void get_pntrs(char *a, char **pntrs)
+{
+	for (int i = 0; i < MAX_LENGTH/2; i++)
+		pntrs[i] = a + i * MAX_WORD;
+}
+
 int strip_me(char **arr, char *output, int count)
 {
 	int i = 0, j = 0, error_code = NO_ERRORS;
 	while (i < count - 1)
+	{
+		if ((strcmp(arr[i], arr[count - 1])) != 0)
 		{
-			if ((strcmp(arr[i], arr[count - 1])) != 0)
-			{
-				strip_r(arr[i], output + j);
-				j = getlen(output) + 1;
-				if (i < count - 2)
-					output[j - 1] = ' ';
-			}
-			i++;
+			strip_r(arr[i], output + j);
+			j = getlen(output) + 1;
+			if (i < count - 2)
+				output[j - 1] = ' ';
 		}
+		i++;
+	}
 	if (j == 0)
 		error_code = INCORRECT_DATA;
 	else
@@ -142,8 +148,8 @@ int strip_me(char **arr, char *output, int count)
 void remove_end_spaces(char *str)
 {
 	while (*str == ' ')
-		{
-			str = '\0';
-			str--;
-		}
+	{
+		str = '\0';
+		str--;
+	}
 }

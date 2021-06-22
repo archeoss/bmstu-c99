@@ -1,0 +1,5 @@
+Result: ghgh yes
+ii no
+123 yes
+poop no
+kek yes
