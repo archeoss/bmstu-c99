@@ -1,0 +1,4 @@
+Result: 5 yes
+10 yes
+15 no
+20 yes
