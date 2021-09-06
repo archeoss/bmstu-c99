@@ -13,14 +13,14 @@
 typedef struct 
 {
     char title[TITLE_LEN];
-    char author[AUTHOR_LEN];
+    char name[AUTHOR_LEN];
     int year;
-} Movie;
+} movie_struct;
 
-int read_items(FILE *, Movie *, int mode);
+int read_items(FILE *, movie_struct *, int mode);
 int check_key(char *key);
-void put_by_title(Movie *movie, char *title, char *author, int year, int count);
-void put_by_author(Movie *movie, char *title, char *author, int year, int count);
-void put_by_year(Movie *movie, char *title, char *author, int year, int count);
+void put_by_title(movie_struct *movie, char *title, char *name, int year, int count);
+void put_by_name(movie_struct *movie, char *title, char *name, int year, int count);
+void put_by_year(movie_struct *movie, char *title, char *name, int year, int count);
 
 #endif

@@ -9,15 +9,15 @@
 #define INCORRECT_DATA_ERROR 2
 #define NOT_FOUND 3
 
-void show_all(Movie *movie, int n)
+void show_all(movie_struct *movie, int n)
 {
     for (int i = 0; i < n; i++)
     {
-        printf("%s%s%d\n", movie[i].title, movie[i].author, movie[i].year);
+        printf("%s%s%d\n", movie[i].title, movie[i].name, movie[i].year);
     }
 }
 
-int find_item(Movie *movie, char *keyword, int n, int mode)
+int find_item(movie_struct *movie, char *keyword, int n, int mode)
 {
     int error_code = NO_ERROR;
     int year;
@@ -44,7 +44,7 @@ int find_item(Movie *movie, char *keyword, int n, int mode)
                     compare_res = strcmp(movie[mid].title, keyword);
                     break;
                 case AUTHOR_MODE:
-                    compare_res = strcmp(movie[mid].author, keyword);
+                    compare_res = strcmp(movie[mid].name, keyword);
                     break;
                 case YEAR_MODE:
                     if (movie[mid].year == year)
@@ -57,7 +57,7 @@ int find_item(Movie *movie, char *keyword, int n, int mode)
             {
                 end = start;
                 error_code = NO_ERROR;
-                printf("%s%s%d\n", movie[mid].title, movie[mid].author, movie[mid].year);
+                printf("%s%s%d\n", movie[mid].title, movie[mid].name, movie[mid].year);
             }
             else if (compare_res > 0)
                 end = mid;

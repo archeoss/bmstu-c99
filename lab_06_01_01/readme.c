@@ -5,19 +5,19 @@
 
 #define STRUCT_COUNT 15
 
-void swap(Movie *movie, char *title, char *author, int *year);
+void swap(movie_struct *movie, char *title, char *name, int *year);
+void put(movie_struct *movie, char *title, char *name, int year);
 
-
-int read_items(FILE *f, Movie *movie, int mode)
+int read_items(FILE *f, movie_struct *movie, int mode)
 {
     char junk[10];
     char title[TITLE_LEN];
-    char author[AUTHOR_LEN];
+    char name[AUTHOR_LEN];
     int year;
     int rc = 0;
     if (fgets(title, TITLE_LEN, f) != NULL && title[0] != '\n' && title[strlen(title)-1] == '\n')
         rc++;
-    if (fgets(author, AUTHOR_LEN, f) != NULL && author[0] != '\n' && author[strlen(author)-1] == '\n')
+    if (fgets(name, AUTHOR_LEN, f) != NULL && name[0] != '\n' && name[strlen(name)-1] == '\n')
         rc++;
     rc += (fscanf(f, "%d", &year) > 0) ? 1 : 0;
     fgets(junk, 10, f); //После fscanf остается лишний \n, который мешает fgets
@@ -26,29 +26,23 @@ int read_items(FILE *f, Movie *movie, int mode)
     {
         rc = 0;
         if (count == 0)
-        {
-            strcpy(movie[0].title, title);
-            strcpy(movie[0].author, author);
-            movie[0].year = year;
-        }
+            put(&movie[0], title, name, year);
         else
-        {
             switch (mode)
             {
                 case TITLE_MODE:
-                    put_by_title(movie, title, author, year, count);
+                    put_by_title(movie, title, name, year, count);
                     break;
                 case AUTHOR_MODE:
-                    put_by_author(movie, title, author, year, count);
+                    put_by_name(movie, title, name, year, count);
                     break;
                 case YEAR_MODE:
-                    put_by_year(movie, title, author, year, count);
+                    put_by_year(movie, title, name, year, count);
                     break;
             }
-        }
         if (fgets(title, TITLE_LEN, f) != NULL && title[0] != '\n' && title[strlen(title) - 1] == '\n')
             rc++;
-        if (fgets(author, AUTHOR_LEN, f) != NULL && author[0] != '\n' && author[strlen(author) - 1] == '\n')
+        if (fgets(name, AUTHOR_LEN, f) != NULL && name[0] != '\n' && name[strlen(name) - 1] == '\n')
             rc++;
         rc += (fscanf(f, "%d", &year) > 0) ? 1 : 0;
         fgets(junk, 10, f); //После fscanf остается лишний \n, который мешает fgets
@@ -66,7 +60,7 @@ int check_key(char *key)
     int mode;
     if (strcmp(key, "title") == 0)
         mode = TITLE_MODE;
-    else if (strcmp(key, "author") == 0)
+    else if (strcmp(key, "name") == 0)
         mode = AUTHOR_MODE;
     else if (strcmp(key, "year") == 0)
         mode = YEAR_MODE;
@@ -75,7 +69,7 @@ int check_key(char *key)
     return mode;
 }
 
-void put_by_title(Movie *movie, char *title, char *author, int year, int count)
+void put_by_title(movie_struct *movie, char *title, char *name, int year, int count)
 {
     int i = 0;
     int flag = 1;
@@ -83,59 +77,43 @@ void put_by_title(Movie *movie, char *title, char *author, int year, int count)
     {
         if (strcmp(movie[i].title, title) > 0)
         {
-            swap(&movie[i], title, author, &year);
+            swap(&movie[i], title, name, &year);
             flag = 0;
         }
         i++;
     }
     if (flag)
-    {
-        strcpy(movie[i].title, title);
-        strcpy(movie[i].author, author);
-        movie[i].year = year;
-    }
+        put(&movie[i], title, name, year);
     else
     {
         for (; i < count; i++)
-        {
-            swap(&movie[i], title, author, &year);
-        }
-        strcpy(movie[i].title, title);
-        strcpy(movie[i].author, author);
-        movie[i].year = year;
+            swap(&movie[i], title, name, &year);
+        put(&movie[i], title, name, year);
     }
 }
-void put_by_author(Movie *movie, char *title, char *author, int year, int count)
+void put_by_name(movie_struct *movie, char *title, char *name, int year, int count)
 {
     int i = 0;
     int flag = 1;
     while (flag && i < count)
     {
-        if (strcmp(movie[i].author, author) > 0)
+        if (strcmp(movie[i].name, name) > 0)
         {
-            swap(&movie[i], title, author, &year);
+            swap(&movie[i], title, name, &year);
             flag = 0;
         }
         i++;
     }
     if (flag)
-    {
-        strcpy(movie[i].title, title);
-        strcpy(movie[i].author, author);
-        movie[i].year = year;
-    }
+        put(&movie[i], title, name, year);
     else
     {
         for (; i < count; i++)
-        {
-            swap(&movie[i], title, author, &year);
-        }
-        strcpy(movie[i].title, title);
-        strcpy(movie[i].author, author);
-        movie[i].year = year;
+            swap(&movie[i], title, name, &year);
+        put(&movie[i], title, name, year);
     }
 }
-void put_by_year(Movie *movie, char *title, char *author, int year, int count)
+void put_by_year(movie_struct *movie, char *title, char *name, int year, int count)
 {
     int i = 0;
     int flag = 1;
@@ -144,41 +122,38 @@ void put_by_year(Movie *movie, char *title, char *author, int year, int count)
         if (movie[i].year > year)
         {
             
-            swap(&movie[i], title, author, &year);
+            swap(&movie[i], title, name, &year);
             flag = 0;
         }
         i++;
     }
     if (flag)
-    {
-        strcpy(movie[i].title, title);
-        strcpy(movie[i].author, author);
-        movie[i].year = year;
-    }
+        put(&movie[i], title, name, year);
     else
     {
         for (; i < count; i++)
-        {
-            swap(&movie[i], title, author, &year);
-        }
-        strcpy(movie[i].title, title);
-        strcpy(movie[i].author, author);
-        movie[i].year = year;
+            swap(&movie[i], title, name, &year);
+        put(&movie[i], title, name, year);
     }
 }
 
-void swap(Movie *movie, char *title, char *author, int *year)
+void put(movie_struct *movie, char *title, char *name, int year)
+{
+    strcpy(movie->title, title);
+    strcpy(movie->name, name);
+    movie->year = year;
+}
+
+void swap(movie_struct *movie, char *title, char *name, int *year)
 {
     char title_tmp[TITLE_LEN];
-    char author_tmp[AUTHOR_LEN];
+    char name_tmp[AUTHOR_LEN];
     int year_tmp;
     strcpy(title_tmp, movie->title);
-    strcpy(author_tmp, movie->author);
+    strcpy(name_tmp, movie->name);
     year_tmp = movie->year;
-    strcpy(movie->title, title);
-    strcpy(movie->author, author);
-    movie->year = *year;
+    put(movie, title, name, *year);
     strcpy(title, title_tmp);
-    strcpy(author, author_tmp);
+    strcpy(name, name_tmp);
     *year = year_tmp;
 }

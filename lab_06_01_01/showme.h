@@ -2,7 +2,7 @@
 
 #define _SHOWME_H_
 
-void show_all(Movie *, int n);
-int find_item(Movie *, char *, int n, int mode);
+void show_all(movie_struct *, int n);
+int find_item(movie_struct *, char *, int n, int mode);
 
 #endif
