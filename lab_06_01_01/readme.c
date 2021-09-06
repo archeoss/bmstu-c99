@@ -3,6 +3,8 @@
 #include <string.h>
 #include "readme.h"
 
+#define STRUCT_COUNT 15
+
 void swap(Movie *movie, char *title, char *author, int *year);
 
 
@@ -18,8 +20,9 @@ int read_items(FILE *f, Movie *movie, int mode)
     if (fgets(author, AUTHOR_LEN, f) != NULL && author[0] != '\n' && author[strlen(author)-1] == '\n')
         rc++;
     rc += (fscanf(f, "%d", &year) > 0) ? 1 : 0;
+    fgets(junk, 10, f); //После fscanf остается лишний \n, который мешает fgets
     int count = 0;
-    while (rc == 3)
+    while (rc == 3 && count < STRUCT_COUNT)
     {
         rc = 0;
         if (count == 0)
@@ -43,16 +46,18 @@ int read_items(FILE *f, Movie *movie, int mode)
                     break;
             }
         }
-        fgets(junk, 10, f); //После fscanf остается лишний \n, который мешает fgets
         if (fgets(title, TITLE_LEN, f) != NULL && title[0] != '\n' && title[strlen(title) - 1] == '\n')
             rc++;
         if (fgets(author, AUTHOR_LEN, f) != NULL && author[0] != '\n' && author[strlen(author) - 1] == '\n')
             rc++;
         rc += (fscanf(f, "%d", &year) > 0) ? 1 : 0;
+        fgets(junk, 10, f); //После fscanf остается лишний \n, который мешает fgets
         count++;
     }
     if (rc > 0)
         count = 0;
+    else if (fgets(junk, 10, f)!= NULL)
+        count = 0; 
     return count;
 }
 

@@ -37,7 +37,7 @@ int find_item(Movie *movie, char *keyword, int n, int mode)
         while (start != end)
         {
             int compare_res;
-            int mid = start + (end - start) / 2;   
+            int mid = start + (end - start) / 2;        
             switch (mode)
             {
                 case TITLE_MODE:
@@ -59,8 +59,8 @@ int find_item(Movie *movie, char *keyword, int n, int mode)
                 error_code = NO_ERROR;
                 printf("%s%s%d\n", movie[mid].title, movie[mid].author, movie[mid].year);
             }
-            else if (compare_res == 1)
-                end = mid - 1;
+            else if (compare_res > 0)
+                end = mid;
             else
                 start = mid + 1;
         }

@@ -30,7 +30,7 @@ int main(int args, char **keys)
                 {
                     if (args == 3)
                         show_all(movies, count);
-                    if (args == 4)
+                    else if (args == 4)
                     {
                         if (find_item(movies, keys[3], count, mode) == NOT_FOUND)
                             printf("Not found");
