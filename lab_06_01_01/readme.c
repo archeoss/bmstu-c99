@@ -52,7 +52,7 @@ int read_items(FILE *f, movie_struct *movie, int mode)
     }
     if (rc > 0)
         count = 0;
-    else if (fgets(junk, 10, f)!= NULL)
+    else if (fgets(junk, 10, f) != NULL)
         count = 0; 
     return count;
 }
