@@ -15,11 +15,11 @@ int read_items(FILE *f, movie_struct *movie, int mode)
     char name[AUTHOR_LEN];
     int year;
     int rc = 0;
-    if (fgets(title, TITLE_LEN, f) != NULL && title[0] != '\n' && title[strlen(title)-1] == '\n')
+    if (fgets(title, TITLE_LEN, f) != NULL && title[0] != '\n' && title[strlen(title) - 1] == '\n')
         rc++;
-    if (fgets(name, AUTHOR_LEN, f) != NULL && name[0] != '\n' && name[strlen(name)-1] == '\n')
+    if (fgets(name, AUTHOR_LEN, f) != NULL && name[0] != '\n' && name[strlen(name) - 1] == '\n')
         rc++;
-    rc += (fscanf(f, "%d", &year) > 0) ? 1 : 0;
+    rc += (fscanf(f, "%d", &year) > 0 && year >= 0) ? 1 : 0;
     fgets(junk, 10, f); //После fscanf остается лишний \n, который мешает fgets
     int count = 0;
     while (rc == 3 && count < STRUCT_COUNT)
@@ -28,6 +28,7 @@ int read_items(FILE *f, movie_struct *movie, int mode)
         if (count == 0)
             put(&movie[0], title, name, year);
         else
+        {
             switch (mode)
             {
                 case TITLE_MODE:
@@ -40,11 +41,12 @@ int read_items(FILE *f, movie_struct *movie, int mode)
                     put_by_year(movie, title, name, year, count);
                     break;
             }
+        }
         if (fgets(title, TITLE_LEN, f) != NULL && title[0] != '\n' && title[strlen(title) - 1] == '\n')
             rc++;
         if (fgets(name, AUTHOR_LEN, f) != NULL && name[0] != '\n' && name[strlen(name) - 1] == '\n')
             rc++;
-        rc += (fscanf(f, "%d", &year) > 0) ? 1 : 0;
+        rc += (fscanf(f, "%d", &year) > 0 && year >= 0) ? 1 : 0;
         fgets(junk, 10, f); //После fscanf остается лишний \n, который мешает fgets
         count++;
     }
@@ -121,7 +123,6 @@ void put_by_year(movie_struct *movie, char *title, char *name, int year, int cou
     {
         if (movie[i].year > year)
         {
-            
             swap(&movie[i], title, name, &year);
             flag = 0;
         }
