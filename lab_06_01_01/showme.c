@@ -21,10 +21,11 @@ int find_item(movie_struct *movie, char *keyword, int n, int mode)
 {
     int error_code = NO_ERROR;
     int year;
+    char *end;
     if (mode == YEAR_MODE)
     {
-        year = strtol(keyword, NULL, 10);
-        if (year <= 0)
+        year = strtol(keyword, &end, 10);
+        if (year <= 0 || *end != '\0')
             error_code = KEY_ERROR;
     }
     else
