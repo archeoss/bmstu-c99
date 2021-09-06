@@ -4,7 +4,7 @@
 #include "readme.h"
 
 #define STRUCT_COUNT 15
-
+#define YEAR_CHAR 10
 void swap(movie_struct *movie, char *title, char *name, int *year);
 void put(movie_struct *movie, char *title, char *name, int year);
 
@@ -13,14 +13,22 @@ int read_items(FILE *f, movie_struct *movie, int mode)
     char junk[10];
     char title[TITLE_LEN];
     char name[AUTHOR_LEN];
+    char year_c[YEAR_CHAR];
     int year;
+    char *end;
     int rc = 0;
     if (fgets(title, TITLE_LEN, f) != NULL && title[0] != '\n' && title[strlen(title) - 1] == '\n')
         rc++;
     if (fgets(name, AUTHOR_LEN, f) != NULL && name[0] != '\n' && name[strlen(name) - 1] == '\n')
         rc++;
-    rc += (fscanf(f, "%d", &year) > 0 && year >= 0) ? 1 : 0;
-    fgets(junk, 10, f); //После fscanf остается лишний \n, который мешает fgets
+    if (fgets(year_c, YEAR_CHAR, f) != NULL && year_c[0] != '\n' && year_c[strlen(year_c) - 1] == '\n')
+    {
+        year = strtol(year_c, &end, 10);
+        if (year > 0 && (*end == '\n' || *end == '\0'))
+            rc++;
+    }
+    //rc += (fscanf(f, "%d", &year) > 0 && year >= 0) ? 1 : 0;
+    //fgets(junk, 10, f); //После fscanf остается лишний \n, который мешает fgets
     int count = 0;
     while (rc == 3 && count < STRUCT_COUNT)
     {
@@ -46,8 +54,14 @@ int read_items(FILE *f, movie_struct *movie, int mode)
             rc++;
         if (fgets(name, AUTHOR_LEN, f) != NULL && name[0] != '\n' && name[strlen(name) - 1] == '\n')
             rc++;
-        rc += (fscanf(f, "%d", &year) > 0 && year >= 0) ? 1 : 0;
-        fgets(junk, 10, f); //После fscanf остается лишний \n, который мешает fgets
+        if (fgets(year_c, YEAR_CHAR, f) != NULL && name[0] != '\n' && name[strlen(name) - 1] == '\n')
+        {
+            year = strtol(year_c, &end, 10);
+            if (year > 0 && (*end == '\n' || *end == '\0'))
+                rc++;
+        }
+        //rc += (fscanf(f, "%d", &year) > 0 && year >= 0) ? 1 : 0;
+        //fgets(junk, 10, f); //После fscanf остается лишний \n, который мешает fgets
         count++;
     }
     if (rc > 0)
