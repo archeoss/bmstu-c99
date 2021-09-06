@@ -32,8 +32,7 @@ int main(int args, char **keys)
                         show_all(movies, count);
                     if (args == 4)
                     {
-                        error_code = find_item(movies, keys[3], count, mode);
-                        if (error_code == NOT_FOUND)
+                        if (find_item(movies, keys[3], count, mode) == NOT_FOUND)
                             printf("Not found");
                     }
                 }
