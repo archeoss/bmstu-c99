@@ -47,6 +47,5 @@ int main(int args, char **keys)
     }
     else
         error_code = KEY_ERROR;
-    printf("%d", error_code);
     return error_code;
 }
