@@ -29,8 +29,14 @@ int main(int args, char **keys)
             {
                 if (args == 3)
                     show_all(movies, count);
-                else if (args == 4 && find_item(movies, keys[3], count, mode) == NOT_FOUND)
-                    printf("Not found");
+                else if (args == 4)
+                {
+                    int res = find_item(movies, keys[3], count, mode);
+                    if (res == NOT_FOUND)
+                        printf("Not found");
+                    else if (res == KEY_ERROR)
+                        error_code = KEY_ERROR;
+                }
             }
             else
                 error_code = INCORRECT_DATA_ERROR;
@@ -41,5 +47,6 @@ int main(int args, char **keys)
     }
     else
         error_code = KEY_ERROR;
+    printf("%d", error_code);
     return error_code;
 }
