@@ -1,1 +1,1 @@
-./main.exe pos_01_in.txt title "Best Film"
+./main.exe pos_05_in.txt title "Best Film"

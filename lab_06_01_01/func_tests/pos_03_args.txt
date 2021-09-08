@@ -1,1 +1,1 @@
-./main.exe pos_01_in.txt title Titanic
+./main.exe pos_03_in.txt title Titanic

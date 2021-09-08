@@ -1,1 +1,1 @@
-./main.exe pos_01_in.txt title "Raging Bull"
+./main.exe pos_04_in.txt title "Raging Bull"
