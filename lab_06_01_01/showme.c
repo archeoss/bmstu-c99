@@ -59,7 +59,7 @@ int find_item(movie_struct *movie, char *keyword, int n, int mode)
 
 int compare(movie_struct movie, char *keyword, int year, int mode)
 {    
-    int compare_res;    
+    int compare_res;
     switch (mode)
     {
         case TITLE_MODE:
