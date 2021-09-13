@@ -19,8 +19,8 @@ typedef struct
 
 int read_items(FILE *, movie_struct *, int mode);
 int check_key(char *key);
-void put_by_title(movie_struct *movie, char *title, char *name, int year, int count);
-void put_by_name(movie_struct *movie, char *title, char *name, int year, int count);
-void put_by_year(movie_struct *movie, char *title, char *name, int year, int count);
+void put_by_title(movie_struct *movie, movie_struct last_movie, int count);
+void put_by_name(movie_struct *movie, movie_struct last_movie, int count);
+void put_by_year(movie_struct *movie, movie_struct last_movie, int count);
 
 #endif

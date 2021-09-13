@@ -9,6 +9,8 @@
 #define INCORRECT_DATA_ERROR 2
 #define NOT_FOUND 3
 
+int compare(movie_struct movie, char *keyword, int year, int mode);
+
 void show_all(movie_struct *movie, int n)
 {
     for (int i = 0; i < n; i++)
@@ -38,22 +40,8 @@ int find_item(movie_struct *movie, char *keyword, int n, int mode)
         while (start != end)
         {
             int compare_res;
-            int mid = start + (end - start) / 2;        
-            switch (mode)
-            {
-                case TITLE_MODE:
-                    compare_res = strcmp(movie[mid].title, keyword);
-                    break;
-                case AUTHOR_MODE:
-                    compare_res = strcmp(movie[mid].name, keyword);
-                    break;
-                case YEAR_MODE:
-                    if (movie[mid].year == year)
-                        compare_res = 0;
-                    else
-                        compare_res = movie[mid].year > year ? 1 : -1;
-                    break;
-            }
+            int mid = start + (end - start) / 2;
+            compare_res = compare(movie[mid], keyword, year, mode);
             if (compare_res == 0)
             {
                 end = start;
@@ -67,4 +55,25 @@ int find_item(movie_struct *movie, char *keyword, int n, int mode)
         }
     }
     return error_code;
+}
+
+int compare(movie_struct movie, char *keyword, int year, int mode)
+{    
+    int compare_res;    
+    switch (mode)
+    {
+        case TITLE_MODE:
+            compare_res = strcmp(movie.title, keyword);
+            break;
+        case AUTHOR_MODE:
+            compare_res = strcmp(movie.name, keyword);
+            break;
+        case YEAR_MODE:
+            if (movie.year == year)
+                compare_res = 0;
+            else
+                compare_res = movie.year > year ? 1 : -1;
+            break;
+    }
+    return compare_res;
 }
