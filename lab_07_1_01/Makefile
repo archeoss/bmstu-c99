@@ -21,7 +21,7 @@ $(ODIR)/readme.o : $(SRCDIR)/readme.c $(INCDIR)/readme.h
 $(ODIR)/main.o : $(SRCDIR)/main.c
 	$(CC) $(KEYS) -c $^ -o $@
 
-check_main.exe : $(ODIR)/readme.o $(ODIR)/check_readme.o $(ODIR)/sort.o $(ODIR)/check_sort.o $(ODIR)/check_main.o
+unit_tests.exe : $(ODIR)/readme.o $(ODIR)/check_readme.o $(ODIR)/sort.o $(ODIR)/check_sort.o $(ODIR)/check_main.o
 	$(CC) $^ -o $@ -pthread -lcheck -pthread -lrt -lm 
 
 $(ODIR)/check_readme.o : $(U_SRCDIR)/check_readme.c $(U_INCDIR)/check_readme.h
@@ -35,6 +35,3 @@ $(ODIR)/check_main.o : $(U_SRCDIR)/check_main.c
 
 clean :
 	rm -f $(ODIR)/*.o *.exe
-
-func : 
-	
