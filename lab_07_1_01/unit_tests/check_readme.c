@@ -1,6 +1,6 @@
 #include <check.h>
-#include "../inc/check_readme.h"
-#include "../../inc/readme.h"
+#include "inc/check_readme.h"
+#include "../inc/readme.h"
 
 //
 // fcount() check

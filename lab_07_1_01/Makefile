@@ -3,7 +3,7 @@ KEYS := -g -Wall -Werror -Wredundant-decls -std=c99 -Wsign-conversion -Wfloat-co
 ODIR := ./out
 SRCDIR := ./src
 INCDIR := ./inc
-U_SRCDIR := ./unit_tests/src
+U_SRCDIR := ./unit_tests
 U_INCDIR := ./unit_tests/inc
 OBJS := $(ODIR)/readme.o $(ODIR)/sort.o
 

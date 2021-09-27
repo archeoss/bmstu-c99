@@ -1,6 +1,6 @@
 #include <check.h>
-#include "../inc/check_sort.h"
-#include "../../inc/sort.h"
+#include "inc/check_sort.h"
+#include "../inc/sort.h"
 
 //
 // key() check

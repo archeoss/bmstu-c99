@@ -1,7 +1,7 @@
 #include <check.h>
 #include <stdlib.h>
-#include "../inc/check_sort.h"
-#include "../inc/check_readme.h"
+#include "inc/check_sort.h"
+#include "inc/check_readme.h"
 
 int main()
 {
