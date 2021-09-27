@@ -1,1 +1,1 @@
-./main.exe neg_01_in.txt title
+./app.exe neg_01_in.txt temp.txt

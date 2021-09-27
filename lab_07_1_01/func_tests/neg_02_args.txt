@@ -1,1 +1,1 @@
-./main.exe neg_02_in.txt year
+./app.exe neg_02_in.txt temp.txt

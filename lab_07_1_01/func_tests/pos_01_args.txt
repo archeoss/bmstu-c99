@@ -1,1 +1,1 @@
-./main.exe func_tests/pos_01_in.txt func_tests/pos_out.txt
+./app.exe func_tests/pos_01_in.txt temp.txt f

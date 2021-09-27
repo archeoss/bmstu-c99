@@ -1,1 +1,1 @@
-./main.exe neg_03_in.txt title Titanic
+./app.exe neg_03_in.txt temp.txt

@@ -6,7 +6,9 @@ int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst)
 {
     int len = pe_src - pb_src; 
     int error_code = NO_ERROR;
-    if (len - 2 < 1 || *pe_dst - *pb_dst < len - 2)
+    if (pb_src == NULL || pb_dst == NULL || pe_src == NULL || pe_dst == NULL)
+        error_code = NOT_FOUND;
+    else if (len - 2 < 1 || *pe_dst - *pb_dst < len - 2)
         error_code = INCORRECT_DATA_ERROR;
     else
     {
@@ -43,8 +45,6 @@ int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst)
 void mysort(void *base, size_t num, size_t size, int (*compare) (const void *, const void *))
 {
     char *ptr = (char *)base;
-    if (size == 0)
-        printf("ttt");
     for (size_t i = 0; i < num - 1; i++)
     {
         for (size_t j = 0; j < num - 1 - i; j++)
