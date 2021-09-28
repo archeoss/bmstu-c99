@@ -39,16 +39,21 @@ int main(int args, char **keys)
                             error_code = INCORRECT_DATA_ERROR;
                         else
                         {
-                            int *a_tmp = malloc(count * sizeof(int));
-                            int *ae_tmp = a_tmp + count;
+                            int *a_tmp;
+                            int *ae_tmp;
                             error_code = key(a, a_end, &a_tmp, &ae_tmp);
-                            free(a);
-                            a = a_tmp;
-                            a_end = ae_tmp;
+                            if (error_code == NO_ERROR)
+                            {
+                                free(a);
+                                a = a_tmp;
+                                a_end = ae_tmp;
+                            }
                             //for (int i = 0; i < (int)count; i++)
                             //    printf("%d\n", a[i]);
                         }
                     }
+                    else if (args == 4 && (strcmp("f", keys[3]))
+                        error_code = KEY_ERROR;
                     if (error_code == NO_ERROR)
                     {
                         fclose(f);

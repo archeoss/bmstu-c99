@@ -26,10 +26,12 @@ int read_file(FILE *f, int *a, int *a_end)
     if (error_code == NO_ERROR)
     {
         int rc;
-        while ((rc = fscanf(f, "%d", a)) == 1 && a++ <= a_end)
+        int tmp;
+        while ((rc = fscanf(f, "%d", &tmp)) == 1 && a < a_end)
         {
+            *(a++) = tmp;
         }
-        if (a != a_end || (rc = fscanf(f, "%d", a++)) != EOF)
+        if (a != a_end || (rc = fscanf(f, "%d", &tmp)) != EOF)
             error_code = INCORRECT_DATA_ERROR;
     }
     return error_code;

@@ -23,8 +23,8 @@ START_TEST (null_pointer1_key)
 {
     int *a = calloc(10, sizeof(int));
     int *b = a + 10;
-    int *c;
-    int *d;
+    int *c = 0;
+    int *d = c + 1;
     ck_assert_int_eq(!key(NULL, b, &c, &d), 0);
     free(a);
 }
@@ -34,8 +34,7 @@ START_TEST (null_pointer2_key)
 {
     int *a  = calloc(10, sizeof(int));
     int *b = a + 10;
-    int *d;
-    ck_assert_int_eq(!key(a, b, NULL, &d), 0);
+    ck_assert_int_eq(!key(a, b, NULL, NULL), 0);
     free(a);
 }
 END_TEST
@@ -44,8 +43,8 @@ START_TEST (equal_pointer1_key)
 {
     int *a = calloc(10, sizeof(int));
     int *b = a;
-    int *c;
-    int *d;
+    int *c = 0;
+    int *d = c + 1;
     ck_assert_int_eq(!key(a, b, &c, &d), 0);
     free(a);
 }
@@ -55,8 +54,8 @@ START_TEST (first_arr_toosmall)
 {
     int *a  = calloc(1, sizeof(int));
     int *b = a + 1;
-    int *c;
-    int *d;
+    int *c = 0;
+    int *d = c + 1;
     ck_assert_int_eq(!key(a, b, &c, &d), 0);
     free(a);
 }
@@ -68,8 +67,8 @@ START_TEST (correct_arr_key)
     int *a = malloc(10 * sizeof(int));
     int *b = a + 10;
     fill(a, 10);
-    int *c;
-    int *d;
+    int *c = 0;
+    int *d = c + 1;
     ck_assert_int_eq(key(a, b, &c, &d), 0);
     free(a);
     free(c);
@@ -83,8 +82,8 @@ START_TEST (correct_arr2_key)
     fill(a, 10);
     a[4] = 15;
     a[5] = -15;
-    int *c;
-    int *d;
+    int *c = 0;
+    int *d = c + 1;
     ck_assert_int_eq(key(a, b, &c, &d), 0);
     free(a);
     free(c);

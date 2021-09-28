@@ -65,6 +65,7 @@ START_TEST (eq_pointer_read_file)
     FILE *f = fopen("./unit_tests/pos_test_01.txt", "r");
     ck_assert_int_eq(!read_file(f, a, b), 0);
     fclose(f);
+    free(a);
 }
 END_TEST
 
@@ -152,6 +153,7 @@ START_TEST (eq_pointer_write_arr)
     FILE *f = fopen("./unit_tests/test.txt", "w");
     ck_assert_int_eq(!write_arr(f, a, b), 0);
     fclose(f);
+    free(a);
 }
 END_TEST
 
