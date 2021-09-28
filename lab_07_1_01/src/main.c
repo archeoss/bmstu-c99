@@ -52,7 +52,7 @@ int main(int args, char **keys)
                             //    printf("%d\n", a[i]);
                         }
                     }
-                    else if (args == 4 && (strcmp("f", keys[3]))
+                    else if (args == 4 && (strcmp("f", keys[3])))
                         error_code = KEY_ERROR;
                     if (error_code == NO_ERROR)
                     {
