@@ -45,6 +45,6 @@ int write_arr(FILE *f, int *arr, int *arr_end)
         error_code = INCORRECT_DATA_ERROR;
     else
         for (int i = 0; i < len; i++)
-            fprintf(f, "%d\n", *(arr++));
+            fprintf(f, "%d ", *(arr++));
     return error_code;
 }

@@ -1,12 +1,10 @@
 #include "../inc/sort.h"
 
-void swap(char *ptr1, char *ptr2, size_t size);
-
 int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst)
 {
     int len = pe_src - pb_src; 
     int error_code = NO_ERROR;
-    if (pb_src == NULL || pb_dst == NULL || pe_src == NULL || pe_dst == NULL)
+    if (pb_src == NULL || pb_dst == NULL || pe_src == NULL || pe_dst == NULL || *pe_dst == NULL || *pe_dst == NULL)
         error_code = NOT_FOUND;
     else if (len - 2 < 1 || *pe_dst - *pb_dst < len - 2)
         error_code = INCORRECT_DATA_ERROR;
@@ -44,18 +42,21 @@ int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst)
 
 void mysort(void *base, size_t num, size_t size, int (*compare) (const void *, const void *))
 {
-    char *ptr = (char *)base;
-    for (size_t i = 0; i < num - 1; i++)
-    {
-        for (size_t j = 0; j < num - 1 - i; j++)
+    if (base != NULL && size > 0 && num > 0 && compare != NULL)
+    {   
+        char *ptr = (char *)base;
+        for (size_t i = 0; i < num - 1; i++)
         {
-            int res = (*compare)((void *) ptr, (void *) (ptr + size));
-            //printf("%d : %d :: %d\n", (int)*ptr, (int)*(ptr + size), res);
-            if (res > 0)
-                swap(ptr, ptr + size, size);
-            ptr += size;
+            for (size_t j = 0; j < num - 1 - i; j++)
+            {
+                int res = (*compare)((void *) ptr, (void *) (ptr + size));
+                //printf("%d : %d :: %d\n", (int)*ptr, (int)*(ptr + size), res);
+                if (res > 0)
+                    swap(ptr, ptr + size, size);
+                ptr += size;
+            }
+            ptr -= (num - 1 - i) * size;
         }
-        ptr -= (num - 1 - i) * size;
     }
 }
 

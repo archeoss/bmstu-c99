@@ -32,7 +32,7 @@ int main(int args, char **keys)
                 error_code = read_file(f, a, a_end);
                 if (error_code == NO_ERROR)
                 {
-                    if (args == 4 && !(strcmp("f",keys[3])))
+                    if (args == 4 && !(strcmp("f", keys[3])))
                     {
                         count -= 2;
                         if (count < 1)
@@ -53,7 +53,7 @@ int main(int args, char **keys)
                     {
                         fclose(f);
                         if (count != 1)
-                            mysort(a, count, sizeof(int), (int(*) (const void *, const void *))comp);
+                            mysort(a, count, sizeof(int), (int(*)(const void *, const void *))comp);
                         if ((f = fopen(keys[2], "w")) != NULL)
                             error_code = write_arr(f, a, a_end);
                     }

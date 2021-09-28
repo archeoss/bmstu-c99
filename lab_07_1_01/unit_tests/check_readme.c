@@ -58,6 +58,16 @@ START_TEST (null_pointer_read_file)
 }
 END_TEST
 
+START_TEST (eq_pointer_read_file)
+{
+    int *a = malloc(sizeof(int));
+    int *b = a;
+    FILE *f = fopen("./unit_tests/pos_test_01.txt", "r");
+    ck_assert_int_eq(!read_file(f, a, b), 0);
+    fclose(f);
+}
+END_TEST
+
 START_TEST (empty_file_read_file)
 {
     FILE* f = fopen("./unit_tests/neg_test_01.txt", "r");
@@ -135,6 +145,16 @@ START_TEST (null_pointer_write_arr)
 }
 END_TEST
 
+START_TEST (eq_pointer_write_arr)
+{
+    int *a = malloc(sizeof(int));
+    int *b = a;
+    FILE *f = fopen("./unit_tests/test.txt", "w");
+    ck_assert_int_eq(!write_arr(f, a, b), 0);
+    fclose(f);
+}
+END_TEST
+
 START_TEST (correct_file_write_arr)
 {
     FILE* f = fopen("./unit_tests/test.txt", "w");
@@ -167,6 +187,7 @@ Suite * readme_suite(void)
     tcase_add_test(tc, empty_file_read_file);
     tcase_add_test(tc, null_file_read_file);
     tcase_add_test(tc, null_pointer_read_file);
+    tcase_add_test(tc, eq_pointer_read_file);
     tcase_add_test(tc, words_file_read_file);
     tcase_add_test(tc, correct_file_read_file);
     tcase_add_test(tc, bigger_len_read_file);
@@ -175,7 +196,7 @@ Suite * readme_suite(void)
     tcase_add_test(tc, null_file_write_arr);
     tcase_add_test(tc, null_pointer_write_arr);
     tcase_add_test(tc, correct_file_write_arr);
-
+    tcase_add_test(tc, eq_pointer_write_arr);
     suite_add_tcase(s, tc);
     return s;
 }
