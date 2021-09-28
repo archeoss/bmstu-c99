@@ -6,10 +6,12 @@ int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst)
     int error_code = NO_ERROR;
     if (pb_src == NULL || pb_dst == NULL || pe_src == NULL || pe_dst == NULL || *pe_dst == NULL || *pe_dst == NULL)
         error_code = NOT_FOUND;
-    else if (len - 2 < 1 || *pe_dst - *pb_dst < len - 2)
+    else if (len - 2 < 1)
         error_code = INCORRECT_DATA_ERROR;
     else
     {
+        *pb_dst = malloc((size_t)(len - 2) * sizeof(int));
+        *pe_dst = *pb_dst + len - 2;
         int max = *pb_src;
         int min = *pb_src;
         for (int i = 0; i < len; i++)

@@ -21,13 +21,12 @@ int comp(const int *i, const int *j)
 
 START_TEST (null_pointer1_key)
 {
-    int *a  = calloc(10, sizeof(int));
+    int *a = calloc(10, sizeof(int));
     int *b = a + 10;
-    int *c = malloc(8 * sizeof(int));
-    int *d = c + 8;
+    int *c;
+    int *d;
     ck_assert_int_eq(!key(NULL, b, &c, &d), 0);
     free(a);
-    free(c);
 }
 END_TEST
 
@@ -35,58 +34,31 @@ START_TEST (null_pointer2_key)
 {
     int *a  = calloc(10, sizeof(int));
     int *b = a + 10;
-    int *c = malloc(8 * sizeof(int));
-    int *d = c + 8;
+    int *d;
     ck_assert_int_eq(!key(a, b, NULL, &d), 0);
     free(a);
-    free(c);
 }
 END_TEST
 
 START_TEST (equal_pointer1_key)
 {
-    int *a  = calloc(10, sizeof(int));
+    int *a = calloc(10, sizeof(int));
     int *b = a;
-    int *c = malloc(8 * sizeof(int));
-    int *d = c + 8;
+    int *c;
+    int *d;
     ck_assert_int_eq(!key(a, b, &c, &d), 0);
     free(a);
-    free(c);
 }
 END_TEST
-
-START_TEST (equal_pointer2_key)
-{
-    int *a  = calloc(10, sizeof(int));
-    int *b = a + 10;
-    int *c = malloc(8 * sizeof(int));
-    int *d = c;
-    ck_assert_int_eq(!key(a, b, &c, &d), 0);
-    free(a);
-    free(c);
-}
-END_TEST
-
-START_TEST (second_arr_toosmall)
-{
-    int *a  = calloc(10, sizeof(int));
-    int *b = a + 10;
-    int *c = malloc(6 * sizeof(int));
-    int *d = c + 6;
-    ck_assert_int_eq(!key(a, b, &c, &d), 0);
-    free(a);
-    free(c);
-}
 
 START_TEST (first_arr_toosmall)
 {
     int *a  = calloc(1, sizeof(int));
     int *b = a + 1;
-    int *c = malloc(6 * sizeof(int));
-    int *d = c + 6;
+    int *c;
+    int *d;
     ck_assert_int_eq(!key(a, b, &c, &d), 0);
     free(a);
-    free(c);
 }
 
 END_TEST
@@ -96,8 +68,23 @@ START_TEST (correct_arr_key)
     int *a = malloc(10 * sizeof(int));
     int *b = a + 10;
     fill(a, 10);
-    int *c = malloc(8 * sizeof(int));
-    int *d = c + 8;
+    int *c;
+    int *d;
+    ck_assert_int_eq(key(a, b, &c, &d), 0);
+    free(a);
+    free(c);
+}
+END_TEST
+
+START_TEST (correct_arr2_key)
+{
+    int *a = malloc(10 * sizeof(int));
+    int *b = a + 10;
+    fill(a, 10);
+    a[4] = 15;
+    a[5] = -15;
+    int *c;
+    int *d;
     ck_assert_int_eq(key(a, b, &c, &d), 0);
     free(a);
     free(c);
@@ -201,10 +188,9 @@ Suite * sort_suite(void)
     tcase_add_test(tc, null_pointer1_key);
     tcase_add_test(tc, null_pointer2_key);
     tcase_add_test(tc, equal_pointer1_key);
-    tcase_add_test(tc, equal_pointer2_key);
     tcase_add_test(tc, first_arr_toosmall);
-    tcase_add_test(tc, second_arr_toosmall);
     tcase_add_test(tc, correct_arr_key);
+    tcase_add_test(tc, correct_arr2_key);
 
     tcase_add_test(tc, null_pointer_sort);
     tcase_add_test(tc, wrong_len_sort);
