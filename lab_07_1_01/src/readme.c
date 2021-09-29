@@ -31,7 +31,7 @@ int read_file(FILE *f, int *a, int *a_end)
         {
             *(a++) = tmp;
         }
-        if (a != a_end || (rc = fscanf(f, "%d", &tmp)) != EOF)
+        if (rc == 1 || a != a_end || (rc = fscanf(f, "%d", &tmp)) != EOF)
             error_code = INCORRECT_DATA_ERROR;
     }
     return error_code;

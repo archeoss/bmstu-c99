@@ -42,13 +42,14 @@ int main(int args, char **keys)
                             int *a_tmp;
                             int *ae_tmp;
                             error_code = key(a, a_end, &a_tmp, &ae_tmp);
+                            //printf("%d \n", error_code);
                             if (error_code == NO_ERROR)
                             {
                                 free(a);
                                 a = a_tmp;
                                 a_end = ae_tmp;
                             }
-                            //for (int i = 0; i < (int)count; i++)
+                            //for (int i = 0; i < 7; i++)
                             //    printf("%d\n", a[i]);
                         }
                     }
@@ -58,7 +59,7 @@ int main(int args, char **keys)
                     {
                         fclose(f);
                         if (count != 1)
-                            mysort(a, count, sizeof(int), (int(*)(const void *, const void *))comp);
+                            mysort(a, (unsigned)(a_end - a), sizeof(int), (int(*)(const void *, const void *))comp);
                         if ((f = fopen(keys[2], "w")) != NULL)
                             error_code = write_arr(f, a, a_end);
                     }

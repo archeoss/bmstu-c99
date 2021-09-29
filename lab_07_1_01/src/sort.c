@@ -6,38 +6,48 @@ int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst)
     int error_code = NO_ERROR;
     if (pb_src == NULL || pb_dst == NULL || pe_src == NULL || pe_dst == NULL)
         error_code = NOT_FOUND;
-    else if (len - 2 < 1)
+    else if (len < 3)
         error_code = INCORRECT_DATA_ERROR;
     else
     {
-        *pb_dst = malloc((size_t)(len - 2) * sizeof(int));
-        *pe_dst = *pb_dst + len - 2;
-        int max = *pb_src;
-        int min = *pb_src;
+        int max = *pb_src, max_pos = 0;
+        int min = *pb_src, min_pos = 0;
         for (int i = 0; i < len; i++)
         {
             if (*pb_src > max)
-                max = *pb_src;
-            else if (*pb_src < min)
-                min = *pb_src;
-            pb_src++;
-        }
-        pb_src -= len;
-        int flag_max = 1, flag_min = 1;
-        while (pb_src != pe_src)
-        {
-            if (*pb_src == max && flag_max)
-                flag_max = 0;
-            else if (*pb_src == min && flag_min)
-                flag_min = 0;
-            else
             {
-                **pb_dst = *pb_src;
-                (*pb_dst)++;
+                max_pos = i;
+                max = *pb_src;
+            }
+            else if (*pb_src < min)
+            {
+                min_pos = i;
+                min = *pb_src;
             }
             pb_src++;
         }
-        *pb_dst -= len - 2;
+        pb_src -= len;
+        unsigned count = (unsigned)(abs(min_pos - max_pos) - 1);
+        if (count < 1)
+            error_code = INCORRECT_DATA_ERROR;
+        if (error_code == NO_ERROR)
+        {
+            *pb_dst = malloc(count * sizeof(int));
+            *pe_dst = *pb_dst + count;
+            if (max_pos < min_pos)
+                pb_src += max_pos + 1;
+            else
+                pb_src += min_pos + 1;
+            for (int i = 0; i < (int)count; i++)
+            {
+                **pb_dst = *pb_src;
+                (*pb_dst)++;
+                //printf("%d ", *pb_src);
+                pb_src++;
+            }
+            *pb_dst -= count;
+            //printf("%d ", **pb_dst);
+        }
     }
     return error_code;
 }
