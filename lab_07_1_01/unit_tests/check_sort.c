@@ -75,7 +75,7 @@ START_TEST (correct_arr_key)
 }
 END_TEST
 
-START_TEST (correct_arr2_key)
+START_TEST (zero_len_key)
 {
     int *a = malloc(10 * sizeof(int));
     int *b = a + 10;
@@ -84,7 +84,7 @@ START_TEST (correct_arr2_key)
     a[5] = -15;
     int *c = 0;
     int *d = c + 1;
-    ck_assert_int_eq(key(a, b, &c, &d), 0);
+    ck_assert_int_eq(!key(a, b, &c, &d), 0);
     free(a);
     free(c);
 }
@@ -189,7 +189,7 @@ Suite * sort_suite(void)
     tcase_add_test(tc, equal_pointer1_key);
     tcase_add_test(tc, first_arr_toosmall);
     tcase_add_test(tc, correct_arr_key);
-    tcase_add_test(tc, correct_arr2_key);
+    tcase_add_test(tc, zero_len_key);
 
     tcase_add_test(tc, null_pointer_sort);
     tcase_add_test(tc, wrong_len_sort);
