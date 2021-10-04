@@ -13,6 +13,7 @@ unsigned int fcount(FILE *f)
             count = 0;
         rewind(f);
     }
+
     return count;
 }
 
@@ -34,6 +35,7 @@ int read_file(FILE *f, int *a, int *a_end)
         if (rc == 1 || a != a_end || (rc = fscanf(f, "%d", &tmp)) != EOF)
             error_code = INCORRECT_DATA_ERROR;
     }
+
     return error_code;
 }
 
@@ -48,5 +50,6 @@ int write_arr(FILE *f, int *arr, int *arr_end)
     else
         for (int i = 0; i < len; i++)
             fprintf(f, "%d ", *(arr++));
+    
     return error_code;
 }
