@@ -5,6 +5,7 @@ SRCDIR := ./src
 INCDIR := ./inc
 U_SRCDIR := ./unit_tests
 U_INCDIR := ./unit_tests/inc
+CMPDIR := ./compare
 OBJS := $(ODIR)/readme.o $(ODIR)/sort.o
 
 all : app.exe
@@ -31,6 +32,12 @@ $(ODIR)/check_sort.o : $(U_SRCDIR)/check_sort.c $(U_INCDIR)/check_sort.h
 	$(CC) $(KEYS) -c $(U_SRCDIR)/check_sort.c -o $@
 
 $(ODIR)/check_main.o : $(U_SRCDIR)/check_main.c
+	$(CC) $(KEYS) -c $^ -o $@
+
+compare.exe : $(ODIR)/readme.o $(ODIR)/sort.o $(ODIR)/cmp_main.o
+	$(CC) $(KEYS) $^ -o $@ 
+
+$(ODIR)/cmp_main.o : $(CMPDIR)/cmp_main.c
 	$(CC) $(KEYS) -c $^ -o $@
 
 clean :
