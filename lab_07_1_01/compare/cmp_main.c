@@ -21,8 +21,7 @@ int main()
     for (int j = 0; j < NN; j++)
     {
         srand(time(NULL) * j);
-        
-        for(int i = 0; i < N * j; i++)
+        for (int i = 0; i < N * j; i++)
         {
             int t = (rand() % 51);
             b[i] = t; 
@@ -30,10 +29,10 @@ int main()
         }
         for (int k = 0; k < TIMES; k++)
         {
-            int *a_cpy= malloc(N * NN * sizeof(int));
+            int *a_cpy = malloc(N * NN * sizeof(int));
             int *b_cpy = malloc(N * NN * sizeof(int));
     
-            for(int i = 0; i < N * j; i++)
+            for (int i = 0; i < N * j; i++)
             {
                 b_cpy[i] = b[i]; 
                 a_cpy[i] = a[i];
@@ -84,12 +83,10 @@ int main()
         }
         fprintf(f1, "%f\n", sum_a / (TIMES - 2));
         fprintf(f2, "%f\n", sum_b / (TIMES - 2));
-
     }
     free(a);
     free(b);
     fclose(f1);
     fclose(f2);
     return 0;
-
-}   
+}
