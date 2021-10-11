@@ -15,8 +15,8 @@ int main()
 {
     double timespent_a[TIMES];
     double timespent_b[TIMES];
-    int *a = malloc(N * NN * sizeof(int));
-    int *b = malloc(N * NN * sizeof(int));
+    int *a = malloc(N * STEPS * sizeof(int));
+    int *b = malloc(N * STEPS * sizeof(int));
     FILE* f1 = fopen("Data1.txt", "w");
     FILE* f2 = fopen("Data2.txt", "w");
     for (int j = 1; j < STEPS + 1; j++)
