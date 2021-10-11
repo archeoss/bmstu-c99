@@ -1,6 +1,6 @@
 #include <check.h>
-#include "inc/check_readme.h"
-#include "../inc/readme.h"
+#include "inc/check_io.h"
+#include "../inc/io.h"
 
 //
 // fcount() check
@@ -14,25 +14,19 @@ END_TEST
 
 START_TEST (empty_file_fcount)
 {
-    FILE* f = fopen("./unit_tests/neg_test_01.txt", "r");
-    ck_assert_int_eq(fcount(f), 0);
-    fclose(f);
+    ck_assert_int_eq(fcount("./unit_tests/neg_test_01.txt"), 0);
 }
 END_TEST
 
 START_TEST (words_file_fcount)
 {
-    FILE* f = fopen("./unit_tests/neg_test_03.txt", "r");
-    ck_assert_int_eq(fcount(f), 0);
-    fclose(f);
+    ck_assert_int_eq(fcount("./unit_tests/neg_test_03.txt"), 0);
 }
 END_TEST
 
 START_TEST (correct_file_fcount)
 {
-    FILE* f = fopen("./unit_tests/pos_test_01.txt", "r");
-    ck_assert_int_eq(fcount(f), 9);
-    fclose(f);
+    ck_assert_int_eq(fcount("./unit_tests/pos_test_01.txt"), 9);
 }
 END_TEST
 
@@ -52,9 +46,7 @@ START_TEST (null_pointer_read_file)
 {
     int *a = NULL;
     int *b = a + 1;
-    FILE *f = fopen("./unit_tests/pos_test_01.txt", "r");
-    ck_assert_int_eq(!read_file(f, a, b), 0);
-    fclose(f);
+    ck_assert_int_eq(!read_file("./unit_tests/pos_test_01.txt", a, b), 0);
 }
 END_TEST
 
@@ -62,63 +54,51 @@ START_TEST (eq_pointer_read_file)
 {
     int *a = malloc(sizeof(int));
     int *b = a;
-    FILE *f = fopen("./unit_tests/pos_test_01.txt", "r");
-    ck_assert_int_eq(!read_file(f, a, b), 0);
-    fclose(f);
+    ck_assert_int_eq(!read_file("./unit_tests/pos_test_01.txt", a, b), 0);
     free(a);
 }
 END_TEST
 
 START_TEST (empty_file_read_file)
 {
-    FILE* f = fopen("./unit_tests/neg_test_01.txt", "r");
     int *a = 0;
     int *b = a + 1;
-    ck_assert_int_eq(!read_file(f, a, b), 0);
-    fclose(f);
+    ck_assert_int_eq(!read_file("./unit_tests/pos_test_01.txt", a, b), 0);
 }
 END_TEST
 
 START_TEST (words_file_read_file)
 {
-    FILE* f = fopen("./unit_tests/neg_test_03.txt", "r");
     int *a = malloc(4 * sizeof(int));
     int *b = a + 4;
-    ck_assert_int_eq(!read_file(f, a, b), 0);
-    fclose(f);
+    ck_assert_int_eq(!read_file("./unit_tests/neg_test_03.txt", a, b), 0);
     free(a);
 }
 END_TEST
 
 START_TEST (correct_file_read_file)
 {
-    FILE* f = fopen("./unit_tests/pos_test_01.txt", "r");
     int *a = malloc(9 * sizeof(int));
     int *b = a + 9;
-    ck_assert_int_eq(read_file(f, a, b), 0);
-    fclose(f);
+    ck_assert_int_eq(read_file("./unit_tests/pos_test_01.txt", a, b), 0);
     free(a);
 }
 END_TEST
 
 START_TEST (bigger_len_read_file)
 {
-    FILE* f = fopen("./unit_tests/pos_test_01.txt", "r");
     int *a = malloc(10 * sizeof(int));
     int *b = a + 10;
-    ck_assert_int_eq(!read_file(f, a, b), 0);
-    fclose(f);
+    ck_assert_int_eq(!read_file("./unit_tests/pos_test_01.txt", a, b), 0);
     free(a);
 }
 END_TEST
 
 START_TEST (smaller_len_read_file)
 {
-    FILE* f = fopen("./unit_tests/pos_test_01.txt", "r");
     int *a = malloc(8 * sizeof(int));
     int *b = a + 8;
-    ck_assert_int_eq(!read_file(f, a, b), 0);
-    fclose(f);
+    ck_assert_int_eq(!read_file("./unit_tests/pos_test_01.txt", a, b), 0);
     free(a);
 }
 END_TEST
@@ -140,9 +120,7 @@ START_TEST (null_pointer_write_arr)
 {
     int *a = NULL;
     int *b = a + 1;
-    FILE *f = fopen("./unit_tests/test.txt", "w");
-    ck_assert_int_eq(!write_arr(f, a, b), 0);
-    fclose(f);
+    ck_assert_int_eq(!write_arr("./unit_tests/test.txt", a, b), 0);
 }
 END_TEST
 
@@ -150,20 +128,16 @@ START_TEST (eq_pointer_write_arr)
 {
     int *a = malloc(sizeof(int));
     int *b = a;
-    FILE *f = fopen("./unit_tests/test.txt", "w");
-    ck_assert_int_eq(!write_arr(f, a, b), 0);
-    fclose(f);
+    ck_assert_int_eq(!write_arr("./unit_tests/test.txt", a, b), 0);
     free(a);
 }
 END_TEST
 
 START_TEST (correct_file_write_arr)
 {
-    FILE* f = fopen("./unit_tests/test.txt", "w");
     int *a = calloc(9, sizeof(int));
     int *b = a + 9;
-    ck_assert_int_eq(write_arr(f, a, b), 0);
-    fclose(f);
+    ck_assert_int_eq(write_arr("./unit_tests/test.txt", a, b), 0);
     free(a);
 }
 END_TEST

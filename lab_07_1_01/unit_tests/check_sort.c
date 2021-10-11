@@ -14,10 +14,6 @@ void fill(int *a, int n)
         a++;
     }
 }
-int comp(const int *i, const int *j)
-{
-    return *i - *j;
-}
 
 START_TEST (null_pointer1_key)
 {

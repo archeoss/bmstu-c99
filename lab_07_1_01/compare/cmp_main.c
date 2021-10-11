@@ -8,8 +8,9 @@ int comp(const int *i, const int *j)
 }
 
 #define N 100
-#define NN 100
+#define STEPS 100
 #define TIMES 10
+
 int main()
 {
     double timespent_a[TIMES];
@@ -18,7 +19,7 @@ int main()
     int *b = malloc(N * NN * sizeof(int));
     FILE* f1 = fopen("Data1.txt", "w");
     FILE* f2 = fopen("Data2.txt", "w");
-    for (int j = 0; j < NN; j++)
+    for (int j = 1; j < STEPS + 1; j++)
     {
         srand(time(NULL) * j);
         for (int i = 0; i < N * j; i++)
@@ -29,8 +30,8 @@ int main()
         }
         for (int k = 0; k < TIMES; k++)
         {
-            int *a_cpy = malloc(N * NN * sizeof(int));
-            int *b_cpy = malloc(N * NN * sizeof(int));
+            int *a_cpy = malloc(N * j * sizeof(int));
+            int *b_cpy = malloc(N * j * sizeof(int));
     
             for (int i = 0; i < N * j; i++)
             {

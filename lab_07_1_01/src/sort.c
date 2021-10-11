@@ -76,3 +76,8 @@ void swap(char *ptr1, char *ptr2, size_t size)
         *(ptr2++) = tmp;
     }
 }
+
+int comp(const void *i, const void *j)
+{
+    return (*(const int *)i) - (*(const int *)j);
+}

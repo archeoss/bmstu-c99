@@ -6,7 +6,7 @@ INCDIR := ./inc
 U_SRCDIR := ./unit_tests
 U_INCDIR := ./unit_tests/inc
 CMPDIR := ./compare
-OBJS := $(ODIR)/readme.o $(ODIR)/sort.o
+OBJS := $(ODIR)/io.o $(ODIR)/sort.o
 
 all : app.exe
 
@@ -16,17 +16,17 @@ app.exe : $(OBJS) $(ODIR)/main.o
 $(ODIR)/sort.o : $(SRCDIR)/sort.c $(INCDIR)/sort.h
 	$(CC) $(KEYS) -c $(SRCDIR)/sort.c  -o $@
 
-$(ODIR)/readme.o : $(SRCDIR)/readme.c $(INCDIR)/readme.h
-	$(CC) $(KEYS) -c $(SRCDIR)/readme.c  -o $@
+$(ODIR)/io.o : $(SRCDIR)/io.c $(INCDIR)/io.h
+	$(CC) $(KEYS) -c $(SRCDIR)/io.c  -o $@
 
 $(ODIR)/main.o : $(SRCDIR)/main.c
 	$(CC) $(KEYS) -c $^ -o $@
 
-unit_tests.exe : $(ODIR)/readme.o $(ODIR)/check_readme.o $(ODIR)/sort.o $(ODIR)/check_sort.o $(ODIR)/check_main.o
-	$(CC) $^ -o $@ -pthread -lcheck -pthread -lrt -lm 
+unit_tests.exe : $(ODIR)/io.o $(ODIR)/check_io.o $(ODIR)/sort.o $(ODIR)/check_sort.o $(ODIR)/check_main.o
+	$(CC) $^ -o $@ -lcheck -lrt -lm 
 
-$(ODIR)/check_readme.o : $(U_SRCDIR)/check_readme.c $(U_INCDIR)/check_readme.h
-	$(CC) $(KEYS) -c $(U_SRCDIR)/check_readme.c -o $@
+$(ODIR)/check_io.o : $(U_SRCDIR)/check_io.c $(U_INCDIR)/check_io.h
+	$(CC) $(KEYS) -c $(U_SRCDIR)/check_io.c -o $@
 
 $(ODIR)/check_sort.o : $(U_SRCDIR)/check_sort.c $(U_INCDIR)/check_sort.h
 	$(CC) $(KEYS) -c $(U_SRCDIR)/check_sort.c -o $@
@@ -34,7 +34,7 @@ $(ODIR)/check_sort.o : $(U_SRCDIR)/check_sort.c $(U_INCDIR)/check_sort.h
 $(ODIR)/check_main.o : $(U_SRCDIR)/check_main.c
 	$(CC) $(KEYS) -c $^ -o $@
 
-compare.exe : $(ODIR)/readme.o $(ODIR)/sort.o $(ODIR)/cmp_main.o
+compare.exe : $(ODIR)/io.o $(ODIR)/sort.o $(ODIR)/cmp_main.o
 	$(CC) $(KEYS) $^ -o $@ 
 
 $(ODIR)/cmp_main.o : $(CMPDIR)/cmp_main.c
