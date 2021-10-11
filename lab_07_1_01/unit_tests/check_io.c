@@ -3,30 +3,30 @@
 #include "../inc/io.h"
 
 //
-// fcount() check
+// len_of_file() check
 //
 
-START_TEST (null_file_fcount)
+START_TEST (null_file_len_of_file)
 {
-    ck_assert_int_eq(fcount(NULL), 0);
+    ck_assert_int_eq(len_of_file(NULL), -1);
 }
 END_TEST
 
-START_TEST (empty_file_fcount)
+START_TEST (empty_file_len_of_file)
 {
-    ck_assert_int_eq(fcount("./unit_tests/neg_test_01.txt"), 0);
+    ck_assert_int_eq(len_of_file("./unit_tests/neg_test_01.txt"), 0);
 }
 END_TEST
 
-START_TEST (words_file_fcount)
+START_TEST (words_file_len_of_file)
 {
-    ck_assert_int_eq(fcount("./unit_tests/neg_test_03.txt"), 0);
+    ck_assert_int_eq(len_of_file("./unit_tests/neg_test_03.txt"), -1);
 }
 END_TEST
 
-START_TEST (correct_file_fcount)
+START_TEST (correct_file_len_of_file)
 {
-    ck_assert_int_eq(fcount("./unit_tests/pos_test_01.txt"), 9);
+    ck_assert_int_eq(len_of_file("./unit_tests/pos_test_01.txt"), 9);
 }
 END_TEST
 
@@ -155,10 +155,10 @@ Suite * readme_suite(void)
 
     tc = tcase_create("Core");
 
-    tcase_add_test(tc, empty_file_fcount);
-    tcase_add_test(tc, null_file_fcount);
-    tcase_add_test(tc, words_file_fcount);
-    tcase_add_test(tc, correct_file_fcount);
+    tcase_add_test(tc, empty_file_len_of_file);
+    tcase_add_test(tc, null_file_len_of_file);
+    tcase_add_test(tc, words_file_len_of_file);
+    tcase_add_test(tc, correct_file_len_of_file);
 
     tcase_add_test(tc, empty_file_read_file);
     tcase_add_test(tc, null_file_read_file);

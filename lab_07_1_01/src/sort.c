@@ -52,17 +52,18 @@ void mysort(void *base, size_t num, size_t size, int (*compare)(const void *, co
 {
     if (base != NULL && size > 0 && num > 0 && compare != NULL)
     {   
+        num -= 1;
         char *ptr = (char *)base;
-        for (size_t i = 0; i < num - 1; i++)
+        for (size_t i = 0; i < num; i++)
         {
-            for (size_t j = 0; j < num - 1 - i; j++)
+            for (size_t j = 0; j < num - i; j++)
             {
                 int res = (*compare)((void *) ptr, (void *) (ptr + size));
                 if (res > 0)
                     swap(ptr, ptr + size, size);
                 ptr += size;
             }
-            ptr -= (num - 1 - i) * size;
+            ptr -= (num - i) * size;
         }
     }
 }

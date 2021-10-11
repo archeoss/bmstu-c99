@@ -1,13 +1,8 @@
 #include "../inc/sort.h"
-#include "../inc/readme.h"
+#include "../inc/io.h"
 #include <time.h>
 
-int comp(const int *i, const int *j)
-{
-    return *i - *j;
-}
-
-#define N 100
+#define N 30
 #define STEPS 100
 #define TIMES 10
 
@@ -17,8 +12,8 @@ int main()
     double timespent_b[TIMES];
     int *a = malloc(N * STEPS * sizeof(int));
     int *b = malloc(N * STEPS * sizeof(int));
-    FILE* f1 = fopen("Data1.txt", "w");
-    FILE* f2 = fopen("Data2.txt", "w");
+    FILE* f1 = fopen("mysort.txt", "w");
+    FILE* f2 = fopen("qsort.txt", "w");
     for (int j = 1; j < STEPS + 1; j++)
     {
         srand(time(NULL) * j);

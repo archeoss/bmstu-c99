@@ -1,5 +1,5 @@
 CC := gcc
-KEYS := -g -Wall -Werror -Wredundant-decls -std=c99 -Wsign-conversion -Wfloat-conversion -Wfloat-equal -Wpedantic -Wextra -Wvla
+KEYS := -g -Wall -Werror -Wredundant-decls -std=c99 -Wfloat-conversion -Wfloat-equal -Wpedantic -Wextra -Wvla
 ODIR := ./out
 SRCDIR := ./src
 INCDIR := ./inc

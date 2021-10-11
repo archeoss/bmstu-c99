@@ -5,11 +5,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include "errors.h"
 
 
 int read_file(char *filename, int *a, int *a_end);
-unsigned int fcount(char *filename);
+int len_of_file(char *filename);
 int write_arr(char *filename, int *arr, int *arr_end);
 
 #endif

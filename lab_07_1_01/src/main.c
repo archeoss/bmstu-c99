@@ -12,41 +12,41 @@
 
 int main(int args, char **keys)
 {
-    int *a = NULL;
-    int *a_end;
+    int *array = NULL;
+    int *array_end;
     int error_code = NO_ERROR;
     unsigned int count;
     if (args > 2 && args < 5)
     {
-        count = fcount(keys[1]);
-        if (count != 0)
+        count = len_of_file(keys[1]);
+        if (count > 0)
         {
-            a = malloc(count * sizeof(int));
-            a_end = a + count;
+            array = malloc(count * sizeof(int));
+            array_end = array + count;
         }
         else
             error_code = INCORRECT_DATA_ERROR;
         
         if (error_code == NO_ERROR)
-            error_code = read_file(keys[1], a, a_end);
+            error_code = read_file(keys[1], array, array_end);
         
         if (error_code == NO_ERROR)
         {
             if (args == 4 && !(strcmp("f", keys[3])))
             {
-                count -= 2;
-                if (count < 1)
+                
+                if (count < 3)
                     error_code = INCORRECT_DATA_ERROR;
                 else
                 {
-                    int *a_tmp;
-                    int *ae_tmp;
-                    error_code = key(a, a_end, &a_tmp, &ae_tmp);
+                    int *array_tmp;
+                    int *array_end_tmp;
+                    error_code = key(array, array_end, &array_tmp, &array_end_tmp);
                     if (error_code == NO_ERROR)
                     {
-                        free(a);
-                        a = a_tmp;
-                        a_end = ae_tmp;
+                        free(array);
+                        array = array_tmp;
+                        array_end = array_end_tmp;
                     }
                 }
             }
@@ -54,15 +54,15 @@ int main(int args, char **keys)
                 error_code = KEY_ERROR;
             if (error_code == NO_ERROR)
             {
-                if (count != 1)
-                    mysort(a, (unsigned)(a_end - a), sizeof(int), (int(*)(const void *, const void *))comp);
-                if (keys[2] != NULL)
-                    error_code = write_arr(keys[2], a, a_end);
+                count = array_end - array;
+                if (count > 1)
+                    mysort(array, (unsigned)(count), sizeof(int), (int(*)(const void *, const void *))comp);
+                error_code = write_arr(keys[2], array, array_end);
             }
         }
     }
-    if (a)
-        free(a);
+    if (array)
+        free(array);
     else
         error_code = KEY_ERROR;
     
