@@ -34,7 +34,6 @@ int main(int args, char **keys)
         {
             if (args == 4 && !(strcmp("f", keys[3])))
             {
-                
                 if (count < 3)
                     error_code = INCORRECT_DATA_ERROR;
                 else
