@@ -166,6 +166,27 @@ START_TEST (correct_swap)
 }
 END_TEST
 
+//
+// find_max() test
+//
+
+START_TEST (correct_find_max)
+{
+    int a[5] = {1, 0, 5, 4, 3};
+    ck_assert_int_eq(find_max(a, a + 5), 2);
+}
+END_TEST
+
+//
+// find_min() test
+//
+
+START_TEST (correct_find_min)
+{
+    int a[5] = {1, 0, 5, 4, 3};
+    ck_assert_int_eq(find_min(a, a + 5), 1);
+}
+END_TEST
 
 //
 // Suite
@@ -194,6 +215,9 @@ Suite * sort_suite(void)
     tcase_add_test(tc, correct_sort);
 
     tcase_add_test(tc, correct_swap);
+
+    tcase_add_test(tc, correct_find_max);
+    tcase_add_test(tc, correct_find_min);
 
     suite_add_tcase(s, tc);
     return s;

@@ -40,5 +40,11 @@ compare.exe : $(ODIR)/io.o $(ODIR)/sort.o $(ODIR)/cmp_main.o
 $(ODIR)/cmp_main.o : $(CMPDIR)/cmp_main.c
 	$(CC) $(KEYS) -c $^ -o $@
 
+compare_mybest.exe : $(ODIR)/io.o $(ODIR)/sort.o $(ODIR)/cmp_main_mybest.o
+	$(CC) $(KEYS) $^ -o $@ 
+
+$(ODIR)/cmp_main_mybest.o : $(CMPDIR)/cmp_main_mybest.c
+	$(CC) $(KEYS) -c $^ -o $@
+
 clean :
 	rm -f $(ODIR)/*.o *.exe

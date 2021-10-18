@@ -10,23 +10,9 @@ int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst)
         error_code = INCORRECT_DATA_ERROR;
     else
     {
-        int max = *pb_src, max_pos = 0;
-        int min = *pb_src, min_pos = 0;
-        for (int i = 0; i < len; i++)
-        {
-            if (*pb_src > max)
-            {
-                max_pos = i;
-                max = *pb_src;
-            }
-            else if (*pb_src < min)
-            {
-                min_pos = i;
-                min = *pb_src;
-            }
-            pb_src++;
-        }
-        pb_src -= len;
+        int max_pos, min_pos;
+        max_pos = find_max(pb_src, pe_src);
+        min_pos = find_min(pb_src, pe_src);
         unsigned count = (unsigned)(abs(min_pos - max_pos) - 1);
         if (count < 1)
             error_code = INCORRECT_DATA_ERROR;
@@ -81,4 +67,40 @@ void swap(char *ptr1, char *ptr2, size_t size)
 int comp(const void *i, const void *j)
 {
     return (*(const int *)i) - (*(const int *)j);
+}
+
+int find_max(const int *array, const int *array_end)
+{
+    int max = *array, max_pos = 0;
+    int i = 0;
+    while (array != array_end)
+    {
+        if (*array > max)
+        {
+            max_pos = i;
+            max = *(array);
+        }
+        i++;
+        array++;
+    }
+
+    return max_pos;
+}
+
+int find_min(const int *array, const int *array_end)
+{
+    int min = *array, min_pos = 0;
+    int i = 0;
+    while (array != array_end)
+    {
+        if (*array < min)
+        {
+            min_pos = i;
+            min = *(array);
+        }
+        i++;
+        array++;
+    }
+
+    return min_pos;
 }

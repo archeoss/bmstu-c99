@@ -54,8 +54,7 @@ int main(int args, char **keys)
             if (error_code == NO_ERROR)
             {
                 count = array_end - array;
-                if (count > 1)
-                    mysort(array, (unsigned)(count), sizeof(int), (int(*)(const void *, const void *))comp);
+                mysort(array, (unsigned)(count), sizeof(int), (int(*)(const void *, const void *))comp);
                 error_code = write_arr(keys[2], array, array_end);
             }
         }
