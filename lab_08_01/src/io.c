@@ -11,7 +11,7 @@ int **get_matrix(int rows, int cols)
     {
         matrix = alloc_matrix(rows, cols);
         if (matrix)
-            error_code = input_matrix(matrix, rows, *cols);
+            error_code = input_matrix(matrix, rows, cols);
         else
             error_code = ALLOC_ERROR;
     }
