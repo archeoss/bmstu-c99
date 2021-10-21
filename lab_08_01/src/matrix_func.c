@@ -55,7 +55,7 @@ int **make_equal(int **matrix, int size, int to_append)
     int **matrix_res = realloc_cst(matrix, size, size, size + to_append, size + to_append);
     for (int i = 0; i < size; i++)
     {
-        int col_sum = 0;
+        float col_sum = 0;
         for (int j = 0; j < size; j++)
             col_sum += matrix_res[j][i];
         for (int j = size; j < size + to_append; j++)
