@@ -1,6 +1,6 @@
 #include "mem_alloc.h"
 
-int** alloc_matrix(int n, int m)
+int **alloc_matrix(int n, int m)
 {
     int **ptrs, *matrix;
     ptrs = calloc(n, sizeof(int*));

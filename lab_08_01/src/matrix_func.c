@@ -40,7 +40,7 @@ void delete_row(int **matrix, int rows, int cols, int row)
 {
     for (int i = row; i < rows - 1; i++)
         for (int j = 0; j < cols; j++)
-           matrix[i][j] = matrix[i + 1][j];
+            matrix[i][j] = matrix[i + 1][j];
 }
 
 void delete_col(int **matrix, int rows, int cols, int col)
@@ -60,8 +60,11 @@ int **make_equal(int **matrix, int size, int to_append)
             col_sum += matrix_res[j][i];
         for (int j = size; j < size + to_append; j++)
         {
-            matrix_res[j][i] = (int)(col_sum / j);
-            col_sum += (int)(col_sum / j);
+            float to_add = col_sum / j;
+            if ((to_add - (int)to_add) < 0)
+                to_add -= 1;
+            matrix_res[j][i] = (int)(to_add);
+            col_sum += (int)(to_add);
         }
     }
     for (int i = 0; i < size + to_append; i++)

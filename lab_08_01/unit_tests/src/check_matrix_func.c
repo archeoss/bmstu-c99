@@ -96,6 +96,7 @@ START_TEST(ME_test)
     matrix = make_equal(matrix, 2, 2);
     ck_assert_int_eq(check_matrixes(matrix, matrix_res, 2), YES);
     delete_matr(matrix);
+    delete_matr(matrix_res);
 }
 END_TEST
 
@@ -126,6 +127,10 @@ START_TEST(MM_test)
     int **matrix_res_m = matrix_multiplication(matrix_a, matrix_b, 2);
     ck_assert_int_eq(check_matrixes(matrix_res, matrix_res_m, 2), YES);
 
+    delete_matr(matrix_res);
+    delete_matr(matrix_a);
+    delete_matr(matrix_b);
+    delete_matr(matrix_res_m);
 }
 END_TEST
 
@@ -150,6 +155,9 @@ START_TEST(MP_test)
     int **matrix_res_m = matrix_pow(matrix_a, 2, 3);
     ck_assert_int_eq(check_matrixes(matrix_res, matrix_res_m, 2), YES);
 
+    delete_matr(matrix_res_m);
+    delete_matr(matrix_res);
+    delete_matr(matrix_a);
 }
 END_TEST
 

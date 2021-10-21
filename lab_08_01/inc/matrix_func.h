@@ -9,7 +9,7 @@
 #include "constants.h"
 
 int **make_equal(int **matrix, int size, int to_append);
-void delete_row(int **matrix, int rows, int  cols, int row);
+void delete_row(int **matrix, int rows, int cols, int row);
 void delete_col(int **matrix, int cols, int rows, int col);
 int **make_it_square(int **matrix, int rows, int cols);
 int **matrix_pow(int **matrix, int size, int pow_num);

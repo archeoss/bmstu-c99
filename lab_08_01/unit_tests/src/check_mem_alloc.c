@@ -5,6 +5,8 @@ START_TEST(realloc_check)
     int **matrix = alloc_matrix(2, 2);
     int **matrix_re = realloc_cst(matrix, 1, 1, 1, 1);
     ck_assert_int_eq(matrix == matrix_re, 0);
+
+    delete_matr(matrix_re);
 }
 END_TEST
 
