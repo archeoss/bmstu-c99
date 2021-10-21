@@ -18,14 +18,13 @@ int main(void)
         rc = scanf("%d%d", &rows_b, &cols_b);
         if (rc == 2)
             matrix_b = get_matrix(rows_b, cols_b);
+        else
+            error_code = INVALID_INPUT;
     }
     else
         error_code = INVALID_INPUT;
     if (!matrix_b)
-    {
         error_code = INVALID_INPUT;
-        delete_matr(matrix_a);
-    }
     int pow_a, pow_b;
     rc = scanf("%d%d", &pow_a, &pow_b);
     if (rc != 2 || pow_a < 0 || pow_b < 0)
@@ -52,12 +51,12 @@ int main(void)
                 matrix_b = make_equal(matrix_b, rows_b, rows_a - rows_b);
                 rows_b = cols_b = rows_a;
             }
-            print_matrix(matrix_a, rows_a, cols_a);
-            print_matrix(matrix_b, rows_b, cols_b);
+            //print_matrix(matrix_a, rows_a, cols_a);
+            //print_matrix(matrix_b, rows_b, cols_b);
             int **matrix_b_pow = matrix_pow(matrix_b, rows_b, pow_b);
             int **matrix_a_pow = matrix_pow(matrix_a, rows_a, pow_a);
-            print_matrix(matrix_a_pow, rows_a, cols_a);
-            print_matrix(matrix_b_pow, rows_b, cols_b);
+            //print_matrix(matrix_a_pow, rows_a, cols_a);
+            //print_matrix(matrix_b_pow, rows_b, cols_b);
             if (matrix_a_pow && matrix_b_pow)
             {
                 int **matrix_res = matrix_multiplication(matrix_a_pow, matrix_b_pow, rows_a);

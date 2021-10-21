@@ -14,9 +14,12 @@ int **get_matrix(int rows, int cols)
             error_code = input_matrix(matrix, rows, cols);
         else
             error_code = ALLOC_ERROR;
+        if (error_code)
+        {
+            delete_matr(matrix);
+            matrix = NULL;
+        }
     }
-    if (error_code)
-        delete_matr(matrix);
 
     return matrix;
 }
@@ -27,10 +30,10 @@ int input_matrix(int **matrix, int n, int m)
     int i = 0;
     short rc;
     int error_code = NO_ERROR;
-    while (i++ < total_len && (rc = scanf("%d", *(matrix) + i - 1)) == 1)
+    while (i < total_len && (rc = scanf("%d", *(matrix) + i)) == 1)
     {
+        i++;
     }
-    i--;
     if (i != total_len)
         error_code = INVALID_INPUT;
 
