@@ -120,16 +120,13 @@ START_TEST(MM_test)
     
     int **matrix_res = alloc_matrix(2, 2);
     matrix_res[0][0] = 22;
-    matrix_res[0][1] = 30;
-    matrix_res[1][0] = 16;
+    matrix_res[0][1] = 12;
+    matrix_res[1][0] = 40;
     matrix_res[1][1] = 22;
     
     int **matrix_res_m = matrix_multiplication(matrix_a, matrix_b, 2);
-
-    //print_matrix(matrix_res, 2, 2);
-    //print_matrix(matrix_res_m, 2, 2);
-
     ck_assert_int_eq(check_matrixes(matrix_res, matrix_res_m, 2), YES);
+
     delete_matr(matrix_res);
     delete_matr(matrix_a);
     delete_matr(matrix_b);

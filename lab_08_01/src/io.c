@@ -42,7 +42,7 @@ int input_matrix(int **matrix, int n, int m)
 
 void print_matrix(int **matrix, int rows, int cols)
 {
-    printf("\n");
+    //printf("\n");
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
