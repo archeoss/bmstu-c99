@@ -86,7 +86,7 @@ int **matrix_multiplication(int **matrix_a, int **matrix_b, int size)
     for (int row = 0; row < size; row++)
         for (int col = 0; col < size; col++)
             for (int k = 0; k < size; k++)
-                matrix_res[row][col] += matrix_a[row][k] * matrix_b[k][col];
+                matrix_res[row][col] += matrix_b[row][k] * matrix_a[k][col];
     
     return matrix_res;
 }
