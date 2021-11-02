@@ -1,9 +1,9 @@
 #include "io.h"
 #include "mem_alloc.h"
 
-int **get_matrix(int rows, int cols)
+long long **get_matrix(int rows, int cols)
 {
-    int **matrix = NULL;
+    long long **matrix = NULL;
     int error_code = NO_ERROR;
     if (rows < 1 || cols < 1)
         error_code = INVALID_INPUT;
@@ -24,13 +24,13 @@ int **get_matrix(int rows, int cols)
     return matrix;
 }
 
-int input_matrix(int **matrix, int n, int m)
+int input_matrix(long long **matrix, int n, int m)
 {
     int total_len = n * m;
     int i = 0;
     short rc;
     int error_code = NO_ERROR;
-    while (i < total_len && (rc = scanf("%d", *(matrix) + i)) == 1)
+    while (i < total_len && (rc = scanf("%lld", *(matrix) + i)) == 1)
     {
         i++;
     }
@@ -40,13 +40,13 @@ int input_matrix(int **matrix, int n, int m)
     return error_code;    
 }
 
-void print_matrix(int **matrix, int rows, int cols)
+void print_matrix(long long **matrix, int rows, int cols)
 {
     //printf("\n");
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
-            printf("%d ", matrix[i][j]);
+            printf("%lld ", matrix[i][j]);
         printf("\n");
     }
 }

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "constants.h"
 
-int **alloc_matrix(int n, int m);
-int **realloc_cst(int **matrix, int rows, int cols, int new_rows, int new_cols);
-void delete_matr(int **matrix);
+long long **alloc_matrix(int n, int m);
+long long **realloc_cst(long long **matrix, int rows, int cols, int new_rows, int new_cols);
+void delete_matr(long long **matrix);
 #endif

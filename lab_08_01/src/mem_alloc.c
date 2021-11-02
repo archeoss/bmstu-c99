@@ -1,11 +1,11 @@
 #include "mem_alloc.h"
 
-int **alloc_matrix(int n, int m)
+long long **alloc_matrix(int n, int m)
 {
-    int **ptrs, *matrix;
-    ptrs = calloc(n, sizeof(int*));
+    long long **ptrs, *matrix;
+    ptrs = calloc(n, sizeof(long long *));
     if (ptrs)
-        matrix = calloc(n * m, sizeof(int));
+        matrix = calloc(n * m, sizeof(long long));
     if (!matrix)
     {
         free(ptrs);
@@ -18,7 +18,7 @@ int **alloc_matrix(int n, int m)
     return ptrs;
 }
 
-void delete_matr(int **matrix)
+void delete_matr(long long **matrix)
 {
     if (matrix)
     {
@@ -28,9 +28,9 @@ void delete_matr(int **matrix)
     }
 }
 
-int **realloc_cst(int **matrix, int rows, int cols, int new_rows, int new_cols)
+long long **realloc_cst(long long **matrix, int rows, int cols, int new_rows, int new_cols)
 {
-    int **matrix_res = alloc_matrix(new_rows, new_cols);
+    long long **matrix_res = alloc_matrix(new_rows, new_cols);
     if (matrix_res)
     {
         for (int i = 0; i < rows; i++)

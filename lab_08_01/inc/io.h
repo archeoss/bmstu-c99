@@ -9,9 +9,9 @@
 #include "errors.h"
 #include "constants.h"
 
-int **get_matrix(int rows, int cols);
-int input_matrix(int **matrix, int n, int m);
-void print_matrix(int **matrix, int rows, int cols);
+long long **get_matrix(int rows, int cols);
+int input_matrix(long long **matrix, int n, int m);
+void print_matrix(long long **matrix, int rows, int cols);
 
 
 #endif

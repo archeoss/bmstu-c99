@@ -7,7 +7,7 @@
 int main(void)
 {
     int error_code = NO_ERROR;
-    int **matrix_a = NULL, **matrix_b = NULL;
+    long long **matrix_a = NULL, **matrix_b = NULL;
     int rows_a, rows_b, cols_a, cols_b;
     int rc;
     rc = scanf("%d%d", &rows_a, &cols_a);
@@ -53,13 +53,13 @@ int main(void)
             }
             //print_matrix(matrix_a, rows_a, cols_a);
             //print_matrix(matrix_b, rows_b, cols_b);
-            int **matrix_b_pow = matrix_pow(matrix_b, rows_b, pow_b);
-            int **matrix_a_pow = matrix_pow(matrix_a, rows_a, pow_a);
+            long long **matrix_b_pow = matrix_pow(matrix_b, rows_b, pow_b);
+            long long **matrix_a_pow = matrix_pow(matrix_a, rows_a, pow_a);
             //print_matrix(matrix_a_pow, rows_a, cols_a);
             //print_matrix(matrix_b_pow, rows_b, cols_b);
             if (matrix_a_pow && matrix_b_pow)
             {
-                int **matrix_res = matrix_multiplication(matrix_a_pow, matrix_b_pow, rows_a);
+                long long **matrix_res = matrix_multiplication(matrix_a_pow, matrix_b_pow, rows_a);
                 print_matrix(matrix_res, rows_a, rows_a); 
                 delete_matr(matrix_res);
             }
@@ -69,5 +69,6 @@ int main(void)
     }
     delete_matr(matrix_b);
     delete_matr(matrix_a);
+
     return error_code;
 }

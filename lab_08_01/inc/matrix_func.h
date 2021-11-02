@@ -8,11 +8,11 @@
 #include <stdlib.h>
 #include "constants.h"
 
-int **make_equal(int **matrix, int size, int to_append);
-void delete_row(int **matrix, int rows, int cols, int row);
-void delete_col(int **matrix, int cols, int rows, int col);
-int **make_it_square(int **matrix, int rows, int cols);
-int **matrix_pow(int **matrix, int size, int pow_num);
-int **matrix_multiplication(int **matrix_a, int **matrix_b, int size);
+long long **make_equal(long long **matrix, int size, int to_append);
+void delete_row(long long **matrix, int rows, int cols, int row);
+void delete_col(long long **matrix, int cols, int rows, int col);
+long long **make_it_square(long long **matrix, int rows, int cols);
+long long **matrix_pow(long long **matrix, int size, int pow_num);
+long long **matrix_multiplication(long long **matrix_a, long long **matrix_b, int size);
 
 #endif
