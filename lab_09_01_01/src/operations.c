@@ -148,3 +148,13 @@ void clear_array(movie_struct *movies, int count)
     }
     free(movies);
 }
+
+int check_line(char *line)
+{
+    int flag = -1;
+    while (*line != '\0' && flag == -1)
+        if (*line != ' ' && *line != '\0' && *(line++) != '\n')
+            flag = 0;
+    
+    return flag;
+}

@@ -22,5 +22,6 @@ void clear_array(movie_struct *movies, int count);
 void swap(movie_struct *movie, movie_struct *last_movie);
 void put(movie_struct *movie, movie_struct last_movie);
 void list_move(movie_struct *movie, movie_struct *last_movie, int flag, int i, int count);
+int check_line(char *line);
 
 #endif

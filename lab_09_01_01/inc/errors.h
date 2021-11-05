@@ -2,5 +2,5 @@
 #define KEY_ERROR 1
 #define INCORRECT_DATA_ERROR 2
 #define NOT_FOUND 3
-#define ALLOV_ERROR 4
+#define ALLOC_ERROR 4
 #define INCORRECT_DATAFILE -1

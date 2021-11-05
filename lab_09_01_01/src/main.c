@@ -13,7 +13,7 @@ int main(int args, char **keys)
     movie_struct *movies = NULL;
     FILE *f;
     int count;
-    int mode  = NO_MODE;
+    int mode = NO_MODE;
     if (args > 2)
         mode = check_key(keys[2]); 
     if (mode == NO_MODE)
@@ -26,10 +26,13 @@ int main(int args, char **keys)
             if (count > 0)
             {
                 movies = malloc(count * sizeof(movie_struct));
-                count = read_items(f, movies, mode);
+                if (movies)
+                    count = read_items(f, movies, mode);
+                else
+                    error_code = ALLOC_ERROR;
             }
 
-            if (count > 0)
+            if (count > 0 && error_code == NO_ERROR)
             {
                 if (args == 3)
                     show_all(movies, count);
@@ -45,7 +48,8 @@ int main(int args, char **keys)
             else
                 error_code = INCORRECT_DATA_ERROR;
             fclose(f);
-            clear_array(movies, count);
+            if (movies)
+                clear_array(movies, count);
         }
         else
             error_code = KEY_ERROR;
