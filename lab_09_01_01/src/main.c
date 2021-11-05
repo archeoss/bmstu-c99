@@ -23,16 +23,17 @@ int main(int args, char **keys)
         if ((f = fopen(keys[1], "r")) != NULL)
         {
             count = get_count(f);
+            int count_read = 0;
             if (count > 0)
             {
                 movies = malloc(count * sizeof(movie_struct));
                 if (movies)
-                    count = read_items(f, movies, mode);
+                    count_read = read_items(f, movies, mode);
                 else
                     error_code = ALLOC_ERROR;
             }
 
-            if (count > 0 && error_code == NO_ERROR)
+            if (count_read > 0 && error_code == NO_ERROR)
             {
                 if (args == 3)
                     show_all(movies, count);
@@ -48,8 +49,8 @@ int main(int args, char **keys)
             else
                 error_code = INCORRECT_DATA_ERROR;
             fclose(f);
-            if (movies)
-                clear_array(movies, count);
+            if (count_read)
+                clear_array(movies, count_read);
         }
         else
             error_code = KEY_ERROR;
