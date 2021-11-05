@@ -37,16 +37,6 @@ START_TEST(correct_read_author)
 }
 END_TEST
 
-START_TEST(wrong_structure_read)
-{
-    FILE *f = fopen("./unit_tests/tests/test_02.txt", "r");
-    movie_struct *movie = malloc(sizeof(movie_struct) * 3);
-    if (f)
-        ck_assert_int_eq(read_items(f, movie, TITLE_MODE), INCORRECT_DATAFILE);
-    fclose(f);
-}
-END_TEST
-
 //
 // find_item() check
 //
@@ -116,7 +106,6 @@ Suite *io_suite(void)
     tcase_add_test(tc, correct_read_author);
     tcase_add_test(tc, correct_read_title);
     tcase_add_test(tc, correct_read_year);
-    tcase_add_test(tc, wrong_structure_read);
 
     tcase_add_test(tc, find_item_author);
     tcase_add_test(tc, find_item_title);
