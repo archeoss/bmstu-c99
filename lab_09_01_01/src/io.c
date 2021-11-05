@@ -43,6 +43,7 @@ int read_items(FILE *f, movie_struct *movie, int mode)
         last_movie.name = NULL;
         title_size = 0;
         name_size = 0;
+        
         if (getline(&last_movie.title, &title_size, f) != -1)
             rc++;
         if (rc > 0)

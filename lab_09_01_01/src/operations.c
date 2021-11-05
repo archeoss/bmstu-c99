@@ -148,6 +148,7 @@ void clear_array(movie_struct *movies, int count)
         free(movies[i].name);
         free(movies[i].title);
     }
+    
     free(movies);
 }
 
