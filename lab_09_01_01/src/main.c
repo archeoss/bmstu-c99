@@ -13,7 +13,9 @@ int main(int args, char **keys)
     movie_struct *movies = NULL;
     FILE *f;
     int count;
-    int mode = check_key(keys[2]); 
+    int mode  = NO_MODE;
+    if (args > 2)
+        mode = check_key(keys[2]); 
     if (mode == NO_MODE)
         error_code = KEY_ERROR;
     else if (args > 2 && args < 5)
