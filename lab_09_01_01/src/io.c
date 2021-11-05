@@ -12,8 +12,8 @@ int read_items(FILE *f, movie_struct *movie, int mode)
         rc++;
     if (getline(&last_movie.name, &name_size, f) != -1)
         rc++;
-    //rc += check_line(last_movie.title);
-    //rc += check_line(last_movie.name);
+    rc += check_line(last_movie.title);
+    rc += check_line(last_movie.name);
     rc += (fscanf(f, "%d", &last_movie.year) > 0 && last_movie.year >= 0) ? 1 : 0;
     fgets(junk, JUNK_LEN, f); // После fscanf остается лишний \n, который мешает getline
     int count = 0;
@@ -45,8 +45,8 @@ int read_items(FILE *f, movie_struct *movie, int mode)
             rc++;
         if (getline(&last_movie.name, &name_size, f) != -1)
             rc++;
-        //rc += check_line(last_movie.title);
-        //rc += check_line(last_movie.name);
+        rc += check_line(last_movie.title);
+        rc += check_line(last_movie.name);
         rc += (fscanf(f, "%d", &last_movie.year) > 0 && last_movie.year >= 0) ? 1 : 0;
         fgets(junk, JUNK_LEN, f); //После fscanf остается лишний \n, который мешает getline
         count++;
