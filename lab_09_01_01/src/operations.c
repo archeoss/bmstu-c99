@@ -123,10 +123,12 @@ int get_count(FILE *f)
         rc = 0;
         if (getline(&temp_char, &size, f) != -1)
             rc++;
-        rc += check_line(temp_char);
+        if (rc == 1)
+            rc += check_line(temp_char);
         if (getline(&temp_char, &size, f) != -1)
             rc++;
-        rc += check_line(temp_char);
+        if (rc == 2)
+            rc += check_line(temp_char);
         rc += (fscanf(f, "%d", &temp_int) > 0);
         fgets(junk, JUNK_LEN, f); // После fscanf остается лишний \n, который мешает getline
         if (rc == 3)
@@ -148,7 +150,7 @@ void clear_array(movie_struct *movies, int count)
         free(movies[i].name);
         free(movies[i].title);
     }
-    
+
     free(movies);
 }
 
