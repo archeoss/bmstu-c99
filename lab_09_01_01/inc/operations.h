@@ -10,6 +10,7 @@
 #include "structures.h"
 #include "errors.h"
 #include "defines.h"
+#include "io.h"
 
 
 int check_key(char *key);
@@ -23,5 +24,6 @@ void swap(movie_struct *movie, movie_struct *last_movie);
 void put(movie_struct *movie, movie_struct last_movie);
 void list_move(movie_struct *movie, movie_struct *last_movie, int flag, int i, int count);
 int check_line(char *line);
+movie_struct *bin_search(movie_struct *movies, int n, char *keyword, int year, int mode);
 
 #endif

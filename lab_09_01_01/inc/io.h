@@ -15,6 +15,7 @@
 int read_items(FILE *, movie_struct *, int mode);
 void show_all(movie_struct *, int n);
 int find_item(movie_struct *, char *, int n, int mode);
-
+int read_struct(movie_struct *last_movie, FILE *f);
+void put_by_field(movie_struct *movie, movie_struct last_movie, int count, int mode);
 
 #endif

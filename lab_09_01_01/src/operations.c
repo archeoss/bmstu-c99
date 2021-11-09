@@ -114,30 +114,20 @@ int get_count(FILE *f)
 {
     int rc = 3;
     int count = 0;
-    int temp_int;
-    char *temp_char = NULL;
-    size_t size = 0;
-    char junk[JUNK_LEN];
+    movie_struct movie_temp;
     while (rc == 3)
     {
-        rc = 0;
-        if (getline(&temp_char, &size, f) != -1)
-            rc++;
-        if (rc == 1)
-            rc += check_line(temp_char);
-        if (getline(&temp_char, &size, f) != -1)
-            rc++;
-        if (rc == 2)
-            rc += check_line(temp_char);
-        rc += (fscanf(f, "%d", &temp_int) > 0);
-        fgets(junk, JUNK_LEN, f); // После fscanf остается лишний \n, который мешает getline
+        rc = read_struct(&movie_temp, f);
         if (rc == 3)
             count++;
         else if (rc > 0)
             count = INCORRECT_DATAFILE;
+        if (movie_temp.title)
+            free(movie_temp.name);
+        if (movie_temp.title)
+            free(movie_temp.title);
     }
-    if (temp_char)
-        free(temp_char);
+    
     rewind(f);
 
     return count;
@@ -162,4 +152,28 @@ int check_line(char *line)
             flag = 0;
     
     return flag;
+}
+
+movie_struct *bin_search(movie_struct *movies, int n, char *keyword, int year, int mode)
+{
+    movie_struct *movie_res = NULL;
+    int end = n;
+    int start = 0;
+    while (start != end)
+    {
+        int compare_res;
+        int mid = start + (end - start) / 2;
+        compare_res = compare(movies[mid], keyword, year, mode);
+        if (compare_res == 0)
+        {
+            end = start;
+            movie_res = movies + mid;
+        }
+        else if (compare_res > 0)
+            end = mid;
+        else
+            start = mid + 1;
+    }
+
+    return movie_res;
 }
