@@ -55,7 +55,7 @@ int find_item(movie_struct *movie, char *keyword, int n, int mode)
         if (movie_res)
         {
             error_code = NO_ERROR;
-            printf("%s%s%d\n", movie_res->title, movie_res->name, movie->year);
+            printf("%s%s%d\n", movie_res->title, movie_res->name, movie_res->year);
         }
     }
 
