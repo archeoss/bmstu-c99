@@ -2,10 +2,9 @@
 #include "../inc/io.h"
 #include <time.h>
 
-#define N 30
-#define STEPS 100
-#define TIMES 100
-#define DEL_COUNT 10
+#define N 5
+#define STEPS 50
+#define TIMES 10
 
 int main()
 {
@@ -42,39 +41,36 @@ int main()
             clock_t end_b = clock();
             timespent_b[k] = (double)(end_b - begin_b) / CLOCKS_PER_SEC;
         }
-        for (int b = 0; b < DEL_COUNT; b++)
+        for (int k = 0; k < TIMES; k++)
         {
-            for (int k = b * 2; k < TIMES; k++)
+            if (timespent_a[k] > timespent_a[0])
             {
-                if (timespent_a[k] > timespent_a[b * 2])
-                {
-                    double tmp = timespent_a[k];
-                    timespent_a[k] = timespent_a[b * 2];
-                    timespent_a[b * 2] = tmp;
-                }
-                if (timespent_a[k] < timespent_a[b * 2 + 1])
-                {
-                    double tmp = timespent_a[k];
-                    timespent_a[k] = timespent_a[b * 2 + 1];
-                    timespent_a[b * 2 + 1] = tmp;
-                }
-                if (timespent_b[k] > timespent_b[b * 2])
-                {
-                    double tmp = timespent_b[k];
-                    timespent_b[k] = timespent_b[b * 2];
-                    timespent_b[b * 2] = tmp;
-                }
-                if (timespent_b[k] < timespent_b[b * 2 + 1])
-                {
-                    double tmp = timespent_b[k];
-                    timespent_b[k] = timespent_b[b * 2 + 1];
-                    timespent_b[b * 2 + 1] = tmp;
-                }
+                double tmp = timespent_a[k];
+                timespent_a[k] = timespent_a[0];
+                timespent_a[0] = tmp;
+            }
+            if (timespent_a[k] < timespent_a[1])
+            {
+                double tmp = timespent_a[k];
+                timespent_a[k] = timespent_a[1];
+                timespent_a[1] = tmp;
+            }
+            if (timespent_b[k] > timespent_b[0])
+            {
+                double tmp = timespent_b[k];
+                timespent_b[k] = timespent_b[0];
+                timespent_b[0] = tmp;
+            }
+            if (timespent_b[k] < timespent_b[1])
+            {
+                double tmp = timespent_b[k];
+                timespent_b[k] = timespent_b[1];
+                timespent_b[1] = tmp;
             }
         }
         double sum_a = 0;
         double sum_b = 0;
-        for (int k = DEL_COUNT * 2; k < TIMES; k++)
+        for (int k = 2; k < TIMES; k++)
         {
             sum_a += timespent_a[k];
             sum_b += timespent_b[k];
