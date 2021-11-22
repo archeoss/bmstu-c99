@@ -1,17 +1,17 @@
 #include "io.h"
 
-int read_items(FILE *f, movie_struct *movie, int mode)
+int read_items(FILE *f, movie_struct *movies, int mode)
 {
     movie_struct last_movie;
     int rc = read_struct(&last_movie, f);
     int count = 0;
-    while (rc == 3)
+    while (rc == FIELDS_COUNT)
     {
         rc = 0;
         if (count == 0)
-            put(movie, last_movie);
+            put(movies, &last_movie);
         else
-            put_by_field(movie, last_movie, count, mode);
+            put_by_field(movies, &last_movie, count, mode);
 
         rc = read_struct(&last_movie, f);
         count++;
@@ -28,13 +28,13 @@ int read_items(FILE *f, movie_struct *movie, int mode)
     return count;
 }
 
-void show_all(movie_struct *movie, int n)
+void show_all(movie_struct *movies, int n)
 {
     for (int i = 0; i < n; i++)
-        printf("%s%s%d\n", movie[i].title, movie[i].name, movie[i].year);
+        printf("%s%s%d\n", movies[i].title, movies[i].name, movies[i].year);
 }
 
-int find_item(movie_struct *movie, char *keyword, int n, int mode)
+int find_item(movie_struct *movies, char *keyword, int n, int mode)
 {
     int error_code = NO_ERROR;
     int year;
@@ -51,7 +51,7 @@ int find_item(movie_struct *movie, char *keyword, int n, int mode)
     if (error_code == NO_ERROR)
     {
         error_code = NOT_FOUND;
-        movie_struct *movie_res = bin_search(movie, n, keyword, year, mode);
+        movie_struct *movie_res = bin_search(movies, n, keyword, year, mode);
         if (movie_res)
         {
             error_code = NO_ERROR;
@@ -82,18 +82,18 @@ int read_struct(movie_struct *last_movie, FILE *f)
     return rc;
 }
 
-void put_by_field(movie_struct *movie, movie_struct last_movie, int count, int mode)
+void put_by_field(movie_struct *movies, movie_struct *last_movie, int count, int mode)
 {
     switch (mode)
     {
         case TITLE_MODE:
-            put_by_title(movie, last_movie, count);
+            put_by_title(movies, last_movie, count);
             break;
         case AUTHOR_MODE:
-            put_by_name(movie, last_movie, count);
+            put_by_name(movies, last_movie, count);
             break;
         case YEAR_MODE:
-            put_by_year(movie, last_movie, count);
+            put_by_year(movies, last_movie, count);
             break;
     }
 }
