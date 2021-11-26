@@ -22,6 +22,9 @@ void front_back_split(node_t *head, node_t **back)
 
 node_t *sorted_merge(node_t **head_a, node_t **head_b, int (*comparator)(const void *, const void *))
 {
+    if (!head_a || !head_b || !comparator || !*head_a || !*head_b)
+        return NULL;
+    
     node_t *head_sorted = malloc(sizeof(node_t));
     if (comparator((*head_a)->data, (*head_b)->data) < 0)
         head_sorted->data = pop_front(head_a);
@@ -63,8 +66,11 @@ node_t *sorted_merge(node_t **head_a, node_t **head_b, int (*comparator)(const v
 
 void sort(node_t **head, int (*comparator)(const void *, const void *))
 {
+    if (!head || !comparator || !*head)
+        return;
+
     node_t *back = NULL;
-    if (get_count(*head) > 1)
+    if ((*head)->next != NULL)
     {
         front_back_split(*head, &back);
         sort(head, comparator);
