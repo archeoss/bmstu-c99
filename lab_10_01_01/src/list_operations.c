@@ -33,11 +33,13 @@ void insert(node_t **head, node_t *elem, node_t *before)
     else
     {
         node_t *cur_node = *head;
-        while (cur_node->next != before)
+        while (cur_node->next != before && cur_node->next)
             cur_node = cur_node->next;
-
-        elem->next = before;
-        cur_node->next = elem;
+        if (cur_node->next)
+        {
+            elem->next = before;
+            cur_node->next = elem;
+        }
     }
 }
 
@@ -93,7 +95,7 @@ void priority_change(node_t **head)
     node_t *cur_node = *head;
     while (cur_node && !first_low_priority)
     {
-        if (priority_check(cur_node) == 0)
+        if (priority_check(cur_node->data) == 0)
             first_low_priority = cur_node;
         cur_node = cur_node->next;
     }
@@ -102,7 +104,7 @@ void priority_change(node_t **head)
     {
         while (cur_node && cur_node->next)
         {
-            if (priority_check(cur_node->next) == 1)
+            if (priority_check(cur_node->next->data) == 1)
             {
                 node_t *tmp = cur_node->next;
                 cur_node->next = cur_node->next->next;
