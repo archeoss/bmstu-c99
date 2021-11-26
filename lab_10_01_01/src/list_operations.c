@@ -3,7 +3,7 @@
 void *pop_front(node_t **head)
 {
     void *dat = NULL;
-    if (*head)
+    if (head && *head)
     {
         dat = (*head)->data;
         node_t *tmp = *head;
@@ -22,6 +22,9 @@ void push(node_t **head, node_t *cur_node)
 
 void insert(node_t **head, node_t *elem, node_t *before)
 {
+    if (!head || !elem || !before || !*head)
+        return;
+
     if (*head == before)
     {
         elem->next = *head;
@@ -40,13 +43,16 @@ void insert(node_t **head, node_t *elem, node_t *before)
 
 void remove_duplicates(node_t **head, int (*comparator)(const void *, const void *))
 {
+    if (!head || !*head || !comparator)
+        return;
+
     node_t *check_node = *head;
     while (check_node)
     {
         node_t *cur_node = check_node;
         while (cur_node->next)
         {
-            if (cur_node->next != check_node && comparator(cur_node->next, check_node) == 0)
+            if (comparator(cur_node->next->data, check_node->data) == 0)
             {
                 node_t *tmp = cur_node->next;
                 cur_node->next = cur_node->next->next;

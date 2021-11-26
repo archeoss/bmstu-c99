@@ -10,28 +10,28 @@ int check_line(char *line)
     return flag;
 }
 
-int compare_char(const void *node_a, const void *node_b)
+int compare_char(const void *data_a, const void *data_b)
 {
-    return strcmp(((data_t *)((node_t *)node_a)->data)->name, ((data_t *)((node_t *)node_b)->data)->name);
+    return strcmp(((data_t *)data_a)->name, ((data_t *)data_b)->name);
 }
 
-int compare_rating(const void *node_a, const void *node_b)
+int compare_rating(const void *data_a, const void *data_b)
 {
-    if (node_a == NULL && node_b == NULL)
+    if (data_a == NULL && data_b == NULL)
         return 0;
 
-    if (node_b == NULL)
+    if (data_b == NULL)
         return 1;
 
-    if (node_a == NULL)
+    if (data_a == NULL)
         return -1;
     
-    return ((data_t *)((node_t *)node_a)->data)->rating - ((data_t *)((node_t *)node_b)->data)->rating;
+    return ((data_t *)data_a)->rating - ((data_t *)data_b)->rating;
 }
 
-int priority_check(const void *node_a)
+int priority_check(const void *data_a)
 {
-    return ((data_t *)((node_t *)node_a)->data)->is_priority;
+    return ((data_t *)data_a)->is_priority;
 }
 
 int check_rating(const void *data_a)

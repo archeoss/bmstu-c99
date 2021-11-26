@@ -20,28 +20,38 @@ void front_back_split(node_t *head, node_t **back)
     }
 }
 
-/*
-    Note: in this implemetation, in case when one of the pointers is NULL,
-        result from comparator always in favor for char (e.g. "Any_char" > NULL).
-
-        So we have only one cycle
-*/
 node_t *sorted_merge(node_t **head_a, node_t **head_b, int (*comparator)(const void *, const void *))
 {
     node_t *head_sorted = malloc(sizeof(node_t));
-    if (comparator(*head_a, *head_b) > 0)
+    if (comparator((*head_a)->data, (*head_b)->data) > 0)
         head_sorted->data = pop_front(head_a);
     else
         head_sorted->data = pop_front(head_b);
     head_sorted->next = NULL;
     node_t *cur_node = head_sorted;
-    while (*head_a || *head_b)
+    while (*head_a && *head_b)
     {
         node_t *tmp = malloc(sizeof(node_t));
-        if (comparator(*head_a, *head_b) > 0)
+        if (comparator((*head_a)->data, (*head_b)->data) > 0)
             tmp->data = pop_front(head_a);
         else
             tmp->data = pop_front(head_b);
+        tmp->next = NULL;
+        cur_node->next = tmp;
+        cur_node = tmp;
+    }
+    while (*head_a)
+    {
+        node_t *tmp = malloc(sizeof(node_t));
+        tmp->data = pop_front(head_a);
+        tmp->next = NULL;
+        cur_node->next = tmp;
+        cur_node = tmp;
+    }
+    while (*head_b)
+    {
+        node_t *tmp = malloc(sizeof(node_t));
+        tmp->data = pop_front(head_b);
         tmp->next = NULL;
         cur_node->next = tmp;
         cur_node = tmp;
