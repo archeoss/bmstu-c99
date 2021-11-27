@@ -91,12 +91,12 @@ node_t *simple_mul(node_t **head_a, node_t **head_b, int (*comparator)(const voi
             result_head->next = NULL;
             cur_node = result_head;
         }
-        else
+       else
         {
             node_t *tmp = malloc(sizeof(node_t));
             if (!tmp)
                 exit(EXIT_FAILURE);
-                
+
             tmp->next = NULL;
             cur_node->next = tmp;
             cur_node = cur_node->next;
@@ -110,6 +110,7 @@ node_t *simple_mul(node_t **head_a, node_t **head_b, int (*comparator)(const voi
         if (!tmp)
             exit(EXIT_FAILURE);
         
+        tmp->next = NULL;
         cur_node->next = tmp;
         cur_node = cur_node->next;
         cur_node->data = dat;
@@ -121,6 +122,7 @@ node_t *simple_mul(node_t **head_a, node_t **head_b, int (*comparator)(const voi
         if (!tmp)
             exit(EXIT_FAILURE);
         
+        tmp->next = NULL;
         cur_node->next = tmp;
         cur_node = cur_node->next;
         cur_node->data = dat;

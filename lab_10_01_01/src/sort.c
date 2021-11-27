@@ -22,15 +22,22 @@ void front_back_split(node_t *head, node_t **back)
 
 node_t *sorted_merge(node_t **head_a, node_t **head_b, int (*comparator)(const void *, const void *))
 {
-    if (!head_a || !head_b || !comparator || !*head_a || !*head_b || !(*head_a)->data || !(*head_b)->data)
+    if ((!head_a && !head_b) || !comparator || (!*head_a && !*head_b) || (!(*head_a)->data && !(*head_b)->data))
         return NULL;
     
     node_t *head_sorted = malloc(sizeof(node_t));
-    if (comparator((*head_a)->data, (*head_b)->data) < 0)
+    if (*head_a && *head_b)
+    {
+        if (comparator((*head_a)->data, (*head_b)->data) < 0)
+            head_sorted->data = pop_front(head_a);
+        else
+            head_sorted->data = pop_front(head_b);
+    }
+    else if (*head_a)
         head_sorted->data = pop_front(head_a);
     else
         head_sorted->data = pop_front(head_b);
- 
+
     head_sorted->next = NULL;
     node_t *cur_node = head_sorted;
     while (*head_a && *head_b)
