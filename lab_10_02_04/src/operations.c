@@ -91,7 +91,7 @@ node_t *simple_mul(node_t **head_a, node_t **head_b, int (*comparator)(const voi
             result_head->next = NULL;
             cur_node = result_head;
         }
-       else
+        else
         {
             node_t *tmp = malloc(sizeof(node_t));
             if (!tmp)
