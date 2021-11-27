@@ -19,7 +19,7 @@ int main(int args, char **keys)
 
     if (error_code == NO_ERROR)
     {
-        sort(&head, compare_rating);
+        head = sort(head, compare_rating);
         remove_duplicates(&head, compare_char);
         priority_change(&head);
         file_list(keys[2], head);

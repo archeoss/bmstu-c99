@@ -64,17 +64,20 @@ node_t *sorted_merge(node_t **head_a, node_t **head_b, int (*comparator)(const v
     return head_sorted;
 }
 
-void sort(node_t **head, int (*comparator)(const void *, const void *))
+node_t *sort(node_t *head, int (*comparator)(const void *, const void *))
 {
-    if (!head || !comparator || !*head)
-        return;
+    if (!head || !comparator)
+        return NULL;
 
     node_t *back = NULL;
-    if ((*head)->next != NULL)
+    node_t *result = head;
+    if (head->next != NULL)
     {
-        front_back_split(*head, &back);
-        sort(head, comparator);
-        sort(&back, comparator);
-        *head = sorted_merge(head, &back, comparator);
+        front_back_split(head, &back);
+        node_t *new_head_a = sort(head, comparator);
+        node_t *new_head_b = sort(back, comparator);
+        result = sorted_merge(&new_head_a, &new_head_b, comparator);
     }
+
+    return result;
 }
