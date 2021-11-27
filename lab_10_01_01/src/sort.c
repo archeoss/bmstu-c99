@@ -26,14 +26,14 @@ node_t *sorted_merge(node_t **head_a, node_t **head_b, int (*comparator)(const v
         return NULL;
     
     node_t *head_sorted = malloc(sizeof(node_t));
-    if (*head_a && *head_b)
+    if (head_a && head_b && *head_a && *head_b)
     {
         if (comparator((*head_a)->data, (*head_b)->data) < 0)
             head_sorted->data = pop_front(head_a);
         else
             head_sorted->data = pop_front(head_b);
     }
-    else if (*head_a)
+    else if (head_a && *head_a)
         head_sorted->data = pop_front(head_a);
     else
         head_sorted->data = pop_front(head_b);

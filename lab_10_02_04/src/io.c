@@ -37,7 +37,6 @@ node_t *get_number()
 
 void print_simple(node_t **head)
 {
-//    printf("<out\n");
     while (*head)
     {
         data_t *dat = pop_back(head);

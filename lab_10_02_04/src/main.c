@@ -13,7 +13,6 @@ int main(void)
     int error_code = NO_ERROR;
     node_t *head_a = NULL;
     node_t *head_b = NULL;
-    //printf("in>\n");
     int mode = get_mode();
     
     switch (mode)
@@ -25,7 +24,6 @@ int main(void)
             else
                 error_code = NO_OUT;
             break;
-        
         case MUL_MODE:
             head_a = get_number();
             head_b = get_number();
@@ -41,7 +39,6 @@ int main(void)
                 error_code = INCORRECT_DATA_ERROR;
             }
             break;
-        
         case SQR_MODE:
             head_a = get_number();
             if (head_a)
@@ -52,7 +49,6 @@ int main(void)
             else
                 error_code = INCORRECT_DATA_ERROR;
             break;
-        
         case DIV_MODE:
             head_a = get_number();
             head_b = get_number();
@@ -71,13 +67,10 @@ int main(void)
                 clear_list(head_b);
             }
             break;
-        
         case NO_MODE:
             error_code = KEY_ERROR;
             break;
     }
-//    if (error_code != NO_ERROR)
-//        printf("<out\n(NO OUT, ERROR)\n");
 
     return error_code;
 }
