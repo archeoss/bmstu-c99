@@ -1,21 +1,21 @@
-Vladimir Shlenin
-150
+Romanov Simeon
+10
 0
-Xi Jingping
-120
+Ching Chong №2
+11
 0
-Mao Zedung
-100
-0
-Romanov Simeon 
-47
+Ching Chong
+17
 0
 Ada Wong
 33
 0
-Ching Chong
-25
+Mao Zedung
+100
 0
-Ching Chong №2
-15
+Xi Jingping
+120
+0
+Vladimir Shlenin
+150
 0
