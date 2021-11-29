@@ -37,22 +37,16 @@ int key(const int *pb_src, const int *pe_src, int **pb_dst, int **pe_dst)
 void mysort(void *base, size_t num, size_t size, int (*compare)(const void *, const void *))
 {
     if (base != NULL && size > 0 && num > 0 && compare != NULL)
-    {
+    {   
         num -= 1;
-        int flag = 1;
         char *ptr = (char *)base;
-        size_t i = 0;
-        while (i < num && flag)
+        for (size_t i = 0; i < num; i++)
         {
-            flag = 0;
             for (size_t j = 0; j < num - i; j++)
             {
                 int res = (*compare)((void *) ptr, (void *) (ptr + size));
                 if (res > 0)
-                {
-                    flag = 1;
                     swap(ptr, ptr + size, size);
-                }
                 ptr += size;
             }
             ptr -= (num - i) * size;

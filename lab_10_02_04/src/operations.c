@@ -1,5 +1,21 @@
 #include "operations.h"
 
+static void copy(node_t *cur_node, node_t **head_cpy)
+{
+    while (*head_cpy)
+    {
+        data_t *dat = pop_front(head_cpy);
+        node_t *tmp = malloc(sizeof(node_t));
+        if (!tmp)
+            exit(EXIT_FAILURE);
+        
+        tmp->next = NULL;
+        cur_node->next = tmp;
+        cur_node = cur_node->next;
+        cur_node->data = dat;
+    }
+}
+
 node_t *make_simple(int number)
 {
     int i = 2;
@@ -103,31 +119,9 @@ node_t *simple_mul(node_t **head_a, node_t **head_b, int (*comparator)(const voi
             cur_node->data = dat;
         }
     }
-    while (*head_a)
-    {
-        data_t *dat = pop_front(head_a);
-        node_t *tmp = malloc(sizeof(node_t));
-        if (!tmp)
-            exit(EXIT_FAILURE);
-        
-        tmp->next = NULL;
-        cur_node->next = tmp;
-        cur_node = cur_node->next;
-        cur_node->data = dat;
-    }
-    while (*head_b)
-    {
-        data_t *dat = pop_front(head_b);
-        node_t *tmp = malloc(sizeof(node_t));
-        if (!tmp)
-            exit(EXIT_FAILURE);
-        
-        tmp->next = NULL;
-        cur_node->next = tmp;
-        cur_node = cur_node->next;
-        cur_node->data = dat;
-    }
-
+    copy(cur_node, head_a);
+    copy(cur_node, head_b);
+    
     return result_head;
 }
 
@@ -190,3 +184,4 @@ void pop_number(node_t **head, node_t *elem)
     free(elem->data);
     free(elem);
 }
+

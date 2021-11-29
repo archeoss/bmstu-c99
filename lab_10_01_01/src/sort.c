@@ -1,5 +1,21 @@
 #include "sort.h"
 
+static void copy(node_t *cur_node, node_t **head_cpy)
+{
+    while (*head_cpy)
+    {
+        data_t *dat = pop_front(head_cpy);
+        node_t *tmp = malloc(sizeof(node_t));
+        if (!tmp)
+            exit(EXIT_FAILURE);
+        
+        tmp->next = NULL;
+        cur_node->next = tmp;
+        cur_node = cur_node->next;
+        cur_node->data = dat;
+    }
+}
+
 void front_back_split(node_t *head, node_t **back)
 {
     int count = 0;
@@ -51,22 +67,8 @@ node_t *sorted_merge(node_t **head_a, node_t **head_b, int (*comparator)(const v
         cur_node->next = tmp;
         cur_node = tmp;
     }
-    while (*head_a)
-    {
-        node_t *tmp = malloc(sizeof(node_t));
-        tmp->data = pop_front(head_a);
-        tmp->next = NULL;
-        cur_node->next = tmp;
-        cur_node = tmp;
-    }
-    while (*head_b)
-    {
-        node_t *tmp = malloc(sizeof(node_t));
-        tmp->data = pop_front(head_b);
-        tmp->next = NULL;
-        cur_node->next = tmp;
-        cur_node = tmp;
-    }
+    copy(cur_node, head_a);
+    copy(cur_node, head_b);
 
     return head_sorted;
 }
