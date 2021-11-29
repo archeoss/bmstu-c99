@@ -6,9 +6,6 @@ static void copy_list(node_t *cur_node, node_t **head_cpy)
     {
         data_t *dat = pop_front(head_cpy);
         node_t *tmp = malloc(sizeof(node_t));
-        if (!tmp)
-            exit(EXIT_FAILURE);
-        
         tmp->next = NULL;
         cur_node->next = tmp;
         cur_node = cur_node->next;
