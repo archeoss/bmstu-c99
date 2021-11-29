@@ -1,6 +1,6 @@
 #include "sort.h"
 
-static void copy(node_t *cur_node, node_t **head_cpy)
+static void copy_list(node_t *cur_node, node_t **head_cpy)
 {
     while (*head_cpy)
     {
@@ -67,8 +67,8 @@ node_t *sorted_merge(node_t **head_a, node_t **head_b, int (*comparator)(const v
         cur_node->next = tmp;
         cur_node = tmp;
     }
-    copy(cur_node, head_a);
-    copy(cur_node, head_b);
+    copy_list(cur_node, head_a);
+    copy_list(cur_node, head_b);
 
     return head_sorted;
 }
