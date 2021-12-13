@@ -1,10 +1,10 @@
 #include "matrix_func.h"
 #include "mem_alloc.h"
 
-long long **make_it_square(long long **matrix, long long rows_src, long long cols_src)
+long long **make_it_square(long long **matrix, long long *rows_src, long long *cols_src)
 {
-    int type = rows_src < cols_src ? DELETE_COL : DELETE_ROW;
-    long long rows = rows_src, cols = cols_src;
+    int type = *rows_src < *cols_src ? DELETE_COL : DELETE_ROW;
+    long long rows = *rows_src, cols = *cols_src;
     long long len = llabs(rows - cols);
     for (int k = 0; k < len; k++)
     {    
@@ -32,6 +32,8 @@ long long **make_it_square(long long **matrix, long long rows_src, long long col
     }
     if (len)
         matrix = realloc_cst(matrix, rows, cols, rows, cols);
+    *cols_src = *rows_src < *cols_src ? *rows_src : *cols_src;
+    *rows_src = *cols_src;
 
     return matrix;
 }
@@ -108,4 +110,12 @@ long long **matrix_pow(long long **matrix, long long size, long long pow_num)
     }
 
     return matrix_res;
+}
+
+void update_size(long long *rows_a, long long *rows_b, long long *cols_a, long long *cols_b)
+{
+    *rows_a = *rows_a > *rows_b ? *rows_a : *rows_b;
+    *cols_a = *rows_a;
+    *rows_b = *rows_a;
+    *cols_b = *cols_a;
 }
