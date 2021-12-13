@@ -34,7 +34,8 @@ START_TEST(MIS_del_rows)
     matrix_res[1][0] = 2;
     matrix_res[1][1] = 5;
 
-    matrix = make_it_square(matrix, 3, 2);
+    long long size_a = 3, size_b = 2;
+    matrix = make_it_square(matrix, &size_a, &size_b);
     ck_assert_int_eq(check_matrixes(matrix, matrix_res, 2), YES);
     delete_matr(matrix);
     delete_matr(matrix_res);
@@ -56,7 +57,9 @@ START_TEST(MIS_del_cols)
     matrix_res[0][1] = 5;
     matrix_res[1][0] = 5;
     matrix_res[1][1] = 2;
-    matrix = make_it_square(matrix, 2, 3);
+
+    long long size_a = 3, size_b = 2;
+    matrix = make_it_square(matrix, &size_b, &size_a);
     ck_assert_int_eq(check_matrixes(matrix, matrix_res, 2), YES);
     delete_matr(matrix);
     delete_matr(matrix_res);
@@ -93,7 +96,8 @@ START_TEST(ME_test)
     matrix_res[3][2] = 3;
     matrix_res[3][3] = 3;
 
-    matrix = make_equal(matrix, 2, 2);
+    long long size_a = 2, size_b = 2;
+    matrix = make_equal(matrix, size_a, size_b);
     ck_assert_int_eq(check_matrixes(matrix, matrix_res, 2), YES);
     delete_matr(matrix);
     delete_matr(matrix_res);
