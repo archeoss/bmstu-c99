@@ -91,7 +91,7 @@ static char *int_to_str(long long n)
 
 int my_snprintf(char *restrict str, size_t size, const char *restrict format, ...)
 {
-    if (!str || !format || !*format)
+    if ((!str || !format || !*format) && size != 0)
         return -1;
     
     size_t str_size = 0;
@@ -114,7 +114,7 @@ int my_snprintf(char *restrict str, size_t size, const char *restrict format, ..
                 
                 char *temp = int_to_str(number);
                 int i = 0;
-                while (*(temp + i) != '\0' )
+                while (*(temp + i) != '\0')
                 {
                     if (str_size < size) 
                         str[str_size] = *(temp + i);
@@ -197,7 +197,7 @@ int my_snprintf(char *restrict str, size_t size, const char *restrict format, ..
     }
     if (str_size < size)
         str[str_size] = '\0';
-    else
+    else if (size > 0)
         str[size - 1] = '\0';
 
     return str_size;

@@ -267,6 +267,16 @@ START_TEST(count_check)
 }
 END_TEST
 
+START_TEST(count_check_null)
+{
+    ck_assert_int_eq
+    (
+        my_snprintf(NULL, 0, "abobaboba"),
+        snprintf(NULL, 0, "abobaboba")
+    );
+}
+END_TEST
+
 Suite *my_string_s(void)
 {
     Suite *s;
@@ -303,6 +313,7 @@ Suite *my_string_s(void)
     tcase_add_test(tc, null_format_b);
 
     tcase_add_test(tc, count_check);
+    tcase_add_test(tc, count_check_null);
     
     suite_add_tcase(s, tc);
 
