@@ -16,6 +16,21 @@ START_TEST(string_check_a)
 }
 END_TEST
 
+START_TEST(multi_string_check)
+{
+    char s1[] = "12345";
+    char s2[] = "aboba";
+    char s3[] = "hifdjf";
+    char res_std[BUFSIZ];
+    char res_my[BUFSIZ];
+    int code1 = snprintf(res_std, BUFSIZ, "%s,%s,%s", s1, s2, s3);
+    int code2 = my_snprintf(res_my, BUFSIZ, "%s,%s,%s", s1, s2, s3);
+    //printf("\n%s\n^%s\n", res_my, res_std);
+    ck_assert_int_eq(strcmp(res_std, res_my), 0);
+    ck_assert_int_eq(code1, code2);
+}
+END_TEST
+
 START_TEST(string_check_b)
 {
     char s[] = "abc gh 123";
@@ -59,8 +74,8 @@ START_TEST(neg_int_check)
     int s = -12345;
     char res_std[BUFSIZ];
     char res_my[BUFSIZ];
-    int code1 = snprintf(res_std, BUFSIZ, "%d", s);
-    int code2 = my_snprintf(res_my, BUFSIZ, "%d", s);
+    int code1 = snprintf(res_std, 23, "%d %d cccc %dc", s, -s, s + s);
+    int code2 = my_snprintf(res_my, 23, "%d %d cccc %dc", s, -s, s + s);
     ck_assert_int_eq(strcmp(res_std, res_my), 0);
     ck_assert_int_eq(code1, code2);
 }
@@ -222,6 +237,7 @@ Suite *my_string_s(void)
 
     tcase_add_test(tc, string_check_a);
     tcase_add_test(tc, string_check_b);
+    tcase_add_test(tc, multi_string_check);
     
     tcase_add_test(tc, char_check);
     

@@ -20,7 +20,7 @@ char *oct_convert(unsigned long n)
         tmp = tmp / 8;
     }
     while (tmp);
-    //printf("%lu, %d\n", n, cnt);
+    //printf("%ul, %d\n", n, cnt);
     char *buffer = malloc(sizeof(char) * cnt);
     int size_buf = 0;
     if (n == 0)
@@ -40,7 +40,7 @@ char *oct_convert(unsigned long n)
         buffer[i] = buffer[size_buf - 1 - i];
         buffer[size_buf - 1 - i] = tmp;
     }
-    //printf("%s\n", buffer);
+
     return buffer;
 }
 
@@ -100,8 +100,12 @@ int my_snprintf(char *restrict str, size_t size, const char *restrict format, ..
 
     while (format && *format)
     {
-        if (*format != '%' && str_size < size)
-            str[str_size++] = *format; 
+        if (*format != '%')
+        {
+            if (str_size < size)
+                str[str_size] = *format;
+            str_size++; 
+        }
         else if (*format == '%')
         {
             if (*(format + 1) == 'd')
@@ -159,7 +163,6 @@ int my_snprintf(char *restrict str, size_t size, const char *restrict format, ..
                     if (str_size < size) 
                         str[str_size] = *(temp + i);
                     str_size++;
-                    //printf("%s, %ld,%ld\n",str, str_size, size);
                     i++;
                 }
                 format += 1;
