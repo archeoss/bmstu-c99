@@ -211,6 +211,47 @@ START_TEST(null_buf)
 }
 END_TEST
 
+START_TEST(null_format)
+{
+    int size = 30;
+    int number = 999;
+    char *format = NULL;
+
+    char buff1[20] = {0};
+    int code1 = my_snprintf(buff1, size, format, number);
+
+    char buff2[20] = {0};
+    int code2 = snprintf(buff2, size, format, number);
+
+    ck_assert_int_eq(strcmp(buff1, buff2), 0);
+    ck_assert_int_eq(code1, code2);
+}
+END_TEST
+
+START_TEST(null_format_b)
+{
+    int size = 30;
+    int number = 999;
+
+    char buff1[20] = {0};
+    int code1 = my_snprintf(buff1, size, NULL, number);
+
+    ck_assert_int_eq(code1, -1);
+}
+END_TEST
+
+START_TEST(null_buf_b)
+{
+    int size = 30;
+    int number = 999;
+    char *format = NULL;
+
+    int code1 = my_snprintf(NULL, size, format, number);
+
+    ck_assert_int_eq(code1, -1);
+}
+END_TEST
+
 START_TEST(count_check)
 {
     int s = 123;
@@ -256,6 +297,10 @@ Suite *my_string_s(void)
     tcase_add_test(tc, all_check_size);
 
     tcase_add_test(tc, null_buf);
+    tcase_add_test(tc, null_format);
+
+    tcase_add_test(tc, null_buf_b);
+    tcase_add_test(tc, null_format_b);
 
     tcase_add_test(tc, count_check);
     
