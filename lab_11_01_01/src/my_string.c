@@ -46,7 +46,7 @@ char *oct_convert(unsigned long n)
 
 static char *int_to_str(long long n)
 {
-    int cnt = 1;
+    long long cnt = 1;
     if (n < 0)
         cnt++;
     long long tmp = llabs(n);
@@ -138,7 +138,7 @@ int my_snprintf(char *restrict str, size_t size, const char *restrict format, ..
             }
             else if (*(format + 1) == 'l' && *(format + 2) == 'd')
             {
-                long number = va_arg(vl, long);
+                long long number = va_arg(vl, long);
                 
                 char *temp = int_to_str(number);
                 int i = 0;
