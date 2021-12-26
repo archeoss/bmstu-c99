@@ -91,10 +91,9 @@ static char *int_to_str(long long n)
 
 int my_snprintf(char *restrict str, size_t size, const char *restrict format, ...)
 {
-    if (size == 0)
-        return 0;
     if (!str || !format || !*format)
         return -1;
+    
     size_t str_size = 0;
     va_list vl;
     va_start(vl, format);
