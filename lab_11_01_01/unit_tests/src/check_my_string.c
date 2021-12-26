@@ -121,6 +121,7 @@ START_TEST(neg_oct_check)
     char res_my[BUFSIZ];
     int code1 = snprintf(res_std, BUFSIZ, "%o", s);
     int code2 = my_snprintf(res_my, BUFSIZ, "%o", s);
+    //printf("\n%s\n\n^", res_std);
     ck_assert_int_eq(strcmp(res_std, res_my), 0);
     ck_assert_int_eq(code1, code2);
 }
