@@ -138,7 +138,7 @@ int my_snprintf(char *restrict str, size_t size, const char *restrict format, ..
             }
             else if (*(format + 1) == 'l' && *(format + 2) == 'd')
             {
-                int number = va_arg(vl, long);
+                long number = va_arg(vl, long);
                 
                 char *temp = int_to_str(number);
                 int i = 0;
