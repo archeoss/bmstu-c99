@@ -44,7 +44,6 @@ int input_matrix(long long **matrix, long long n, long long m)
 
 void print_matrix(long long **matrix, long long rows, long long cols)
 {
-    //printf("\n");
     for (long long i = 0; i < rows; i++)
     {
         for (long long j = 0; j < cols; j++)
