@@ -34,7 +34,7 @@ void show_all(movie_struct *movies, int n)
         printf("%s%s%d\n", movies[i].title, movies[i].name, movies[i].year);
 }
 
-int find_item(movie_struct *movies, char *keyword, int n, int mode)
+int print_item(movie_struct *movies, char *keyword, int n, int mode)
 {
     int error_code = NO_ERROR;
     int year;

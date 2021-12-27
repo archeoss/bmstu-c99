@@ -39,7 +39,7 @@ int main(int args, char **keys)
                     show_all(movies, count);
                 else if (args == 4)
                 {
-                    int res = find_item(movies, keys[3], count, mode);
+                    int res = print_item(movies, keys[3], count, mode);
                     if (res == NOT_FOUND)
                         printf("Not found");
                     else if (res == KEY_ERROR)
