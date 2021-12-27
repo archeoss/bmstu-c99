@@ -5,7 +5,7 @@ SRCDIR := ./src
 INCDIR := ./inc
 U_SRCDIR := ./unit_tests/src
 U_INCDIR := ./unit_tests/inc
-OBJS := $(ODIR)/my_string.o 
+OBJS := $(ODIR)/my_string.o $(ODIR)/operations.o 
 CHECKS := $(ODIR)/check_main.o $(ODIR)/check_my_string.o
 LIBS := -Iinc 
 U_LIBS := -Iunit_tests/inc 
@@ -17,6 +17,9 @@ app.exe : $(OBJS) $(ODIR)/main.o
 
 $(ODIR)/my_string.o : $(SRCDIR)/my_string.c $(INCDIR)/my_string.h
 	$(CC) $(KEYS) -c $(SRCDIR)/my_string.c -o $@ $(LIBS)
+
+$(ODIR)/operations.o : $(SRCDIR)/operations.c $(INCDIR)/operations.h
+	$(CC) $(KEYS) -c $(SRCDIR)/operations.c -o $@ $(LIBS)
 
 $(ODIR)/main.o : $(SRCDIR)/main.c
 	$(CC) $(KEYS) -c $^ -o $@ $(LIBS)
